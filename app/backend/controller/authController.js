@@ -9,11 +9,10 @@ exports.login = async (req, res) => {
   try {
     const [users] = await db.query('SELECT * FROM users WHERE email = ?', [email]);
 
-    if (users.length === 0) return res.status(400).json({ message: 'User not found' });
+    if (users.length === 0) return res.status(400).json({ message: 'No User Found' });
 
     const user = users[0];
-
-    const isMatch = await bcrypt.compare(password, user.password_hash);
+    const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) return res.status(401).json({ message: 'Invalid password' });
 
     const token = jwt.sign({ id: user.id, email: user.email }, process.env.JWT_SECRET, {
@@ -23,7 +22,7 @@ exports.login = async (req, res) => {
     res.json({
       message: 'Login successful',
       token,
-      user: { id: user.id, name: user.name, email: user.email },
+      user: {  name: user.name, email: user.email },
     });
   } catch (error) {
     res.status(500).json({ message: 'Server error', error });

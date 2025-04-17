@@ -8,10 +8,8 @@ exports.createUser = async (req, res) => {
       if (!name || !email || !password)
         return res.status(400).json({ error: 'All fields are required' });
   
-      // Hash the password before storing it
-      const hashedPassword = await bcrypt.hash(password, 10); // 10 is the salt rounds
-  
-      // Insert user into the database with the hashed password
+      const hashedPassword = await bcrypt.hash(password, 10);
+        
       const query = `INSERT INTO users (name, email, password) VALUES (?, ?, ?)`;
       const [result] = await db.execute(query, [name, email, hashedPassword]);
   
