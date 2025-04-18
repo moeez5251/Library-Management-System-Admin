@@ -1,6 +1,5 @@
-const db = require('../models/db'); // your DB connection
+const db = require('../models/db'); 
 const bcrypt=require("bcrypt")
-// Create new user
 exports.createUser = async (req, res) => {
     try {
       const { name, email, password } = req.body;
@@ -19,7 +18,6 @@ exports.createUser = async (req, res) => {
       res.status(500).json({ error: 'Internal Server Error' });
     }
   };
-// Get all users
 exports.getAllUsers = async (req, res) => {
   try {
     const [rows] = await db.execute('SELECT  name, email FROM users');

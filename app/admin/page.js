@@ -6,8 +6,9 @@ import React, { useRef, useState } from "react";
 import { toast } from "sonner"
 import { Toaster } from "@/components/ui/sonner"
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 const Admin = () => {
-    const router=useRouter()
+    const router = useRouter()
     const ref = useRef();
     const [isPasswordVisible, setIsPasswordVisible] = useState(false);
     const [inputs, setInputs] = useState({
@@ -44,7 +45,7 @@ const Admin = () => {
         console.log(data);
         toast(data.message)
         setDisabled(false)
-        if(data.message.trim()==="Login successful"){
+        if (data.message.trim() === "Login successful") {
             localStorage.setItem("JWTtoken", data.token)
             router.push("/admin/dashboard")
         }
@@ -130,6 +131,9 @@ const Admin = () => {
                         disabled &&
                         <Button disabled className="text-lg py-5">Login <Loader2 className="animate-spin" /> </Button>
                     }
+                </div>
+                <div>
+                    <p className="text-sm text-gray-500">Don&apos;t have an account? <Link href="/admin/register" className="text-blue-500">Register</Link></p>
                 </div>
             </div>
         </>
