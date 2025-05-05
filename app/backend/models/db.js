@@ -1,14 +1,31 @@
-// /models/db.js
-const mysql = require('mysql2/promise'); // or pg for PostgreSQL
+const sql = require('mssql');
 
-const pool = mysql.createPool({
-  host: 'sql8.freesqldatabase.com',
-  user: 'sql8773768',
-  password: 'RJi1vkUMZw',
-  database: 'sql8773768',
-  port:3306,
-  connectTimeout: 10000, // 10 seconds
-  connectionLimit: 10, // Freesqldatabase.com may limit concurrent connections
-});
+const config = {
+  user: 'moeez5251_SQLLogin_3',
+  password: 'hf67iurvdp',
+  server: 'moeez5251.mssql.somee.com', // SQL Server address
+  database: 'moeez5251',
+  options: {
+    encrypt: true, // Required for Azure/Somee
+    trustServerCertificate: true, // Matches TrustServerCertificate=True
+  },
+  pool: {
+    max: 10,
+    min: 0,
+    idleTimeoutMillis: 30000
+  }
+};
 
-module.exports = pool;
+const poolPromise = new sql.ConnectionPool(config)
+  .connect()
+  .then(pool => {
+    console.log('✅ Connected to Somee MSSQL database');
+    return pool;
+  })
+  .catch(err => {
+    console.error('❌ Database connection failed:', err);
+  });
+
+module.exports = {
+  sql, poolPromise
+};
