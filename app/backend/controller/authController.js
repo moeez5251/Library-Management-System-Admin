@@ -23,11 +23,19 @@ exports.login = async (req, res) => {
     if (!isMatch)
       return res.status(401).json({ message: 'Invalid password' });
 
+    // Store user info and role in session
+    req.session.user = {
+      name: user.name,
+      email: user.email,
+      role: "admin", // Store the role in session if needed
+    };
+
     res.json({
       message: 'Login successful',
       user: {
         name: user.name,
-        email: user.email
+        email: user.email,
+        role: "admin", // Send role back as part of response
       }
     });
   } catch (error) {

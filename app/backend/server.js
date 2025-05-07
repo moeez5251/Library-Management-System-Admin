@@ -1,10 +1,16 @@
 const express = require('express');
 const cors = require('cors');
-
+const session = require('express-session');
 const app = express();
 
 app.use(cors());
 app.use(express.json()); 
+app.use(session({
+    secret: '123',
+    resave: false,
+    saveUninitialized: false,
+  }));
+  
 const authRoutes = require('./routes/auth');
 app.use('/api/auth', authRoutes);
 const userRoutes = require('./routes/user');

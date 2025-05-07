@@ -47,7 +47,7 @@ const Admin = () => {
         setDisabled(false)
         if (data.message.trim() === "Login successful") {
             localStorage.setItem("JWTtoken", data.token)
-            router.push("/admin/dashboard")
+            router.push("http://localhost:5050/admin")
         }
 
 
