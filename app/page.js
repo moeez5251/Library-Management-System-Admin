@@ -1,28 +1,94 @@
 "use client"
 import Link from "next/link";
-import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { LoaderIcon } from "lucide-react";
-import { set } from "mongoose";
+import { LoaderCircleIcon } from "lucide-react";
+import { validate } from 'react-email-validator';
 export default function Home() {
   const [required, setrequired] = useState({
     email: false,
-    password: false
+    password: false,
+    validemail: false,
   })
   const [inputs, setInputs] = useState({
     email: "",
     password: ""
   })
+  const [login, setLogin] = useState(false)
   const handleinputchange = (e) => {
     setInputs({ ...inputs, [e.target.name]: e.target.value })
-    console.log(inputs);
+  }
+  const handleclick = async () => {
+    setLogin(true)
+    if (inputs.email.trim() === "") {
+      setrequired({
+        email: true,
+        password: false,
+        validemail: false
+      })
+      setLogin(false)
+      return;
+
+    }
+    else {
+      setrequired({
+        email: false,
+        password: false,
+        validemail: false
+      })
+    }
+    if (inputs.password.trim() === "") {
+      setrequired({
+        email: false,
+        password: true,
+        validemail: false
+      })
+
+      setLogin(false)
+      return;
+    }
+    else {
+      setrequired({
+        email: false,
+        password: false,
+        validemail: false
+      })
+    }
+    if (!validate(inputs.email)) {
+      setrequired({
+        email: false,
+        password: false,
+        validemail: true
+      })
+      setLogin(false)
+      return;
+    }
+    else {
+      setrequired({
+        email: false,
+        password: false,
+        validemail: false
+      })
+    }
+    const log = await fetch("http://localhost:5000/api/auth/login", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(inputs)
+    })
+    const data = await log.json();
+    console.log(data)
+    setLogin(false)
   }
   return (
     <>
       <div className="flex h-screen bg-gray-100">
-        <div className="w-1/2 h-full bg-[#6841c4] ">
+        <div className="w-1/2 h-full  ">
+          <div className="w-full h-full">
+            <img className="w-full h-full object-cover" src="/LMS.webp" alt="Library Image" />
+          </div>
         </div>
         <div className="w-1/2 flex flex-col justify-center bg-white px-20 gap-8">
           <div className="flex items-center  text-[#6841c4] text-xl font-bold gap-2 border border-[#e3e7ea] w-fit px-2 py-1 mx-auto ">
@@ -105,6 +171,10 @@ export default function Home() {
                 required.email &&
                 <div className="text-sm text-red-700 font-bold">This is a Required field</div>
               }
+              {
+                required.validemail &&
+                <div className="text-sm text-red-700 font-bold">Invalid email</div>
+              }
             </div>
             <div className="grid w-full  items-center gap-2">
               <Label className="font-semibold" htmlFor="email">Password</Label>
@@ -142,10 +212,16 @@ export default function Home() {
               }
             </div>
           </div>
-            <Button className="bg-[#6841d8] cursor-pointer hover:bg-[#6841d8]/90">Sign In</Button>
-            <Button disabled className="bg-[#6841d8] cursor-pointer hover:bg-[#6841d8]/90">Login
-            <LoaderIcon className="animate-spin" />
+          {
+            !login &&
+            <Button onClick={handleclick} className="bg-[#6841d8] cursor-pointer hover:bg-[#6841d8]/90">Sign In</Button>
+          }
+          {
+            login &&
+            <Button disabled className="bg-[#6841d8] cursor-pointer hover:bg-[#6841d8]/90 disabled:bg-[#6841d8]/80">Signing In
+              <LoaderCircleIcon className="animate-spin" />
             </Button>
+          }
         </div>
       </div>
     </>

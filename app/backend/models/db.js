@@ -1,8 +1,8 @@
 const sql = require('mssql');
 
 const config = {
-  user: 'moeez5251_SQLLogin_3',
-  password: 'hf67iurvdp',
+  user: 'moeez5251_SQLLogin_1',
+  password: 'wq5nj3hluu',
   server: 'moeez5251.mssql.somee.com', // SQL Server address
   database: 'moeez5251',
   options: {

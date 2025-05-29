@@ -15,27 +15,20 @@ exports.login = async (req, res) => {
     const users = result.recordset;
 
     if (users.length === 0)
-      return res.status(400).json({ message: 'No User Found' });
+      return res.status(400).json({ message: 'Invalid email / password' });
 
     const user = users[0];
     const isMatch = await bcrypt.compare(password, user.password);
 
     if (!isMatch)
-      return res.status(401).json({ message: 'Invalid password' });
-
-    // Store user info and role in session
-    req.session.user = {
-      name: user.name,
-      email: user.email,
-      role: "admin", // Store the role in session if needed
-    };
+      return res.status(401).json({ message: 'Invalid email / password' });
 
     res.json({
       message: 'Login successful',
       user: {
         name: user.name,
         email: user.email,
-        role: "admin", // Send role back as part of response
+        role: user.role,
       }
     });
   } catch (error) {
