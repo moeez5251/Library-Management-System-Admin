@@ -5,7 +5,11 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { LoaderCircleIcon } from "lucide-react";
 import { validate } from 'react-email-validator';
+import { toast } from "sonner"
+import { Toaster } from "@/components/ui/sonner"
+import { useRouter } from "next/navigation";
 export default function Home() {
+  const router= useRouter();
   const [required, setrequired] = useState({
     email: false,
     password: false,
@@ -16,6 +20,7 @@ export default function Home() {
     password: ""
   })
   const [login, setLogin] = useState(false)
+  const [toggle, settoggle] = useState(false)
   const handleinputchange = (e) => {
     setInputs({ ...inputs, [e.target.name]: e.target.value })
   }
@@ -80,10 +85,19 @@ export default function Home() {
     })
     const data = await log.json();
     console.log(data)
+    if (data.message.trim() === "Login successful") {
+      toast.success("Login Successful")
+      sessionStorage.setItem("user-info", JSON.stringify(data.user))
+      router.push("/admin/dashboard")
+    }
+    else {
+      toast.error(data.message)
+    }
     setLogin(false)
   }
   return (
     <>
+      <Toaster />
       <div className="flex h-screen bg-gray-100">
         <div className="w-1/2 h-full  ">
           <div className="w-full h-full">
@@ -198,13 +212,14 @@ export default function Home() {
                   />
                 </svg>
                 <input
-                  type="text"
+                  type={toggle ? "text" : "password"}
                   name="password"
                   className="flex-1 focus:outline-none"
                   placeholder="Password"
                   value={inputs.password}
                   onChange={handleinputchange}
                 />
+                <img onClick={() => { settoggle(!toggle) }} className="cursor-pointer" src={toggle ? "/eyeclose.svg" : "/eyeopen.svg"} alt="" />
               </div>
               {
                 required.password &&
