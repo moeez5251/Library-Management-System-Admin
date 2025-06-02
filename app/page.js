@@ -104,7 +104,7 @@ export default function Home() {
             <img className="w-full h-full object-cover" src="/LMS.webp" alt="Library Image" />
           </div>
         </div>
-        <div className="w-1/2 flex flex-col justify-center bg-white px-20 gap-8">
+        <div className="w-1/2 flex flex-col justify-center bg-white px-20 gap-8"> 
           <div className="flex items-center  text-[#6841c4] text-xl font-bold gap-2 border border-[#e3e7ea] w-fit px-2 py-1 mx-auto ">
             <div>
 

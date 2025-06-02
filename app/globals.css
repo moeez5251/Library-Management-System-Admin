@@ -126,6 +126,7 @@
   body {
     @apply bg-background text-foreground;
     overflow-x: hidden;
+    height: 100vh;
   }
 }
 
@@ -147,4 +148,16 @@
   50% {
     border-color: transparent
   }
+}
+
+.sidebar-toggle {
+  background-color: #6841c4;
+  color: white;
+  border-radius: 10px;
+  --tw-shadow: 0 1px 3px 0 var(--tw-shadow-color, rgb(0 0 0 / 0.1)), 0 1px 2px -1px var(--tw-shadow-color, rgb(0 0 0 / 0.1));
+  box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);
+}
+
+[data-active="true"] svg {
+  filter: brightness(7.5);
 }
