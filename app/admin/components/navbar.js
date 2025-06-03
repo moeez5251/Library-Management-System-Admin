@@ -1,10 +1,10 @@
+import Link from 'next/link'
 import React from 'react'
-
 const AdminDashboard = () => {
     return (
         <>
             <header className="flex  items-center justify-between px-4 py-2 mx-10 my-2">
-                <div className="flex items-center  text-[#6841c4] text-xl font-bold gap-2 border border-[#e3e7ea] w-[17%] justify-center py-1 ">
+                <Link href="/" prefetch={true} className="flex items-center  text-[#6841c4] text-xl font-bold gap-2 border border-[#e3e7ea] w-[17%] justify-center py-1 ">
                     <div>
 
                         <svg
@@ -33,7 +33,7 @@ const AdminDashboard = () => {
                     </div>
 
                     ASPIRE LMS
-                </div>
+                </Link>
 
                 <div className='flex items-center justify-center'>
                     <label className="relative flex items-center justify-center w-12 h-6 mx-auto cursor-pointer">

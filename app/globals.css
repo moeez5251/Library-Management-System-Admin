@@ -161,3 +161,33 @@
 [data-active="true"] svg {
   filter: brightness(7.5);
 }
+
+.animate-page {
+  animation: page 0.2s ease-in-out;
+}
+
+@keyframes page {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+.card__skeleton {
+  background-image: linear-gradient(90deg,
+      #ccc 0px,
+      rgb(229 229 229 / 90%) 40px,
+      #f1f1fd 80px);
+  background-size: 300%;
+  background-position: 100% 0;
+  border-radius: inherit;
+  animation: shimmer 1.5s infinite;
+}
+@keyframes shimmer {
+  to {
+    background-position: -100% 0;
+  }
+}

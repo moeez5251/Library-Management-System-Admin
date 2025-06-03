@@ -16,7 +16,7 @@ export default function RootLayout({ children }) {
                     <div className="w-[20%] flex flex-col py-5 gap-3   ">
                         <Sidebar />
                     </div>
-                    <div className="w-[80%] bg-[#f1f3f8]">
+                    <div className="w-[80%] bg-[#f1f3f8] p-2 rounded-xl overflow-y-auto">
 
                         {children}
                     </div>

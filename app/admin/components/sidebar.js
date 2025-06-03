@@ -1,22 +1,54 @@
 "use client"
-import { useState } from "react"
+import Link from "next/link"
+import { useState, useEffect } from "react"
 import React from 'react'
-
 const Sidebar = () => {
   const [active, setactive] = useState({
-    dashboard: false,
+    dashboard: true,
     resources: false,
     managebooks: false,
     reports: false,
     lendedbooks: false,
     members: false,
-    settings: true,
+    settings: false,
     notifications: false,
     logout: false
   })
+  const handleswitch = (active_tab) => {
+    setactive({
+      dashboard: false,
+      resources: false,
+      managebooks: false,
+      reports: false,
+      lendedbooks: false,
+      members: false,
+      settings: false,
+      notifications: false,
+      logout: false,
+      [active_tab]: true
+    })
+  }
+  useEffect(() => {
+    const tabs = JSON.parse(sessionStorage.getItem("switching_tabs"))
+    if (tabs) {
+      setactive(tabs)
+    }
+    return () => {
+
+    }
+  }, [])
+  useEffect(() => {
+    sessionStorage.setItem("switching_tabs", JSON.stringify(active))
+
+
+    return () => {
+
+    }
+  }, [active])
+
   return (
     <>
-      <div data-active={active.dashboard} className='flex items-center gap-2 mx-auto py-2.5  cursor-pointer px-4  w-[80%] data-[active=true]:bg-[#6841c4] data-[active=true]:text-white data-[active=true]:rounded-lg'>
+      <Link href="/admin" prefetch={true} onClick={() => handleswitch("dashboard")} data-active={active.dashboard} className='flex items-center gap-2 mx-auto py-2.5  cursor-pointer px-4  w-[80%] data-[active=true]:bg-[#6841c4] data-[active=true]:text-white data-[active=true]:rounded-lg transition-all'>
         <div>
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -43,8 +75,8 @@ const Sidebar = () => {
           </svg>
         </div>
         <div className='font-semibold text-base'>Dashboard</div>
-      </div>
-      <div data-active={active.resources} className='flex items-center gap-2 mx-auto py-2.5 cursor-pointer px-4 w-[80%] relative data-[active=true]:bg-[#6841c4] data-[active=true]:text-white data-[active=true]:rounded-lg'>
+      </Link>
+      <Link href="/admin/resources" prefetch={true} onClick={() => handleswitch("resources")} data-active={active.resources} className='flex items-center gap-2 mx-auto py-2.5 cursor-pointer px-4 w-[80%] relative data-[active=true]:bg-[#6841c4] data-[active=true]:text-white data-[active=true]:rounded-lg transition-all'>
         <div>
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -93,8 +125,8 @@ const Sidebar = () => {
           </svg>
 
         </div>
-      </div>
-      <div data-active={active.managebooks} className='flex items-center gap-2 mx-auto py-2.5 cursor-pointer px-4 w-[80%] data-[active=true]:bg-[#6841c4] data-[active=true]:text-white data-[active=true]:rounded-lg '>
+      </Link>
+      <Link href="/admin/managebooks" prefetch={true} onClick={() => handleswitch("managebooks")} data-active={active.managebooks} className='flex items-center gap-2 mx-auto py-2.5 cursor-pointer px-4 w-[80%] data-[active=true]:bg-[#6841c4] data-[active=true]:text-white data-[active=true]:rounded-lg transition-all '>
         <div>
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -122,8 +154,8 @@ const Sidebar = () => {
         </div>
         <div className='font-semibold text-base'>Manage Books</div>
 
-      </div>
-      <div data-active={active.reports} className='flex items-center gap-2 mx-auto py-2.5 cursor-pointer px-4.5 w-[80%] data-[active=true]:bg-[#6841c4] data-[active=true]:text-white data-[active=true]:rounded-lg '>
+      </Link>
+      <Link href="/admin/reports" prefetch={true} onClick={() => handleswitch("reports")} data-active={active.reports} className='flex items-center gap-2 mx-auto py-2.5 cursor-pointer px-4.5 w-[80%] data-[active=true]:bg-[#6841c4] data-[active=true]:text-white data-[active=true]:rounded-lg transition-all '>
         <div>
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -145,8 +177,8 @@ const Sidebar = () => {
         </div>
         <div className='font-semibold text-base'>Reports</div>
 
-      </div>
-      <div data-active={active.books} className='flex items-center gap-2 mx-auto py-2.5 cursor-pointer px-4 w-[80%] data-[active=true]:bg-[#6841c4] data-[active=true]:text-white data-[active=true]:rounded-lg '>
+      </Link>
+      <Link href="/admin/books" prefetch={true} onClick={() => handleswitch("books")} data-active={active.books} className='flex items-center gap-2 mx-auto py-2.5 cursor-pointer px-4 w-[80%] data-[active=true]:bg-[#6841c4] data-[active=true]:text-white data-[active=true]:rounded-lg transition-all '>
         <div>
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -172,8 +204,8 @@ const Sidebar = () => {
         </div>
         <div className='font-semibold text-base'>Lended Books</div>
 
-      </div>
-      <div data-active={active.members} className='flex items-center gap-2 mx-auto py-2.5 cursor-pointer px-4.5 w-[80%] data-[active=true]:bg-[#6841c4] data-[active=true]:text-white data-[active=true]:rounded-lg'>
+      </Link>
+      <Link href="/admin/members" prefetch={true} onClick={() => handleswitch("members")} data-active={active.members} className='flex items-center gap-2 mx-auto py-2.5 cursor-pointer px-4.5 w-[80%] data-[active=true]:bg-[#6841c4] data-[active=true]:text-white data-[active=true]:rounded-lg transition-all'>
         <div>
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -209,8 +241,8 @@ const Sidebar = () => {
         </div>
         <div className='font-semibold text-base'>Members</div>
 
-      </div>
-      <div data-active={active.settings} className='flex items-center gap-2 mx-auto py-2.5 cursor-pointer px-4.5 w-[80%] data-[active=true]:bg-[#6841c4] data-[active=true]:text-white data-[active=true]:rounded-lg '>
+      </Link>
+      <Link href="/admin/settings" prefetch={true} onClick={() => handleswitch("settings")} data-active={active.settings} className='flex items-center gap-2 mx-auto py-2.5 cursor-pointer px-4.5 w-[80%] data-[active=true]:bg-[#6841c4] data-[active=true]:text-white data-[active=true]:rounded-lg transition-all '>
         <div>
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -247,8 +279,8 @@ const Sidebar = () => {
         </div>
         <div className='font-semibold text-base'>Settings</div>
 
-      </div>
-      <div data-active={active.notification} className='flex items-center gap-2 mx-auto py-2.5 cursor-pointer px-4.5 w-[80%] data-[active=true]:bg-[#6841c4] data-[active=true]:text-white data-[active=true]:rounded-lg '>
+      </Link>
+      <Link href="/admin/notifications" prefetch={true} onClick={() => handleswitch("notifications")} data-active={active.notifications} className='flex items-center gap-2 mx-auto py-2.5 cursor-pointer px-4.5 w-[80%] data-[active=true]:bg-[#6841c4] data-[active=true]:text-white data-[active=true]:rounded-lg transition-all '>
         <div>
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -271,8 +303,8 @@ const Sidebar = () => {
         </div>
         <div className='font-semibold text-base'>Notifications</div>
 
-      </div>
-      <div data-active={active.logout} className='flex items-center gap-2 mx-auto py-2.5 cursor-pointer px-4.5 w-[80%] data-[active=true]:bg-[#6841c4] data-[active=true]:text-white data-[active=true]:rounded-lg'>
+      </Link>
+      <Link href="/" onClick={() => handleswitch("logout")} data-active={active.logout} className='flex items-center gap-2 mx-auto py-2.5 cursor-pointer px-4.5 w-[80%] data-[active=true]:bg-[#6841c4] data-[active=true]:text-white data-[active=true]:rounded-lg transition-all'>
         <div>
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -302,7 +334,7 @@ const Sidebar = () => {
         </div>
         <div className='font-semibold text-base'>Log Out</div>
 
-      </div>
+      </Link>
 
     </>
   )
