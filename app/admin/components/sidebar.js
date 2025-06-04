@@ -1,8 +1,10 @@
 "use client"
 import Link from "next/link"
+import { usePathname } from "next/navigation"
 import { useState, useEffect } from "react"
 import React from 'react'
 const Sidebar = () => {
+  const params = usePathname()
   const [active, setactive] = useState({
     dashboard: true,
     resources: false,
@@ -29,22 +31,36 @@ const Sidebar = () => {
     })
   }
   useEffect(() => {
-    const tabs = JSON.parse(sessionStorage.getItem("switching_tabs"))
-    if (tabs) {
-      setactive(tabs)
+    const a = params.split("/admin/")[1];
+    if (params.split("/admin/")[1]) {
+      setactive({
+        dashboard: false,
+        resources: false,
+        managebooks: false,
+        reports: false,
+        lendedbooks: false,
+        members: false,
+        settings: false,
+        notifications: false,
+        logout: false,
+        [a]: true
+      })
     }
-    return () => {
-
+    else {
+      setactive({
+        dashboard: true,
+        resources: false,
+        managebooks: false,
+        reports: false,
+        lendedbooks: false,
+        members: false,
+        settings: false,
+        notifications: false,
+        logout: false,
+      })
     }
   }, [])
-  useEffect(() => {
-    sessionStorage.setItem("switching_tabs", JSON.stringify(active))
 
-
-    return () => {
-
-    }
-  }, [active])
 
   return (
     <>

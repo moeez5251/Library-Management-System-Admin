@@ -11,15 +11,19 @@ export default function RootLayout({ children }) {
             <body
             >
                 <AdminDashboard />
-                <div className="flex flex-row w-full h-[90%]">
+                <div className="flex flex-row w-full h-[83%]">
 
-                    <div className="w-[20%] flex flex-col py-5 gap-3   ">
+                    <div className="w-[20%] flex flex-col py-3 gap-3   ">
                         <Sidebar />
                     </div>
                     <div className="w-[80%] bg-[#f1f3f8] p-2 rounded-xl overflow-y-auto">
 
                         {children}
                     </div>
+                </div>
+                <div className="flex  justify-between mx-8 py-2 items-center text-sm text-gray-500">
+                    <div className="font-semibold">Aspire System - LMS</div>
+                    <div className="font-semibold">&copy; 2025 Aspire Systems. All rights reserved</div>
                 </div>
             </body>
         </html>
