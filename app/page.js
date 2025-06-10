@@ -9,7 +9,7 @@ import { toast } from "sonner"
 import { Toaster } from "@/components/ui/sonner"
 import { useRouter } from "next/navigation";
 export default function Home() {
-  const router= useRouter();
+  const router = useRouter();
   const [required, setrequired] = useState({
     email: false,
     password: false,
@@ -76,24 +76,30 @@ export default function Home() {
         validemail: false
       })
     }
-    const log = await fetch("http://localhost:5000/api/auth/login", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify(inputs)
-    })
-    const data = await log.json();
-    console.log(data)
-    if (data.message.trim() === "Login successful") {
-      toast.success("Login Successful")
-      sessionStorage.setItem("user-info", JSON.stringify(data.user))
-      router.push("/admin/dashboard")
+    try {
+      const log = await fetch("http://localhost:5000/api/auth/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(inputs)
+      })
+      const data = await log.json();
+      console.log(data)
+      if (data.message.trim() === "Login successful") {
+        toast.success("Login Successful")
+        sessionStorage.setItem("user-info", JSON.stringify(data.user))
+        router.push("/admin/dashboard")
+      }
+      else {
+        toast.error(data.message)
+      }
+      setLogin(false)
     }
-    else {
-      toast.error(data.message)
+    catch (err) {
+      toast.error("Server Error")
+      setLogin(false)
     }
-    setLogin(false)
   }
   return (
     <>
@@ -104,7 +110,7 @@ export default function Home() {
             <img className="w-full h-full object-cover" src="/LMS.webp" alt="Library Image" />
           </div>
         </div>
-        <div className="w-1/2 flex flex-col justify-center bg-white px-20 gap-8"> 
+        <div className="w-1/2 flex flex-col justify-center bg-white px-20 gap-8">
           <div className="flex items-center  text-[#6841c4] text-xl font-bold gap-2 border border-[#e3e7ea] w-fit px-2 py-1 mx-auto ">
             <div>
 

@@ -9,8 +9,7 @@ import {
     flexRender,
 } from '@tanstack/react-table';
 
-import { ChevronUp, ChevronDown, ChevronsUpDown } from 'lucide-react';
-
+import {  ArrowUp,ArrowDown,ArrowUpDown } from 'lucide-react';
 import PaginationControls from './pagination'; // adjust path
 
 const DataTable = ({ data, columns, externalFilter, pageSize: initialPageSize }) => {
@@ -48,8 +47,8 @@ const DataTable = ({ data, columns, externalFilter, pageSize: initialPageSize })
     return (
         <div className="p-4 space-y-4">
             {/* Table */}
-            <table className="w-full border text-left">
-                <thead className="bg-gray-100">
+            <table className="w-full text-left">
+                <thead className="bg-[#f6f8fa]">
                     {table.getHeaderGroups().map((headerGroup) => (
                         <tr key={headerGroup.id}>
                             {headerGroup.headers.map((header) => {
@@ -62,16 +61,16 @@ const DataTable = ({ data, columns, externalFilter, pageSize: initialPageSize })
                                         className="p-2 border-b cursor-pointer select-none"
                                         onClick={isSortable ? header.column.getToggleSortingHandler() : undefined}
                                     >
-                                        <div className="flex items-center gap-1">
+                                        <div className="flex items-center gap-1 font-semibold">
                                             {header.isPlaceholder
                                                 ? null
                                                 : flexRender(header.column.columnDef.header, header.getContext())}
 
                                             {isSortable && (
                                                 <>
-                                                    {sortDirection === 'asc' && <ChevronUp size={16} />}
-                                                    {sortDirection === 'desc' && <ChevronDown size={16} />}
-                                                    {!sortDirection && <ChevronsUpDown size={16} className="opacity-40" />}
+                                                    {sortDirection === 'asc' && <ArrowUp size={16} />}
+                                                    {sortDirection === 'desc' && <ArrowDown size={16} />}
+                                                    {!sortDirection && <ArrowUpDown size={16} className="opacity-40" />}
                                                 </>
                                             )}
                                         </div>
