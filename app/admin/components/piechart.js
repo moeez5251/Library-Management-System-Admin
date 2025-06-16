@@ -50,7 +50,7 @@ export function ChartPieDonutText() {
     }))
 
     return (
-        <Card className="flex flex-col">
+        <Card data-swapy-item="b" className="flex flex-col">
             <CardHeader className="items-center pb-0">
                 <CardTitle>Book Availability</CardTitle>
                 <CardDescription>Percentage of book availability</CardDescription>

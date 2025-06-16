@@ -1,7 +1,23 @@
+"use client"
 import React from 'react'
 import { ChartTooltipIndicatorLine } from './components/chart'
 import { ChartPieDonutText } from './components/piechart'
+import { createSwapy } from 'swapy'
+import { useEffect } from 'react'
 const AdminDashboard = () => {
+    useEffect(() => {
+
+
+        const container = document.querySelector('.swapy')
+        const swapy = createSwapy(container, {
+            animation: 'spring',
+            swapMode:"hover"
+        })
+        return () => {
+
+        }
+    }, [])
+
     return (
         <div className='animate-page'>
             <div className='flex items-center justify-between mx-4 my-2'>
@@ -36,7 +52,7 @@ const AdminDashboard = () => {
                     <div className='flex flex-col items-center gap-2'>
                         <div className='font-semibold text-lg'>Total Books</div>
                         <div className='font-semibold text-lg w-24 h-8 rounded-md'>
-                            <div className="card__skeleton w-full h-full"></div>
+                            <div className="card__skeleton w-full h-full rounded-md"></div>
                         </div>
                     </div>
                     <button className='bg-[#ffffff] text-gray-500  p-2 rounded-md cursor-pointer'>View Details</button>
@@ -65,7 +81,7 @@ const AdminDashboard = () => {
                     <div className='flex flex-col items-center gap-2'>
                         <div className='font-semibold text-lg'>Lended Books</div>
                         <div className='font-semibold text-lg w-24 h-8 rounded-md'>
-                            <div className="card__skeleton w-full h-full"></div>
+                            <div className="card__skeleton w-full h-full rounded-md"></div>
                         </div>
                     </div>
                     <button className='bg-[#ffffff] text-gray-500 p-2 rounded-md cursor-pointer'>View Details</button>
@@ -94,7 +110,7 @@ const AdminDashboard = () => {
                     <div className='flex flex-col items-center gap-2'>
                         <div className='font-semibold text-lg'>Available Books</div>
                         <div className='font-semibold text-lg w-24 h-8 rounded-md'>
-                            <div className="card__skeleton w-full h-full"></div>
+                            <div className="card__skeleton w-full h-full rounded-md"></div>
                         </div>
                     </div>
                     <button className='bg-[#ffffff] text-gray-500 p-2 rounded-md cursor-pointer'>View Details</button>
@@ -136,7 +152,7 @@ const AdminDashboard = () => {
                     <div className='flex flex-col items-center gap-2'>
                         <div className='font-semibold text-lg'>Total Users</div>
                         <div className='font-semibold text-lg w-24 h-8 rounded-md'>
-                            <div className="card__skeleton w-full h-full"></div>
+                            <div className="card__skeleton w-full h-full rounded-md"></div>
                         </div>
                     </div>
                     <button className='bg-[#ffffff] text-gray-500 p-2 rounded-md cursor-pointer'>View Details</button>
@@ -165,19 +181,19 @@ const AdminDashboard = () => {
                     <div className='flex flex-col items-center gap-2'>
                         <div className='font-semibold text-lg'>OverDue Books</div>
                         <div className='font-semibold text-lg w-24 h-8 rounded-md'>
-                            <div className="card__skeleton w-full h-full"></div>
+                            <div className="card__skeleton w-full h-full rounded-md"></div>
                         </div>
                     </div>
                     <button className='bg-[#ffffff] text-gray-500 p-2 rounded-md cursor-pointer'>View Details</button>
                 </div>
 
             </div>
-            <div className='flex  mx-4 my-2 gap-3'>
+            <div className='flex  mx-4 my-2 gap-3 swapy'>
 
-                <div className='w-[60%]'>
+                <div data-swapy-slot="a" className='w-[60%]'>
                     <ChartTooltipIndicatorLine />
                 </div>
-                <div className='w-1/2'>
+                <div data-swapy-slot="b" className='w-1/2'>
                     <ChartPieDonutText />
                 </div>
             </div>

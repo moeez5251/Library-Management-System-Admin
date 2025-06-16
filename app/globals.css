@@ -183,7 +183,6 @@
       #f1f1fd 80px);
   background-size: 300%;
   background-position: 100% 0;
-  border-radius: inherit;
   animation: shimmer 1.5s infinite;
 }
 @keyframes shimmer {

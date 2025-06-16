@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-
+import { ChevronsLeft, ChevronLeft, ChevronRight, ChevronsRight } from "lucide-react";
 const PaginationControls = ({ table }) => {
   const pageCount = table.getPageCount();
   const currentPage = table.getState().pagination.pageIndex;
@@ -7,51 +7,48 @@ const PaginationControls = ({ table }) => {
   const visiblePages = Array.from({ length: pageCount }, (_, i) => i);
 
   return (
-    <div className="flex items-center justify-center gap-1 pt-4 flex-wrap">
-      <Button
-        variant="outline"
-        size="sm"
+    <div className="flex items-center justify-center gap-3 pt-4 flex-wrap">
+      <button
+        className="text-black cursor-pointer disabled:opacity-50 disabled:cursor-auto"
         onClick={() => table.setPageIndex(0)}
         disabled={!table.getCanPreviousPage()}
       >
-        ⏮
-      </Button>
-      <Button
-        variant="outline"
-        size="sm"
+        <ChevronsLeft size={20} />
+      </button>
+      <button
+        className="text-black cursor-pointer disabled:opacity-50 disabled:cursor-auto"
+
         onClick={() => table.previousPage()}
         disabled={!table.getCanPreviousPage()}
       >
-        ◀
-      </Button>
+        <ChevronLeft size={20} />
+      </button>
 
       {visiblePages.map((page) => (
-        <Button
+        <button
           key={page}
+          className={`${currentPage === page ? "bg-[#6841c4] text-white px-3 py-1 rounded-full " : ""} font-semibold mx-1 cursor-pointer`}
           variant={currentPage === page ? 'default' : 'outline'}
-          size="sm"
           onClick={() => table.setPageIndex(page)}
         >
           {page + 1}
-        </Button>
+        </button>
       ))}
 
-      <Button
-        variant="outline"
-        size="sm"
+      <button
+        className="text-black cursor-pointer disabled:opacity-50 disabled:cursor-auto"
         onClick={() => table.nextPage()}
         disabled={!table.getCanNextPage()}
       >
-        ▶
-      </Button>
-      <Button
-        variant="outline"
-        size="sm"
+        <ChevronRight size={20} />
+      </button>
+      <button
+        className="text-black cursor-pointer disabled:opacity-50 disabled:cursor-auto"
         onClick={() => table.setPageIndex(pageCount - 1)}
         disabled={!table.getCanNextPage()}
       >
-        ⏭
-      </Button>
+        <ChevronsRight size={20} />
+      </button>
     </div>
   );
 };

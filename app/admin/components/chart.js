@@ -51,7 +51,7 @@ const chartConfig = {
 
 export function ChartTooltipIndicatorLine() {
   return (
-    <Card>
+    <Card  data-swapy-item="a">
       <CardHeader>
         <CardTitle>Number Of Visitors</CardTitle>
       </CardHeader>

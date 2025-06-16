@@ -4,7 +4,7 @@ import React from 'react';
 import { createColumnHelper } from '@tanstack/react-table';
 import { Checkbox } from '@/components/ui/checkbox';
 import DataTable from '@/table/mytable';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -14,6 +14,9 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import { ChevronDown, PlusIcon, Trash2 } from 'lucide-react';
+import Badge from '../components/badge';
+import ComboBox from '../components/combobox';
+import PaginationControls from '@/table/pagination';
 const columnHelper = createColumnHelper();
 
 const columns = [
@@ -49,8 +52,8 @@ const columns = [
     header: 'Author',
     cell: info => info.getValue(),
   }),
-  columnHelper.accessor('Catogery', {
-    header: 'Catogery',
+  columnHelper.accessor('Category', {
+    header: 'Category',
     cell: info => info.getValue(),
   }),
   columnHelper.accessor('Language', {
@@ -61,21 +64,35 @@ const columns = [
     header: 'Total Copies',
     cell: info => info.getValue(),
   }),
-  columnHelper.accessor('status', {
+  columnHelper.accessor('Status', {
     header: 'Status',
-    cell: info => info.getValue(),
+    cell: ({ row }) => {
+      const status = row.getValue('Status');
+      return <Badge status={status} />;
+    },
   }),
 ];
 
-const data = [
-  { Book_ID: '1', Book_Title: 'Abc', Author: "bAli",Catogery:"Fun",Language:"Urdu",Total_Copies:10,status:"available" },
-  { Book_ID: '11', Book_Title: 'Abc', Author: "Ali",Catogery:"Fun",Language:"Urdu",Total_Copies:10,status:"available" },
-  { Book_ID: '11', Book_Title: 'Abc', Author: "Ali",Catogery:"Fun",Language:"Urdu",Total_Copies:10,status:"available" },
-  { Book_ID: '11', Book_Title: 'Abc', Author: "Ali",Catogery:"Fun",Language:"Urdu",Total_Copies:10,status:"available" },
-];
+
 
 export default function Home() {
   const [input, setinput] = useState("")
+  const [rowsPerPage, setRowsPerPage] = useState('5');
+  const [loading, setLoading] = useState(true)
+  const [data, setdata] = useState([])
+  useEffect(() => {
+    (async function fetch_data() {
+      const data = await fetch("http://localhost:5000/api/books/get")
+      const response = await data.json()
+      setdata(response)
+      setLoading(false)
+    })()
+
+    return () => {
+
+    }
+  }, [])
+
   return (
     <>
       <h1 className='font-semibold text-xl mx-3 my-3'>Manage Books</h1>
@@ -118,10 +135,10 @@ export default function Home() {
         </div>
         <div className='flex items-center gap-5'>
           <button className='bg-[#6841c4] text-white font-semibold px-3 py-2 rounded-lg cursor-pointer flex items-center gap-1 hover:bg-[#7a4ed0] transition-colors duration-200 text-base'>
-            <PlusIcon className='inline ' />
+            <PlusIcon size={20} className='inline ' />
             Add Book</button>
           <DropdownMenu>
-            <DropdownMenuTrigger className="bg-[#6841c4] text-white font-semibold px-3 py-2 rounded-lg cursor-pointer flex items-center gap-1 hover:bg-[#7a4ed0] transition-colors duration-200 text-base"> <ChevronDown className='inline' /> Actions</DropdownMenuTrigger>
+            <DropdownMenuTrigger className="bg-[#6841c4] text-white font-semibold px-3 py-2 rounded-lg cursor-pointer flex items-center gap-1 hover:bg-[#7a4ed0] transition-colors duration-200 text-base"> <ChevronDown size={20} className='inline' /> Actions</DropdownMenuTrigger>
             <DropdownMenuContent>
               <DropdownMenuItem className="flex items-center"><PlusIcon className='inline' /> Add Book</DropdownMenuItem>
               <DropdownMenuItem className="flex items-center"> <Trash2 className='inline' /> Delete Book</DropdownMenuItem>
@@ -129,9 +146,16 @@ export default function Home() {
           </DropdownMenu>
         </div>
       </div>
-      <div className='bg-white h-[70%] p-4 mx-3 rounded-lg shadow-md'>
+      <div className='bg-white  transition-all p-4 mx-3 rounded-lg shadow-md'>
 
-        <DataTable data={data} columns={columns} externalFilter="" pageSize={4} />
+        <DataTable data={data} columns={columns} externalFilter={input} pageSize={rowsPerPage} loading={loading} />
+      </div>
+      <div className='mt-3 mx-5 flex items-center justify-between'>
+        <div className='text-black text-base font-semibold '>
+          Total Books: {data.length}
+        </div>
+
+        <ComboBox value={rowsPerPage} onChange={setRowsPerPage} />
       </div>
     </>
   );
