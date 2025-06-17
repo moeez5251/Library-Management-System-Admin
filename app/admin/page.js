@@ -4,6 +4,7 @@ import { ChartTooltipIndicatorLine } from './components/chart'
 import { ChartPieDonutText } from './components/piechart'
 import { createSwapy } from 'swapy'
 import { useEffect } from 'react'
+import { ChartNoAxesCombined } from 'lucide-react'
 const AdminDashboard = () => {
     useEffect(() => {
 
@@ -188,8 +189,8 @@ const AdminDashboard = () => {
                 </div>
 
             </div>
+                <div className='text-black mx-5 my-3 font-semibold text-xl flex items-center gap-1'>Swap charts <ChartNoAxesCombined color='#00d38b' size={20} /> for best view</div>
             <div className='flex  mx-4 my-2 gap-3 swapy'>
-
                 <div data-swapy-slot="a" className='w-[60%]'>
                     <ChartTooltipIndicatorLine />
                 </div>

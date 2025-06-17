@@ -6,9 +6,7 @@ import { Check, ChevronsUpDown } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import {
   Command,
-  CommandEmpty,
   CommandGroup,
-  CommandInput,
   CommandItem,
 } from '@/components/ui/command';
 import {
@@ -41,8 +39,6 @@ const ComboBox = ({ options = ['5', '10', '15', '20', '25','30'], value, onChang
 
         <PopoverContent className="w-[100px] p-0">
           <Command>
-            <CommandInput placeholder="Filter…" className="h-9" />
-            <CommandEmpty>No options found.</CommandEmpty>
             <CommandGroup>
               {options.map((option) => (
                 <CommandItem

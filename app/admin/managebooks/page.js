@@ -16,7 +16,8 @@ import {
 import { ChevronDown, PlusIcon, Trash2 } from 'lucide-react';
 import Badge from '../components/badge';
 import ComboBox from '../components/combobox';
-import PaginationControls from '@/table/pagination';
+import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 const columnHelper = createColumnHelper();
 
 const columns = [
@@ -46,7 +47,10 @@ const columns = [
   }),
   columnHelper.accessor('Book_Title', {
     header: 'Book Title',
-    cell: info => info.getValue(),
+    cell: ({ row }) => {
+      const status = row.getValue('Book_Title');
+        return <Link className='text-[#235fff] font-semibold hover:underline' href={`/admin/managebooks/${status}`} prefetch={true}>{status}</Link>
+    },
   }),
   columnHelper.accessor('Author', {
     header: 'Author',
@@ -80,6 +84,7 @@ export default function Home() {
   const [rowsPerPage, setRowsPerPage] = useState('5');
   const [loading, setLoading] = useState(true)
   const [data, setdata] = useState([])
+  const router = useRouter();
   useEffect(() => {
     (async function fetch_data() {
       const data = await fetch("http://localhost:5000/api/books/get")
@@ -134,9 +139,9 @@ export default function Home() {
           </button>
         </div>
         <div className='flex items-center gap-5'>
-          <button className='bg-[#6841c4] text-white font-semibold px-3 py-2 rounded-lg cursor-pointer flex items-center gap-1 hover:bg-[#7a4ed0] transition-colors duration-200 text-base'>
+          <Link href="/admin/managebooks/add" prefetch={true} className='bg-[#6841c4] text-white font-semibold px-3 py-2 rounded-lg cursor-pointer flex items-center gap-1 hover:bg-[#7a4ed0] transition-colors duration-200 text-base'>
             <PlusIcon size={20} className='inline ' />
-            Add Book</button>
+            Add Book</Link>
           <DropdownMenu>
             <DropdownMenuTrigger className="bg-[#6841c4] text-white font-semibold px-3 py-2 rounded-lg cursor-pointer flex items-center gap-1 hover:bg-[#7a4ed0] transition-colors duration-200 text-base"> <ChevronDown size={20} className='inline' /> Actions</DropdownMenuTrigger>
             <DropdownMenuContent>
