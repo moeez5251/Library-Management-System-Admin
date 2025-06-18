@@ -4,4 +4,5 @@ const booksController = require('../controller/bookscontroller');
 
 router.post('/insert', booksController.inserting);
 router.get('/get', booksController.getting);
+router.post("/getbyID", booksController.getbyID)
 module.exports = router;

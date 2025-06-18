@@ -43,13 +43,18 @@ const columns = [
   },
   columnHelper.accessor('Book_ID', {
     header: 'Book ID',
-    cell: info => info.getValue(),
+    cell: ({ row }) => {
+      const id = row.getValue('Book_ID').slice(0,7) + "...";
+      return <span className='text-sm'>{id}</span>;
+    },
   }),
   columnHelper.accessor('Book_Title', {
     header: 'Book Title',
     cell: ({ row }) => {
       const status = row.getValue('Book_Title');
-        return <Link className='text-[#235fff] font-semibold hover:underline' href={`/admin/managebooks/${status}`} prefetch={true}>{status}</Link>
+      const id = row.getValue('Book_ID');
+
+      return <Link data-id={id} className='text-[#235fff] font-semibold hover:underline' href={`/admin/managebooks/${id}`} prefetch={true}>{status}</Link>
     },
   }),
   columnHelper.accessor('Author', {
