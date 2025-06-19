@@ -187,7 +187,7 @@ const AddBook = () => {
                                 </div>
                                 <div className="flex items-center space-x-2">
                                     <RadioGroupItem value="Out of stock" id="out" />
-                                    <Label htmlFor="out of stock">Out of stock</Label>
+                                    <Label htmlFor="out">Out of stock</Label>
                                 </div>
                             </RadioGroup>
                         </div>

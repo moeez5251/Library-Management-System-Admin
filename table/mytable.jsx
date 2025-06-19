@@ -104,7 +104,7 @@ const DataTable = ({ data, columns, externalFilter, pageSize: initialPageSize, l
                         ))
                     ) : (
                         table.getRowModel().rows.map((row) => (
-                            <tr key={row.id} className="hover:bg-gray-50">
+                            <tr key={row.id} className="hover:bg-gray-50 text-[16px] font-medium">
                                 {row.getVisibleCells().map((cell) => (
                                     <td key={cell.id} className="p-2 border-b">
                                         {flexRender(cell.column.columnDef.cell, cell.getContext())}

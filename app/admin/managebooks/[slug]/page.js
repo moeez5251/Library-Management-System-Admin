@@ -48,12 +48,13 @@ const Edit = ({ params }) => {
     setbook(false)
     try {
 
-      const data = await fetch("http://localhost:5000/api/books/insert", {
-        method: "POST",
+      const data = await fetch("http://localhost:5000/api/books/update", {
+        method: "PUT",
         headers: {
           "Content-type": "application/json; charset=UTF-8"
         },
         body: JSON.stringify({
+          Book_ID: bookid,
           Book_Title: inputs.Book_Title,
           Author: inputs.Author,
           Category: inputs.Category,
@@ -67,16 +68,7 @@ const Edit = ({ params }) => {
       )
       const response = await data.json()
       toast(response.message)
-      setInputs({
-        Book_Title: "",
-        Author: "",
-        Category: "",
-        Copies: "",
-        Language: "",
-        Price: "",
-        Status: "",
-        Pages: ""
-      })
+      setedit(false)
       setbook(true)
     }
     catch {
@@ -122,13 +114,12 @@ const Edit = ({ params }) => {
           })
         })
         const response = await data.json()
-        console.log(response);
         setInputs({
           Book_Title: response[0].Book_Title,
           Author: response[0].Author,
           Category: catogery,
           Copies: response[0].Total_Copies.toString(),
-          Language:language ,
+          Language: language,
           Price: response[0].Price.toString(),
           Status: stock,
           Pages: response[0].Pages.toString()
@@ -175,10 +166,18 @@ const Edit = ({ params }) => {
         <div className='my-3 flex items-center justify-between'>
           <div className='flex flex-col gap-3 items-start'>
             <div className='font-semibold text-sm flex items-start gap-1'>
+              Book id <Asterisk size={13} color='red' />
+            </div>
+            <div>
+             <div className='w-30 text-xs text-wrap lin'>{bookid}</div>
+            </div>
+          </div>
+          <div className='flex flex-col gap-3 items-start'>
+            <div className='font-semibold text-sm flex items-start gap-1'>
               Book Title <Asterisk size={13} color='red' />
             </div>
             <div>
-              <input disabled={!edit} value={inputs.Book_Title} onChange={oninputchange} className='border px-2 py-1 rounded-sm placeholder:text-sm text-base' type="text" name="Book_Title" id="Book_Title" placeholder='Book name here' />
+              <input disabled={!edit} value={inputs.Book_Title} onChange={oninputchange} className='border px-2 py-1 rounded-sm placeholder:text-base text-base disabled:bg-none disabled:border-none disabled:py-0 disabled:px-0 disabled:text-sm' type="text" name="Book_Title" id="Book_Title" placeholder='Loading...' />
             </div>
           </div>
           <div className='flex flex-col gap-3 items-start'>
@@ -186,7 +185,7 @@ const Edit = ({ params }) => {
               Author(s) <Asterisk size={13} color='red' />
             </div>
             <div>
-              <input disabled={!edit} value={inputs.Author} onChange={oninputchange} className='border px-2 py-1 rounded-sm placeholder:text-sm text-base' type="text" name="Author" id="Author" placeholder='Author name here' />
+              <input disabled={!edit} value={inputs.Author} onChange={oninputchange} className='border px-2 py-1 rounded-sm placeholder:text-base text-base disabled:bg-none disabled:border-none disabled:py-0 disabled:px-0 disabled:text-sm' type="text" name="Author" id="Author" placeholder='Loading...' />
             </div>
           </div>
           <div className='flex flex-col gap-3 items-start w-fit'>
@@ -204,7 +203,7 @@ const Edit = ({ params }) => {
               Total Copies <Asterisk size={13} color='red' />
             </div>
             <div>
-              <input disabled={!edit} value={inputs.Copies} onChange={oninputchange} className='border px-2 py-1 rounded-sm placeholder:text-sm  text-base' type="number" name="Copies" id="copies" placeholder='Total number of copies' />
+              <input disabled={!edit} value={inputs.Copies} onChange={oninputchange} className='border px-2 py-1 rounded-sm placeholder:text-base  text-base disabled:bg-none disabled:border-none disabled:py-0 disabled:px-0 disabled:text-sm ' type="number" name="Copies" id="copies" placeholder='Loading...' />
 
             </div>
           </div>
@@ -222,7 +221,7 @@ const Edit = ({ params }) => {
               Price <span className='text-green-600'>( PKR )</span> <Asterisk size={13} color='red' />
             </div>
             <div>
-              <input disabled={!edit} value={inputs.Price} onChange={oninputchange} className='border px-2 py-1 rounded-sm placeholder:text-sm  text-base' type="number" name="Price" id="price" placeholder='Price of book' />
+              <input disabled={!edit} value={inputs.Price} onChange={oninputchange} className='border px-2 py-1 rounded-sm placeholder:text-base  text-base disabled:bg-none disabled:border-none disabled:py-0 disabled:px-0 disabled:text-sm ' type="number" name="Price" id="price" placeholder='Loading...' />
 
             </div>
           </div>
@@ -245,7 +244,7 @@ const Edit = ({ params }) => {
                 </div>
                 <div className="flex items-center space-x-2">
                   <RadioGroupItem value="Out of stock" id="out" disabled={!edit} />
-                  <Label htmlFor="out of stock">Out of stock</Label>
+                  <Label htmlFor="out">Out of stock</Label>
                 </div>
               </RadioGroup>
             </div>
@@ -255,7 +254,7 @@ const Edit = ({ params }) => {
               Total number of Pages <Asterisk size={13} color='red' />
             </div>
             <div>
-              <input disabled={!edit} value={inputs.Pages} onChange={oninputchange} className='border px-2 py-1 rounded-sm placeholder:text-sm  text-base' type="number" name="Pages" id="pages" placeholder='Total number of pages' />
+              <input disabled={!edit} value={inputs.Pages} onChange={oninputchange} className='border px-2 py-1 rounded-sm placeholder:text-base  text-base disabled:bg-none disabled:border-none disabled:py-0 disabled:px-0 disabled:text-sm ' type="number" name="Pages" id="pages" placeholder='Loading...' />
 
             </div>
           </div>
