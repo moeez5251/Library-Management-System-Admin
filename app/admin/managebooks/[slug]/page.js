@@ -149,7 +149,7 @@ const Edit = ({ params }) => {
             </BreadcrumbItem>
             <BreadcrumbSeparator />
             <BreadcrumbItem>
-              <BreadcrumbPage className="font-semibold text-[#113cb0] text-base">{bookid}</BreadcrumbPage>
+              <BreadcrumbPage className="font-semibold text-[#113cb0] text-base">{inputs.Book_Title.length > 0 ? inputs.Book_Title : bookid}</BreadcrumbPage>
             </BreadcrumbItem>
           </BreadcrumbList>
         </Breadcrumb>
@@ -169,7 +169,7 @@ const Edit = ({ params }) => {
               Book id <Asterisk size={13} color='red' />
             </div>
             <div>
-             <div className='w-30 text-xs text-wrap lin'>{bookid}</div>
+              <div className='w-30 text-xs text-wrap lin'>{bookid}</div>
             </div>
           </div>
           <div className='flex flex-col gap-3 items-start'>
@@ -262,6 +262,11 @@ const Edit = ({ params }) => {
         </div>
 
       </div>
+      {!edit &&
+        <div className='w-full text-center my-4'>
+
+        <Link href={'/admin/managebooks'} prefetch={true} className='bg-gray-300 px-4 py-2  rounded-sm cursor-pointer '>Cancel</Link>
+      </div>}
       {
         edit &&
         <div className='flex items-center justify-center gap-3'>

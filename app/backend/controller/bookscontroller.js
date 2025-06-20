@@ -2,7 +2,7 @@ const { poolPromise } = require('../models/db');
 const { v4: uuidv4 } = require('uuid');
 exports.inserting = async (req, res) => {
     const { Book_Title, Author, Category, Language, Total_Copies, Status, Pages, Price } = req.body;
-    console.log(req.body);
+
     if (!Book_Title || !Author || !Category || !Language || !Total_Copies || !Status || !Pages, !Price) {
         return res.status(400).json({ error: 'All fields are required' });
     }
@@ -28,6 +28,10 @@ exports.inserting = async (req, res) => {
     }
 }
 exports.getting = async (req, res) => {
+    const { API } = req.body
+    if (API !== "MoeezXheikh5251..") {
+        return res.status(400).json({ error: 'Invalid API' });
+    }
     try {
         const pool = await poolPromise;
         const result = await pool.request().query('SELECT * FROM Books');
@@ -43,7 +47,6 @@ exports.getbyID = async (req, res) => {
         if (!ID) {
             return res.status(400).json({ error: 'All fields are required' });
         }
-        const TD = ID
         const pool = await poolPromise;
         const result = await pool
             .request()
@@ -95,7 +98,7 @@ exports.deletebook = async (req, res) => {
         const idParams = ID_arr.map((id, index) => {
             const paramName = `id${index}`;
             request.input(paramName, id);
-            return `@${paramName}`; 
+            return `@${paramName}`;
         });
 
         const query = `DELETE FROM Books WHERE Book_ID IN (${idParams.join(',')})`;

@@ -13,7 +13,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
-import { ChevronDown, PlusIcon, Trash2 } from 'lucide-react';
+import { ChevronDown, Disc, PlusIcon, Trash2 } from 'lucide-react';
 import Badge from '../components/badge';
 import ComboBox from '../components/combobox';
 import Link from 'next/link';
@@ -39,7 +39,6 @@ export default function Home() {
   const [rowsPerPage, setRowsPerPage] = useState('5');
   const [loading, setLoading] = useState(true)
   const [data, setdata] = useState([])
-
   const router = useRouter();
   const columns = [
     {
@@ -138,8 +137,22 @@ export default function Home() {
     }),
   ];
   const [Delete, setDelete] = useState(false)
+  const [Disabledelete, setDisabledelete] = useState(false)
   async function fetch_data() {
-    const data = await fetch("http://localhost:5000/api/books/get")
+    const data = await fetch("http://localhost:5000/api/books/get", {
+      method: "POST",
+      headers: {
+        "Content-type": "application/json; charset=UTF-8"
+      },
+      body: JSON.stringify({
+        API: process.env.NEXT_PUBLIC_XLMS_API
+      })
+    })
+    if (!data.ok) {
+      toast("Invalid API Key")
+      setLoading(false)
+      return
+    }
     const response = await data.json()
     setdata(response)
     setLoading(false)
@@ -166,22 +179,31 @@ export default function Home() {
   }, [checked.selected])
 
   const handledelete = async () => {
-    const data = await fetch("http://localhost:5000/api/books/delete", {
-      method: "DELETE",
-      headers: {
-        "Content-type": "application/json; charset=UTF-8"
-      },
-      body: JSON.stringify(checked.selected)
-    })
-    const response = await data.json()
-    toast(response.message)
-    setDelete(false)
-    setLoading(true)
-    
-    setchecked({
-      selected: [],
-      isempty: true
-    })
+    setDisabledelete(true)
+    try {
+
+      const data = await fetch("http://localhost:5000/api/books/delete", {
+        method: "DELETE",
+        headers: {
+          "Content-type": "application/json; charset=UTF-8"
+        },
+        body: JSON.stringify(checked.selected)
+      })
+      const response = await data.json()
+      toast(response.message)
+      setDelete(false)
+      setLoading(true)
+      setDisabledelete(false)
+      setchecked({
+        selected: [],
+        isempty: true
+      })
+    }
+    catch (err) {
+      toast("Unable to delete")
+      setDisabledelete(false)
+
+    }
     fetch_data()
   }
   return (
@@ -279,13 +301,25 @@ export default function Home() {
                     Do you really want to delete selected books ?<span> This action cannot be undone</span>
                   </span>
                 </span>
-                <button
-                  type="button"
-                  onClick={() => handledelete()}
-                  className="w-full inline-flex justify-center py-2 my-3 text-white bg-red-600 text-base font-medium rounded-md shadow-sm border border-transparent cursor-pointer transition-all scale-95 hover:scale-100"
-                >
-                  Deactivate
-                </button>
+                {
+                  !Disabledelete &&
+                  <button
+                    type="button"
+                    onClick={() => handledelete()}
+                    className="w-full inline-flex justify-center py-2 my-3 text-white bg-red-600 text-base font-medium rounded-md shadow-sm border border-transparent cursor-pointer transition-all scale-95 hover:scale-100"
+                  >
+                    Delete
+                  </button>
+                }
+                {
+                  Disabledelete &&
+                  <button
+                    type="button"
+                    className="w-full inline-flex justify-center py-2 my-3 text-white bg-red-600 text-base font-medium rounded-md shadow-sm border border-transparent cursor-auto pointer-events-none transition-all  disabled:bg-red-700"
+                    disabled={true}
+                  >
+                    Deleting...
+                  </button>}
                 <button
                   type="button"
                   onClick={() => setDelete(false)}
