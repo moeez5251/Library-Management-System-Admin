@@ -61,7 +61,7 @@ exports.getbyID = async (req, res) => {
 }
 exports.updatebook = async (req, res) => {
     const { Book_ID, Book_Title, Author, Category, Language, Total_Copies, Status, Pages, Price } = req.body;
-    if (!Book_ID || !Book_Title || !Author || !Category || !Language || !Total_Copies || !Status || !Pages || !Price) {
+    if (!Book_ID || !Book_Title || !Author || !Category || !Language  || !Status || !Pages || !Price) {
         return res.status(400).json({ error: 'All fields are required' });
     }
     try {
@@ -85,7 +85,7 @@ exports.updatebook = async (req, res) => {
     }
 }
 exports.deletebook = async (req, res) => {
-    const ID_arr = req.body; // should be an array like [1, 2, 3]
+    const ID_arr = req.body; 
 
     if (!Array.isArray(ID_arr) || ID_arr.length === 0) {
         return res.status(400).json({ error: 'ID array is required and cannot be empty' });

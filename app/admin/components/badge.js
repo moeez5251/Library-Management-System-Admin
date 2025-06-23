@@ -13,11 +13,32 @@ const Badge = ({ status }) => {
           Out of stock
         </span>
       )}
-      {status === "Reserverd" && (
+      {status === "Reserved" && (
         <span className="bg-[#f9f5ed] text-[#caa76c] text-sm  mr-2 px-2.5 py-1  rounded-sm dark:bg-red-900 dark:text-red-300 font-semibold">
-          Reserverd
+          Reserved
         </span>
       )}
+      {
+        status === "Borrowed" && (
+          <span className="bg-blue-100 text-blue-800 text-sm  mr-2 px-2.5 py-1 rounded-sm dark:bg-blue-900 dark:text-blue-300 font-semibold">
+            Borrowed
+          </span>
+        )
+      }
+      {
+        status === "Overdue" && (
+          <span className="bg-yellow-100 text-yellow-800 text-sm  mr-2 px-2.5 py-1 rounded-sm dark:bg-yellow-900 dark:text-yellow-300 font-semibold">
+            Overdue
+          </span>
+        )
+      }
+      {
+        status === "Missing" && (
+          <span className="bg-red-100 text-red-800 text-sm  mr-2 px-2.5 py-1 rounded-sm dark:bg-red-900 dark:text-red-300 font-semibold">
+            Missing
+          </span>
+        )
+      }
     </>
   );
 };
