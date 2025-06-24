@@ -45,7 +45,7 @@ exports.createUser = async (req, res) => {
 exports.getAllUsers = async (req, res) => {
   try {
     const pool = await poolPromise;
-    const result = await pool.request().query('SELECT User_id, User_Name, Email, 	Role, Membership_Type, Cost FROM users');
+    const result = await pool.request().query('SELECT User_id, User_Name, Email, 	Role, Membership_Type,Status, Cost FROM users');
     res.json(result.recordset);
   } catch (err) {
     console.error('Error fetching users:', err);

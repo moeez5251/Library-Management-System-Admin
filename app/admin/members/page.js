@@ -13,7 +13,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
-import { ChevronDown, Disc, PlusIcon, Trash2,UserPlus } from 'lucide-react';
+import { ChevronDown, Disc, PlusIcon, Trash2, UserPlus } from 'lucide-react';
 import Badge from '../components/badge';
 import ComboBox from '../components/combobox';
 import Link from 'next/link';
@@ -124,14 +124,21 @@ export default function Home() {
       header: 'Cost',
       cell: info => info.getValue(),
     }),
-   
+    columnHelper.accessor('Status', {
+      header: 'Account Status',
+      cell: ({ row }) => {
+        const status = row.getValue('Status');
+        return <span className={`${status === 'Active' ? 'bg-green-100 text-green-800': 'bg-red-100 text-red-800'} px-2 py-1 text-sm font-semibold rounded-sm`}>{status}</span>;
+      },
+    }),
+
   ];
   const [Delete, setDelete] = useState(false)
   const [Disabledelete, setDisabledelete] = useState(false)
   async function fetch_data() {
-    const data = await fetch("http://localhost:5000/api/users/all", )
-    
-   
+    const data = await fetch("http://localhost:5000/api/users/all",)
+
+
     const response = await data.json()
     setdata(response)
     setLoading(false)
@@ -228,7 +235,7 @@ export default function Home() {
           </button>
         </div>
         <div className='flex items-center gap-5'>
-          <Link href="/admin/managebooks/add" prefetch={true} className='bg-[#6841c4] text-white font-semibold px-3 py-2 rounded-lg cursor-pointer flex items-center gap-1 hover:bg-[#7a4ed0] transition-colors duration-200 text-base'>
+          <Link href="/admin/members/add" prefetch={true} className='bg-[#6841c4] text-white font-semibold px-3 py-2 rounded-lg cursor-pointer flex items-center gap-1 hover:bg-[#7a4ed0] transition-colors duration-200 text-base'>
             <PlusIcon size={20} className='inline ' />
             Add Member</Link>
           <DropdownMenu>
