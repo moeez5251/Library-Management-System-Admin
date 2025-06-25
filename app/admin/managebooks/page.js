@@ -149,7 +149,7 @@ export default function Home() {
       })
     })
     if (!data.ok) {
-      toast("Invalid API Key")
+      toast.error("Unable to fetch data")
       setLoading(false)
       return
     }
@@ -172,7 +172,6 @@ export default function Home() {
   }, [router])
   useEffect(() => {
     checked.selected.length === 0 ? setchecked({ ...checked, isempty: true }) : setchecked({ ...checked, isempty: false })
-    console.log(checked);
     return () => {
 
     }

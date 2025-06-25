@@ -4,7 +4,7 @@ import React from 'react';
 import { createColumnHelper } from '@tanstack/react-table';
 import { Checkbox } from '@/components/ui/checkbox';
 import DataTable from '@/table/mytable';
-import { useState, useEffect } from 'react';
+import { useState, useEffect,useMemo } from 'react';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -105,7 +105,7 @@ export default function Home() {
         const status = row.getValue('User_Name');
         const id = row.getValue('User_id');
 
-        return <Link data-id={id} className='text-[#235fff] font-semibold hover:underline' href={`/admin/managebooks/${id}`} prefetch={true}>{status}</Link>
+        return <Link data-id={id} className='text-[#235fff] font-semibold hover:underline' href={`/admin/members/${id}`} prefetch={true}>{status}</Link>
       },
     }),
     columnHelper.accessor('Email', {
@@ -128,7 +128,7 @@ export default function Home() {
       header: 'Account Status',
       cell: ({ row }) => {
         const status = row.getValue('Status');
-        return <span className={`${status === 'Active' ? 'bg-green-100 text-green-800': 'bg-red-100 text-red-800'} px-2 py-1 text-sm font-semibold rounded-sm`}>{status}</span>;
+        return <span className={`${status === 'Active' ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'} px-2 py-1 text-sm font-semibold rounded-sm`}>{status}</span>;
       },
     }),
 
@@ -136,9 +136,19 @@ export default function Home() {
   const [Delete, setDelete] = useState(false)
   const [Disabledelete, setDisabledelete] = useState(false)
   async function fetch_data() {
-    const data = await fetch("http://localhost:5000/api/users/all",)
-
-
+    console.log("hi");
+    const data = await fetch("http://localhost:5000/api/users/all",{
+      method: "POST",
+      headers: {
+        "Content-type": "application/json; charset=UTF-8"
+      },
+      body: JSON.stringify({ API: process.env.NEXT_PUBLIC_XLMS_API })
+    })
+    if (!data.ok) {
+      toast.error("Unable to fetch data")
+      setLoading(false)
+      return
+    }
     const response = await data.json()
     setdata(response)
     setLoading(false)
@@ -150,7 +160,7 @@ export default function Home() {
     }
   }, [])
   useEffect(() => {
-    router.prefetch("/admin/managebooks/add");
+    router.prefetch("/admin/members/add");
 
     return () => {
 
@@ -241,7 +251,7 @@ export default function Home() {
           <DropdownMenu>
             <DropdownMenuTrigger className="bg-[#6841c4] text-white font-semibold px-3 py-2 rounded-lg cursor-pointer flex items-center gap-1 hover:bg-[#7a4ed0] transition-colors duration-200 text-base"> <ChevronDown size={20} className='inline' /> Actions</DropdownMenuTrigger>
             <DropdownMenuContent>
-              <DropdownMenuItem onClick={() => { router.push("/admin/managebooks/add") }} className="flex items-center cursor-pointer"><UserPlus className='inline' />Deactivate Account</DropdownMenuItem>
+              <DropdownMenuItem disabled={checked.isempty}  className="flex items-center cursor-pointer"><UserPlus className='inline' />Deactivate Account</DropdownMenuItem>
               <DropdownMenuItem onClick={() => setDelete(true)} disabled={checked.isempty} className="flex items-center"> <Trash2 className='inline' /> Delete Member</DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>

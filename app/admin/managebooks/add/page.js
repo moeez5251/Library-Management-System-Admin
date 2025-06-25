@@ -58,10 +58,19 @@ const AddBook = () => {
                     Language: inputs.Language,
                     Price: Number(inputs.Price),
                     Status: inputs.Status,
-                    Pages: Number(inputs.Pages)
+                    Pages: Number(inputs.Pages),
+                    API: process.env.NEXT_PUBLIC_XLMS_API
                 })
             }
             )
+            if (!data.ok) {
+                const errorData = await data.json()
+                if (errorData.error) {
+                    toast.error(errorData.error)
+                    setbook(true)
+                    return
+                }
+            }
             const response = await data.json()
             toast(response.message)
             setInputs({
@@ -78,7 +87,7 @@ const AddBook = () => {
         }
         catch {
             toast("Unable to add book")
-            setbook(false)
+            setbook(true)
         }
     }
     useEffect(() => {
@@ -182,8 +191,8 @@ const AddBook = () => {
                                     <Label htmlFor="Available">Available</Label>
                                 </div>
                                 <div className="flex items-center space-x-2">
-                                    <RadioGroupItem value="Reserverd" id="Reserverd" />
-                                    <Label htmlFor="Reserverd">Reserverd</Label>
+                                    <RadioGroupItem value="Reserved" id="Reserved" />
+                                    <Label htmlFor="Reserved">Reserved</Label>
                                 </div>
                                 <div className="flex items-center space-x-2">
                                     <RadioGroupItem value="Out of stock" id="out" />
@@ -206,19 +215,19 @@ const AddBook = () => {
 
             </div>
             <div className='flex items-center justify-center gap-3'>
-                <Link  href="/admin/managebooks" prefetch={true} className='bg-gray-300 px-4 py-2 rounded-sm cursor-pointer'>Cancel</Link>
+                <Link href="/admin/managebooks" prefetch={true} className='bg-gray-300 px-4 py-2 rounded-sm cursor-pointer'>Cancel</Link>
                 {
                     book &&
                     <button onClick={addbook} disabled={disabledbtn} className='bg-[#6841c4] text-white px-4 py-2 rounded-sm cursor-pointer transition-transform scale-95 hover:scale-100 font-normal disabled:bg-gray-300 disabled:pointer-events-none disabled:cursor-auto'>Add Book</button>
 
                 }
-                
+
                 {
                     !book &&
                     <button onClick={addbook} disabled={true} className='bg-[#6841c4] text-white px-4 py-2 rounded-sm cursor-pointer transition-transform scale-95 hover:scale-100 font-normal disabled:bg-gray-300 disabled:pointer-events-none disabled:cursor-auto'>Adding...</button>
 
                 }
-                
+
             </div>
         </>
     )

@@ -239,8 +239,8 @@ const Edit = ({ params }) => {
                   <Label htmlFor="Available">Available</Label>
                 </div>
                 <div className="flex items-center space-x-2">
-                  <RadioGroupItem value="Reserverd" id="Reserverd" disabled={!edit} />
-                  <Label htmlFor="Reserverd">Reserverd</Label>
+                  <RadioGroupItem value="Reserved" id="Reserved" disabled={!edit} />
+                  <Label htmlFor="Reserved">Reserved</Label>
                 </div>
                 <div className="flex items-center space-x-2">
                   <RadioGroupItem value="Out of stock" id="out" disabled={!edit} />

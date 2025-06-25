@@ -1,9 +1,18 @@
 const { poolPromise } = require('../models/db');
 const { v4: uuidv4 } = require('uuid');
+require('dotenv').config();
 exports.inserting = async (req, res) => {
-    const { Book_Title, Author, Category, Language, Total_Copies, Status, Pages, Price } = req.body;
-
-    if (!Book_Title || !Author || !Category || !Language || !Total_Copies || !Status || !Pages, !Price) {
+    const { Book_Title, Author, Category, Language, Total_Copies, Status, Pages, Price, API } = req.body;
+    try { 
+        if (API !== process.env.XLMS_API) {
+            return res.status(400).json({ message: 'Invalid API' });
+        }
+    }
+    catch (err) {
+        console.error('Error in API validation:', err);
+        return res.status(500).json({ error: 'Internal Server Error' });
+    }
+    if (!Book_Title || !Author || !Category || !Language || !Total_Copies || !Status || !Pages || !Price) {
         return res.status(400).json({ error: 'All fields are required' });
     }
     try {
@@ -29,7 +38,7 @@ exports.inserting = async (req, res) => {
 }
 exports.getting = async (req, res) => {
     const { API } = req.body
-    if (API !== "MoeezXheikh5251..") {
+    if (API !== process.env.XLMS_API) {
         return res.status(400).json({ error: 'Invalid API' });
     }
     try {
@@ -61,7 +70,7 @@ exports.getbyID = async (req, res) => {
 }
 exports.updatebook = async (req, res) => {
     const { Book_ID, Book_Title, Author, Category, Language, Total_Copies, Status, Pages, Price } = req.body;
-    if (!Book_ID || !Book_Title || !Author || !Category || !Language  || !Status || !Pages || !Price) {
+    if (!Book_ID || !Book_Title || !Author || !Category || !Language || !Status || !Pages || !Price) {
         return res.status(400).json({ error: 'All fields are required' });
     }
     try {
@@ -85,7 +94,7 @@ exports.updatebook = async (req, res) => {
     }
 }
 exports.deletebook = async (req, res) => {
-    const ID_arr = req.body; 
+    const ID_arr = req.body;
 
     if (!Array.isArray(ID_arr) || ID_arr.length === 0) {
         return res.status(400).json({ error: 'ID array is required and cannot be empty' });

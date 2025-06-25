@@ -1,11 +1,21 @@
 const { poolPromise } = require('../models/db');
 const bcrypt = require("bcrypt");
 const { v4: uuidv4 } = require('uuid');
+
 exports.createUser = async (req, res) => {
+  const { API } = req.body;
+  try {
+    if (API !== process.env.XLMS_API) {
+      return res.status(400).json({ error: 'Invalid API' });
+    }
+  } catch (err) {
+    console.error('Error in API validation:', err);
+    return res.status(500).json({ error: 'Internal Server Error' });
+  }
   try {
     const { User_Name, Email, Role, Membership_Type, Password } = req.body;
-    
-    if ( !User_Name || !Email || !Role || !Membership_Type || !Password)
+
+    if (!User_Name || !Email || !Role || !Membership_Type || !Password)
       return res.status(400).json({ error: 'All fields are required' });
 
     // Check if the user already exists
@@ -21,10 +31,7 @@ exports.createUser = async (req, res) => {
     // Hash the password
     const hashedPassword = await bcrypt.hash(Password, 10);
 
-    // Generate a unique ID
-    const old_users=await pool.request()
-      .query('SELECT COUNT(*) FROM users');
-      const userId = `U${old_users.recordset[0][''] + 1}`;
+    const userId = `${User_Name[0].toUpperCase()}${uuidv4().replace(/-/g, "").slice(0, 8)}`;
     // Insert the new user into the database
     const result = await pool.request()
       .input('User_id', userId)
@@ -33,8 +40,9 @@ exports.createUser = async (req, res) => {
       .input('Role', Role)
       .input('Membership_Type', Membership_Type)
       .input('Password', hashedPassword)
-      .input('Cost', 0) 
-      .query('INSERT INTO users (User_id, User_Name, Email, Role, Membership_Type, Password, Cost) VALUES (@User_id, @User_Name, @Email, @Role, @Membership_Type, @Password, @Cost)');
+      .input('Cost', 0)
+      .input('Status', 'Active')
+      .query('INSERT INTO users (User_id, User_Name, Email, Role, Membership_Type, Password, Cost, Status) VALUES (@User_id, @User_Name, @Email, @Role, @Membership_Type, @Password, @Cost, @Status)');
     res.status(201).json({ message: 'User created successfully' });
   } catch (err) {
     console.error('Error creating user:', err);
@@ -43,6 +51,10 @@ exports.createUser = async (req, res) => {
 };
 
 exports.getAllUsers = async (req, res) => {
+  const { API } = req.body;
+  if (API !== process.env.XLMS_API) {
+    return res.status(400).json({ error: 'Invalid API' });
+  }
   try {
     const pool = await poolPromise;
     const result = await pool.request().query('SELECT User_id, User_Name, Email, 	Role, Membership_Type,Status, Cost FROM users');
