@@ -4,7 +4,7 @@ import React from 'react';
 import { createColumnHelper } from '@tanstack/react-table';
 import { Checkbox } from '@/components/ui/checkbox';
 import DataTable from '@/table/mytable';
-import { useState, useEffect,useMemo } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -26,6 +26,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog"
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { toast } from "sonner"
 import { Toaster } from "@/components/ui/sonner"
 export default function Home() {
@@ -51,7 +52,7 @@ export default function Home() {
             if (value) {
               setchecked({
                 ...checked,
-                selected: table.getCoreRowModel().rows.map(row => row.original.Book_ID),
+                selected: table.getCoreRowModel().rows.map(row => row.original.User_id),
               })
             }
             else {
@@ -73,14 +74,14 @@ export default function Home() {
             if (!row.getIsSelected()) {
               setchecked({
                 ...checked,
-                selected: [...checked.selected, row.original.Book_ID],
+                selected: [...checked.selected, row.original.User_id],
 
               })
 
             } else {
               setchecked({
                 ...checked,
-                selected: checked.selected.filter(id => id !== row.original.Book_ID),
+                selected: checked.selected.filter(id => id !== row.original.User_id),
 
               })
             }
@@ -135,9 +136,11 @@ export default function Home() {
   ];
   const [Delete, setDelete] = useState(false)
   const [Disabledelete, setDisabledelete] = useState(false)
+  const [deactivate, setDeactivate] = useState(false)
+
   async function fetch_data() {
     console.log("hi");
-    const data = await fetch("http://localhost:5000/api/users/all",{
+    const data = await fetch("http://localhost:5000/api/users/all", {
       method: "POST",
       headers: {
         "Content-type": "application/json; charset=UTF-8"
@@ -168,7 +171,6 @@ export default function Home() {
   }, [router])
   useEffect(() => {
     checked.selected.length === 0 ? setchecked({ ...checked, isempty: true }) : setchecked({ ...checked, isempty: false })
-    console.log(checked);
     return () => {
 
     }
@@ -200,6 +202,28 @@ export default function Home() {
       setDisabledelete(false)
 
     }
+    fetch_data()
+  }
+  const handledeactivate = async () => {
+    setDisabledelete(true)
+    const data = await fetch("http://localhost:5000/api/users/deactivate", {
+      method: "POST",
+      headers: {
+        "Content-type": "application/json; charset=UTF-8"
+      },
+      body: JSON.stringify(checked.selected)
+    })
+    if (!data.ok) {
+      toast.error("Unable to deactivate accounts")
+      setDeactivate(false)
+      setDisabledelete(false)
+      return
+    }
+    const response = await data.json()
+    toast(response.message)
+    setDeactivate(false)
+    setLoading(true)
+    setDisabledelete(false)
     fetch_data()
   }
   return (
@@ -251,15 +275,32 @@ export default function Home() {
           <DropdownMenu>
             <DropdownMenuTrigger className="bg-[#6841c4] text-white font-semibold px-3 py-2 rounded-lg cursor-pointer flex items-center gap-1 hover:bg-[#7a4ed0] transition-colors duration-200 text-base"> <ChevronDown size={20} className='inline' /> Actions</DropdownMenuTrigger>
             <DropdownMenuContent>
-              <DropdownMenuItem disabled={checked.isempty}  className="flex items-center cursor-pointer"><UserPlus className='inline' />Deactivate Account</DropdownMenuItem>
+              <DropdownMenuItem disabled={checked.isempty} onClick={() => setDeactivate(true)} className="flex items-center cursor-pointer"><UserPlus className='inline' />Deactivate Account</DropdownMenuItem>
               <DropdownMenuItem onClick={() => setDelete(true)} disabled={checked.isempty} className="flex items-center"> <Trash2 className='inline' /> Delete Member</DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
         </div>
       </div>
       <div className='bg-white  transition-all py-2 mx-3 rounded-lg shadow-md'>
+        <Tabs defaultValue="All">
+          <TabsList className="mx-3 bg-white mt-2">
+            <TabsTrigger className="mx-2 px-3 py-4.5 bg-gray-100 data-[state=active]:bg-[#6841c4] data-[state=active]:text-white data-[state=active]:shadow-md" value="All">All Users</TabsTrigger>
+            <TabsTrigger className="mx-2 px-3 py-4.5 bg-gray-100 data-[state=active]:bg-[#6841c4] data-[state=active]:text-white" value="Active">Active Users</TabsTrigger>
+            <TabsTrigger className="mx-2 px-3 py-4.5 bg-gray-100 data-[state=active]:bg-[#6841c4] data-[state=active]:text-white" value="Deactivated">Deactivated Users</TabsTrigger>
+          </TabsList>
+          <TabsContent value="All">
 
-        <DataTable data={data} columns={columns} externalFilter={input} pageSize={rowsPerPage} loading={loading} />
+            <DataTable data={data} columns={columns} externalFilter={input} pageSize={rowsPerPage} loading={loading} />
+          </TabsContent>
+          <TabsContent value="Active">
+
+            <DataTable data={data} columns={columns} externalFilter={"active"} pageSize={rowsPerPage} loading={loading} />
+          </TabsContent>
+          <TabsContent value="Deactivated">
+
+            <DataTable data={data} columns={columns} externalFilter={"Deactivated"} pageSize={rowsPerPage} loading={loading} />
+          </TabsContent>
+        </Tabs>
       </div>
       <div className='mt-3 mx-5 flex items-center justify-between'>
         <div className='text-black text-base font-semibold '>
@@ -330,6 +371,87 @@ export default function Home() {
 
           </DialogDescription>
           <button onClick={() => { setDelete(false) }} className='absolute top-3 cursor-pointer right-3 bg-gray-300  p-1 rounded-2xl z-40 '>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width={15}
+              height={15}
+              fill="none"
+              className="injected-svg"
+              color="black"
+              data-src="https://cdn.hugeicons.com/icons/multiplication-sign-solid-rounded.svg"
+              viewBox="0 0 24 24"
+            >
+              <path
+                fill="black"
+                fillRule="evenodd"
+                d="M5.116 5.116a1.25 1.25 0 0 1 1.768 0L12 10.232l5.116-5.116a1.25 1.25 0 0 1 1.768 1.768L13.768 12l5.116 5.116a1.25 1.25 0 0 1-1.768 1.768L12 13.768l-5.116 5.116a1.25 1.25 0 0 1-1.768-1.768L10.232 12 5.116 6.884a1.25 1.25 0 0 1 0-1.768Z"
+                clipRule="evenodd"
+              />
+            </svg>
+          </button>
+        </DialogContent>
+      </Dialog>
+      <Dialog open={deactivate} onopenchange={setDeactivate}>
+        <DialogContent className="w-full lg:w-1/3 rounded-3xl shadow-lg " >
+          <DialogTitle></DialogTitle>
+          <DialogDescription className="flex flex-col items-center justify-center gap-2 my-4">
+            <span className=" bg-white rounded-lg  overflow-hidden text-left flex flex-col gap-4">
+              <span className="p-1 bg-white">
+                <span className="flex justify-center items-center w-12 h-12 mx-auto bg-red-100 rounded-full">
+                  <svg
+                    aria-hidden="true"
+                    stroke="currentColor"
+                    strokeWidth="1.5"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    className="w-6 h-6 text-red-600"
+                  >
+                    <path
+                      d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    ></path>
+                  </svg>
+                </span>
+                <span className="mt-3 text-center flex flex-col gap-4">
+                  <span className="text-gray-900 text-base font-semibold leading-6">Deactivate Account</span>
+                  <span className="my-2  text-gray-500 leading-5 flex flex-col text-base gap-1">
+                    Do you really want to deactivate selected accounts ?<span> This action cannot be undone</span>
+                  </span>
+                </span>
+                {
+                  !Disabledelete &&
+                  <button
+                    type="button"
+                    onClick={() => handledeactivate()}
+                    className="w-full inline-flex justify-center py-2 my-3 text-white bg-red-600 text-base font-medium rounded-md shadow-sm border border-transparent cursor-pointer transition-all scale-95 hover:scale-100"
+                  >
+                    Deactivate
+                  </button>
+                }
+                {
+                  Disabledelete &&
+                  <button
+                    type="button"
+                    className="w-full inline-flex justify-center py-2 my-3 text-white bg-red-600 text-base font-medium rounded-md shadow-sm border border-transparent cursor-auto pointer-events-none transition-all  disabled:bg-red-700"
+                    disabled={true}
+                  >
+                    Deactivating...
+                  </button>}
+                <button
+                  type="button"
+                  onClick={() => setDeactivate(false)}
+                  className="w-full inline-flex justify-center  py-2 bg-white text-gray-700 text-base font-medium rounded-md shadow-sm border border-gray-300 cursor-pointer transition-all scale-95 hover:scale-100"
+                >
+                  Cancel
+                </button>
+              </span>
+            </span>
+
+
+
+          </DialogDescription>
+          <button onClick={() => { setDeactivate(false) }} className='absolute top-3 cursor-pointer right-3 bg-gray-300  p-1 rounded-2xl z-40 '>
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width={15}
