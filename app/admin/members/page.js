@@ -13,7 +13,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
-import { ChevronDown, Disc, PlusIcon, Trash2, UserPlus } from 'lucide-react';
+import { ChevronDown, Disc, PlusIcon, Trash2, UserPlus,CircleAlert } from 'lucide-react';
 import Badge from '../components/badge';
 import ComboBox from '../components/combobox';
 import Link from 'next/link';
@@ -180,7 +180,7 @@ export default function Home() {
     setDisabledelete(true)
     try {
 
-      const data = await fetch("http://localhost:5000/api/books/delete", {
+      const data = await fetch("http://localhost:5000/api/users/delete", {
         method: "DELETE",
         headers: {
           "Content-type": "application/json; charset=UTF-8"
@@ -214,7 +214,21 @@ export default function Home() {
       body: JSON.stringify(checked.selected)
     })
     if (!data.ok) {
-      toast.error("Unable to deactivate accounts")
+      if (data.status === 405) {
+        const error = await data.json()
+        toast.custom((t) => (
+          <div className={`bg-red-700 text-white p-4 rounded-md shadow-lg
+          flex items-center gap-3
+          ${t.visible ? 'animate-enter' : 'animate-leave'}`}>
+          <CircleAlert size={20} />
+            <p className='text-sm'>{error.error}</p>
+          </div>
+        ))
+      }
+      else {
+
+        toast.error("Unable to deactivate accounts")
+      }
       setDeactivate(false)
       setDisabledelete(false)
       return
@@ -284,9 +298,9 @@ export default function Home() {
       <div className='bg-white  transition-all py-2 mx-3 rounded-lg shadow-md'>
         <Tabs defaultValue="All">
           <TabsList className="mx-3 bg-white mt-2">
-            <TabsTrigger className="mx-2 px-3 py-4.5 bg-gray-100 data-[state=active]:bg-[#6841c4] data-[state=active]:text-white data-[state=active]:shadow-md" value="All">All Users</TabsTrigger>
-            <TabsTrigger className="mx-2 px-3 py-4.5 bg-gray-100 data-[state=active]:bg-[#6841c4] data-[state=active]:text-white" value="Active">Active Users</TabsTrigger>
-            <TabsTrigger className="mx-2 px-3 py-4.5 bg-gray-100 data-[state=active]:bg-[#6841c4] data-[state=active]:text-white" value="Deactivated">Deactivated Users</TabsTrigger>
+            <TabsTrigger className="mx-2 px-3 py-4.5 bg-gray-100 data-[state=active]:bg-[#6841c4] data-[state=active]:text-white data-[state=active]:shadow-md cursor-pointer" value="All">All Users</TabsTrigger>
+            <TabsTrigger className="mx-2 px-3 py-4.5 bg-gray-100 data-[state=active]:bg-[#6841c4] data-[state=active]:text-white data-[state=active]:shadow-md cursor-pointer" value="Active">Active Users</TabsTrigger>
+            <TabsTrigger className="mx-2 px-3 py-4.5 bg-gray-100 data-[state=active]:bg-[#6841c4] data-[state=active]:text-white data-[state=active]:shadow-md cursor-pointer" value="Deactivated">Deactivated Users</TabsTrigger>
           </TabsList>
           <TabsContent value="All">
 
@@ -294,11 +308,11 @@ export default function Home() {
           </TabsContent>
           <TabsContent value="Active">
 
-            <DataTable data={data} columns={columns} externalFilter={"active"} pageSize={rowsPerPage} loading={loading} />
+            <DataTable data={data.filter((item) => item.Status === "Active")} columns={columns} externalFilter={input} pageSize={rowsPerPage} loading={loading} />
           </TabsContent>
           <TabsContent value="Deactivated">
 
-            <DataTable data={data} columns={columns} externalFilter={"Deactivated"} pageSize={rowsPerPage} loading={loading} />
+            <DataTable data={data.filter((item) => item.Status === "Deactivated")} columns={columns} externalFilter={input} pageSize={rowsPerPage} loading={loading} />
           </TabsContent>
         </Tabs>
       </div>
@@ -333,9 +347,9 @@ export default function Home() {
                   </svg>
                 </span>
                 <span className="mt-3 text-center flex flex-col gap-4">
-                  <span className="text-gray-900 text-base font-semibold leading-6">Delete Books</span>
+                  <span className="text-gray-900 text-base font-semibold leading-6">Delete Members</span>
                   <span className="my-2  text-gray-500 leading-5 flex flex-col text-base gap-1">
-                    Do you really want to delete selected books ?<span> This action cannot be undone</span>
+                    Do you really want to delete selected accounts ?<span> This action cannot be undone</span>
                   </span>
                 </span>
                 {

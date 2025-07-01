@@ -17,8 +17,6 @@ exports.createUser = async (req, res) => {
 
     if (!User_Name || !Email || !Role || !Membership_Type || !Password)
       return res.status(400).json({ error: 'All fields are required' });
-
-    // Check if the user already exists
     const pool = await poolPromise;
     const existingUserResult = await pool.request()
       .input('email', Email)
@@ -72,7 +70,7 @@ exports.getuserbyid = async (req, res) => {
     const result = await pool
       .request()
       .input('ID', ID)
-      .query('SELECT  User_Name, Email, Role, Membership_Type FROM users WHERE User_id = @ID');
+      .query('SELECT  User_Name, Email, Role, Membership_Type,Status FROM users WHERE User_id = @ID');
     res.json(result.recordset[0]);
   } catch (err) {
     console.error('Error fetching user by ID:', err);
@@ -115,14 +113,60 @@ exports.deactivateUser = async (req, res) => {
       request.input(paramName, id);
       return `@${paramName}`;
     });
+    const quer = `select Status from users where User_id IN (${idParams.join(',')})`
+    const result = await request.query(quer);
 
+    for (const item of result.recordset) {
+      if (item.Status === 'Deactivated') {
+        return res.status(405).json({ error: 'User is already deactivated' });
+      }
+    }
     const query = `UPDATE users SET Status = 'Deactivated' WHERE User_id IN (${idParams.join(',')})`;
 
     await request.query(query);
 
     res.json({ message: 'Users deactivated successfully' });
   } catch (err) {
-    console.error('Error deleting books:', err);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+}
+exports.activateUser = async (req, res) => {
+  const { ID } = req.body
+  if (!ID) {
+    return res.status(400).json({ error: 'ID is required' });
+  }
+
+  try {
+    const pool = await poolPromise;
+    const result = await pool
+      .request()
+      .input('ID', ID)
+      .query("UPDATE users SET Status = 'Active' WHERE User_id = @ID");
+    res.json({ message: 'User activated successfully' });
+  } catch (err) {
+    console.error('Error activating user:', err);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+}
+exports.deleteaccount = async (req, res) => {
+  const id_arr = req.body;
+  if (!Array.isArray(id_arr) || id_arr.length === 0) {
+    return res.status(400).json({ error: 'ID array is required and cannot be empty' });
+  }
+
+  try {
+    const pool = await poolPromise;
+    const request = pool.request();
+    const idParams = id_arr.map((id, index) => {
+      const paramName = `id${index}`;
+      request.input(paramName, id);
+      return `@${paramName}`;
+    });
+    const query = `DELETE FROM users WHERE User_id IN (${idParams.join(',')})`;
+    await request.query(query);
+    res.json({ message: 'Users deleted successfully' });
+  } catch (err) {
+    console.error('Error deleting users:', err);
     res.status(500).json({ error: 'Internal Server Error' });
   }
 }

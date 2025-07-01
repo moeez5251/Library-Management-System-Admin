@@ -21,20 +21,23 @@ import { Label } from "@/components/ui/label"
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 import { toast } from 'sonner'
 import { Toaster } from '@/components/ui/sonner'
+import { validate } from 'react-email-validator'
 const DynamicPage = ({ params }) => {
   const [userid, setuserid] = useState("")
   const [MemberShip, setMemberShip] = useState("")
   const [role, setrole] = useState("Standard-User")
   const [disabledbtn, setdisabledbtn] = useState(true)
-  const [togglepassword, settogglepassword] = useState(false)
   const [edit, setedit] = useState(false)
   const [user, setuser] = useState(true)
+  const [toggleact, settoggleact] = useState(false)
   const [inputs, setInputs] = useState({
     User_Name: '',
     Email: '',
     Membership_Type: MemberShip,
-    Role: role
+    Role: role,
+    Status: ""
   })
+
   useEffect(() => {
     (async function getuserid() {
       const { slug } = await params
@@ -57,7 +60,8 @@ const DynamicPage = ({ params }) => {
       setInputs({
         ...inputs,
         User_Name: res.User_Name,
-        Email: res.Email
+        Email: res.Email,
+        Status: res.Status
       })
       setMemberShip(res.Membership_Type)
       setrole(res.Role)
@@ -87,6 +91,7 @@ const DynamicPage = ({ params }) => {
     return () => {
 
     }
+
   }, [inputs])
 
   const handleInputChange = (e) => {
@@ -97,6 +102,16 @@ const DynamicPage = ({ params }) => {
 
   }
   const handleupdateuser = async () => {
+    if (!validate(inputs.Email)) {
+      toast.custom((t) => (
+        <div className={`bg-red-700 text-white p-4 rounded-md shadow-lg flex items-center gap-3
+                ${t.visible ? 'animate-enter' : 'animate-leave'}`}>
+          <CircleAlert size={20} />
+          <p className='text-sm'>Please enter a valid email address.</p>
+        </div>
+      ));
+      return;
+    }
     setuser(false)
     try {
 
@@ -134,6 +149,81 @@ const DynamicPage = ({ params }) => {
     }
     setuser(true)
     setedit(false)
+  }
+  const handleactivateaccount = async () => {
+    settoggleact(true)
+    try {
+
+      const data = await fetch("http://localhost:5000/api/users/activate", {
+        method: "POST",
+        headers: {
+          "Content-type": "application/json; charset=UTF-8"
+        },
+        body: JSON.stringify({
+          ID: userid
+        })
+      })
+      if (!data.ok) {
+        toast.error("Error in activating account")
+        settoggleact(false)
+        return
+      }
+      const res = await data.json()
+      toast.custom((t) => (
+        <div className={`bg-green-600 text-white p-4 rounded-md shadow-lg flex items-center gap-2
+                   ${t.visible ? 'animate-enter' : 'animate-leave'}`}>
+          <CircleCheckBig size={20} />
+          <p className='text-sm'>{res.message} </p>
+        </div>
+
+      ));
+      settoggleact(false)
+      setInputs({
+        ...inputs,
+        Status: "Active"
+      })
+    }
+    catch {
+      toast.error("Something went wrong while activating account")
+      settoggleact(false)
+      
+    }
+
+  }
+  const handledeactivate = async () => {
+    settoggleact(true)
+    try {
+      const data = await fetch("http://localhost:5000/api/users/deactivate", {
+      method: "POST",
+      headers: {
+        "Content-type": "application/json; charset=UTF-8"
+      },
+      body: JSON.stringify(Array.from([userid]))
+    })
+    if(!data.ok) {
+      toast.error("Error in deactivating account")
+      settoggleact(false)
+      return
+    }
+    const res = await data.json()
+      toast.custom((t) => (
+        <div className={`bg-red-700 text-white p-4 rounded-md shadow-lg flex items-center gap-2
+                   ${t.visible ? 'animate-enter' : 'animate-leave'}`}>
+          <CircleAlert size={20} />
+          <p className='text-sm'>{res.message} </p>
+        </div>
+
+      ));
+      settoggleact(false)
+      setInputs({
+        ...inputs,
+        Status: "Deactivated"
+      })
+    }
+    catch (error) {
+      toast.error("Something went wrong while deactivating account")
+      settoggleact(false)
+    }
   }
   return (
     <>
@@ -230,6 +320,31 @@ const DynamicPage = ({ params }) => {
         </div>
       </div>
       {
+        !edit && inputs.Status === "Deactivated" && !toggleact &&
+        < div className='flex items-center mx-4 gap-3'>
+          <button onClick={handleactivateaccount} disabled={toggleact} className='bg-green-600 text-white px-4 py-2 rounded-sm cursor-pointer transition-transform scale-95 hover:scale-100 font-normal'>Activate Account</button>
+        </div >
+      }
+      {
+        !edit && inputs.Status === "Deactivated" && toggleact &&
+        < div className='flex items-center mx-4 gap-3'>
+          <button disabled={true} className='bg-green-700 text-white px-4 py-2 rounded-sm pointer-events-none cursor-auto'>Activating...</button>
+        </div >
+      }
+      {
+        !edit && inputs.Status === "Active" && !toggleact &&
+        < div className='flex items-center mx-4 gap-3'>
+          <button onClick={handledeactivate} disabled={toggleact} className='bg-red-700 text-white px-4 py-2 rounded-sm cursor-pointer transition-transform scale-95 hover:scale-100 font-normal'>Deactivate Account</button>
+        </div >
+      }
+      {
+        !edit && inputs.Status === "Active" && toggleact &&
+        < div className='flex items-center mx-4 gap-3'>
+          <button  disabled={true} className='bg-red-800 text-white px-3 py-2 rounded-sm pointer-events-none cursor-auto'>Deactivating...</button>
+        </div >
+      }
+
+      {
         edit &&
         <div className='flex items-center justify-center gap-3'>
           <button onClick={() => setedit(false)} className='bg-gray-300 px-4 py-2 rounded-sm cursor-pointer'>Cancel</button>
@@ -245,7 +360,8 @@ const DynamicPage = ({ params }) => {
 
           }
 
-        </div>}
+        </div>
+      }
     </>
   )
 }
