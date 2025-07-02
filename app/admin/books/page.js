@@ -2,7 +2,10 @@ import React from 'react'
 
 const Books = () => {
   return (
-    <div className='animate-page' >Books</div>
+   <>
+    <h2 className='font-bold mx-4 my-2 text-lg'>Lended Books</h2>
+    
+   </>
   )
 }
 
