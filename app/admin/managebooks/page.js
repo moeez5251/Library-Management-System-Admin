@@ -28,7 +28,7 @@ import {
 } from "@/components/ui/dialog"
 import { toast } from "sonner"
 import { Toaster } from "@/components/ui/sonner"
-export default function Home() {
+export default function Books() {
   const columnHelper = createColumnHelper();
   const [checked, setchecked] = useState(
     {

@@ -65,7 +65,7 @@ const DataTable = ({ data, columns, externalFilter, pageSize: initialPageSize, l
                                     return (
                                         <th
                                             key={header.id}
-                                            className="p-2 border-b cursor-pointer select-none"
+                                            className="p-2 border-b cursor-pointer select-none text-nowrap"
                                             onClick={isSortable ? header.column.getToggleSortingHandler() : undefined}
                                         >
                                             <div className="flex items-center gap-1 font-semibold">

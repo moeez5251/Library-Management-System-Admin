@@ -14,7 +14,6 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import { ChevronDown, Disc, PlusIcon, Trash2, UserPlus,CircleAlert } from 'lucide-react';
-import Badge from '../components/badge';
 import ComboBox from '../components/combobox';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
@@ -29,7 +28,7 @@ import {
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { toast } from "sonner"
 import { Toaster } from "@/components/ui/sonner"
-export default function Home() {
+export default function Members() {
   const columnHelper = createColumnHelper();
   const [checked, setchecked] = useState(
     {
