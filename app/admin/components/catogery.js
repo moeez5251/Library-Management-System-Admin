@@ -50,7 +50,7 @@ const CategorySelect = ({
       </PopoverTrigger>
 
       {!disabled && (
-        <PopoverContent className="w-2xs p-0">
+        <PopoverContent  side="left" align="center" className="w-2xs p-0">
           <Command>
             <CommandInput placeholder="Search category..." />
             <CommandEmpty>No category found.</CommandEmpty>

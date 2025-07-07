@@ -3,7 +3,7 @@ const { v4: uuidv4 } = require('uuid');
 require('dotenv').config();
 exports.inserting = async (req, res) => {
     const { Book_Title, Author, Category, Language, Total_Copies, Status, Pages, Price, API } = req.body;
-    try { 
+    try {
         if (API !== process.env.XLMS_API) {
             return res.status(400).json({ message: 'Invalid API' });
         }
@@ -120,3 +120,19 @@ exports.deletebook = async (req, res) => {
         res.status(500).json({ error: 'Internal Server Error' });
     }
 };
+exports.getbycolumnname = async (req, res) => {
+    const {column}= req.body;
+    if ( column.length === 0) {
+        return res.status(400).json({ error: 'All fields are required' });
+    }
+    try {
+        const pool = await poolPromise;
+        const request = pool.request();
+        const query = `Select DISTINCT ${column.join(',')} from Books`;
+        const result = await request.query(query);
+        res.json(result.recordset);
+    }
+    catch {
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+}

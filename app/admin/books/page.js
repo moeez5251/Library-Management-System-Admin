@@ -178,7 +178,6 @@ export default function Lenders() {
         return
       }
       const response = await data.json()
-      console.log(response);
       setdialogdata(response)
     } catch (error) {
       toast.error("An error occurred while fetching lender data.");
@@ -268,7 +267,7 @@ export default function Lenders() {
           </button>
         </div>
         <div className='flex items-center gap-5'>
-          <Link href="/admin/members/add" prefetch={true} className='bg-[#6841c4] text-white font-semibold px-3 py-2 rounded-lg cursor-pointer flex items-center gap-1 hover:bg-[#7a4ed0] transition-colors duration-200 text-base'>
+          <Link href="/admin/books/lend" prefetch={true} className='bg-[#6841c4] text-white font-semibold px-3 py-2 rounded-lg cursor-pointer flex items-center gap-1 hover:bg-[#7a4ed0] transition-colors duration-200 text-base'>
             <PlusIcon size={20} className='inline ' />
             Lend a book</Link>
 
@@ -285,7 +284,7 @@ export default function Lenders() {
         <ComboBox value={rowsPerPage} onChange={setRowsPerPage} />
       </div>
       <Dialog open={trigger} onOpenChange={settrigger}>
-        <DialogContent className="w-full lg:w-1/3 rounded-3xl shadow-lg " >
+        <DialogContent className="w-full lg:w-1/2 rounded-3xl shadow-lg " >
           <DialogTitle></DialogTitle>
           <DialogDescription className="flex flex-col justify-center gap-3 my-1">
             <span className=" bg-white rounded-lg  overflow-hidden text-left flex flex-col gap-4">
@@ -301,55 +300,58 @@ export default function Lenders() {
                   <span className="flex flex-col bg-blue-50 dark:bg-blue-900/30 p-3 rounded-md shadow-sm">
                     <span className={`text-blue-600 dark:text-blue-300 font-medium ${dialogdata.Borrower_ID ? "" : "animate-pulse"} `}>Lender ID:</span>
                     <span className={`text-gray-900 dark:text-white font-semibold ${dialogdata.Borrower_ID ? "" : "animate-pulse"}`}>{dialogdata.Borrower_ID ? dialogdata.Borrower_ID : "Loading"}</span>
-                  </span> 
+                  </span>
                   <span className="flex flex-col bg-blue-50 dark:bg-blue-900/30 p-3 rounded-md shadow-sm">
                     <span className={`text-blue-600 dark:text-blue-300 font-medium ${dialogdata.user_id ? "" : "animate-pulse"}`}>User ID:</span>
-                    <span className={`text-gray-900 dark:text-white font-semibold ${dialogdata.user_id?"":"animate-pulse"}`}>{dialogdata.user_id ? dialogdata.user_id : "Loading"}</span>
+                    <span className={`text-gray-900 dark:text-white font-semibold ${dialogdata.user_id ? "" : "animate-pulse"}`}>{dialogdata.user_id ? dialogdata.user_id : "Loading"}</span>
                   </span>
 
                   <span className="flex flex-col bg-green-50 dark:bg-green-900/30 p-3 rounded-md shadow-sm">
-                    <span className="text-green-600 dark:text-green-300 font-medium">Lender Name:</span>
-                    <span className="text-gray-900 dark:text-white font-semibold">Ali Khan</span>
+                    <span className={`text-green-600 dark:text-green-300 font-medium ${dialogdata.Name ? "" : "animate-pulse"} `}>Lender Name:</span>
+                    <span className={`text-gray-900 dark:text-white font-semibold ${dialogdata.Name ? "" : "animate-pulse"}`}>{dialogdata.Name ? dialogdata.Name : "Loading"}</span>
                   </span>
 
                   <span className="flex flex-col bg-purple-50 dark:bg-purple-900/30 p-3 rounded-md shadow-sm">
-                    <span className="text-purple-600 dark:text-purple-300 font-medium">Book Name:</span>
-                    <span className="text-gray-900 dark:text-white font-semibold">Clean Code</span>
+                    <span className={`text-purple-600 dark:text-purple-300 font-medium ${dialogdata.BookTitle ? "" : "animate-pulse"}}`}>Book Name:</span>
+                    <span className={`text-gray-900 dark:text-white font-semibold ${dialogdata.BookTitle ? "" : "animate-pulse"}`}>{dialogdata.BookTitle ? dialogdata.BookTitle : "Loading"}</span>
                   </span>
 
                   <span className="flex flex-col bg-yellow-50 dark:bg-yellow-900/30 p-3 rounded-md shadow-sm">
-                    <span className="text-yellow-600 dark:text-yellow-300 font-medium">Book Author:</span>
-                    <span className="text-gray-900 dark:text-white font-semibold">Robert C. Martin</span>
+                    <span className={`text-yellow-600 dark:text-yellow-300 font-medium ${dialogdata.Author ? "" : "animate-pulse"} `}>Book Author:</span>
+                    <span className={`text-gray-900 dark:text-white font-semibold ${dialogdata.Author ? "" : "animate-pulse"}`}>{dialogdata.Author ? dialogdata.Author : "Loading"}</span>
                   </span>
 
-                  <span className="flex flex-col bg-pink-50 dark:bg-pink-900/30 p-3 rounded-md shadow-sm">
-                    <span className="text-pink-600 dark:text-pink-300 font-medium">Book Category:</span>
-                    <span className="text-gray-900 dark:text-white font-semibold">Programming</span>
+                  <span className="flex flex-col bg-yellow-50 dark:bg-yellow-900/30 p-3 rounded-md shadow-sm">
+                    <span className={`text-pink-600 dark:text-pink-300 font-medium ${dialogdata.Category ? "" : "animate-pulse"}`}>Book Category:</span>
+                    <span className={`text-gray-900 dark:text-white font-semibold ${dialogdata.Category ? "" : "animate-pulse"}`}>{dialogdata.Category ? dialogdata.Category : "Loading"}</span>
                   </span>
+
 
                   <span className="flex flex-col bg-red-50 dark:bg-red-900/30 p-3 rounded-md shadow-sm">
-                    <span className="text-red-600 dark:text-red-300 font-medium">Copies:</span>
-                    <span className="text-gray-900 dark:text-white font-semibold">1</span>
+                    <span className={`text-red-600 dark:text-red-300 font-medium ${dialogdata.CopiesLent ? "" : "animate-pulse"}`}>Copies:</span>
+                    <span className={`text-gray-900 dark:text-white font-semibold ${dialogdata.CopiesLent ? "" : "animate-pulse"}`}>{dialogdata.CopiesLent ? dialogdata.CopiesLent : "Loading"}</span>
                   </span>
 
                   <span className="flex flex-col bg-indigo-50 dark:bg-indigo-900/30 p-3 rounded-md shadow-sm">
-                    <span className="text-indigo-600 dark:text-indigo-300 font-medium">Issue Date:</span>
-                    <span className="text-gray-900 dark:text-white font-semibold">2025-06-15</span>
+                    <span className={`text-indigo-600 dark:text-indigo-300 font-medium ${dialogdata.IssuedDate ? "" : "animate-pulse"}`}>Issue Date:</span>
+                    <span className={`text-gray-900 dark:text-white font-semibold ${dialogdata.IssuedDate ? "" : "animate-pulse"}`}>{dialogdata.IssuedDate ? dialogdata.IssuedDate.split("T")[0] : "Loading"}</span>
                   </span>
 
                   <span className="flex flex-col bg-orange-50 dark:bg-orange-900/30 p-3 rounded-md shadow-sm">
-                    <span className="text-orange-600 dark:text-orange-300 font-medium">Due Date:</span>
-                    <span className="text-gray-900 dark:text-white font-semibold">2025-06-25</span>
+                    <span className={`text-orange-600 dark:text-orange-300 font-medium ${dialogdata.DueDate ? "" : "animate-pulse"}`}>Due Date:</span>
+                    <span className={`text-gray-900 dark:text-white font-semibold ${dialogdata.DueDate ? "" : "animate-pulse"}`}>{dialogdata.DueDate ? dialogdata.DueDate.split("T")[0] : "Loading"}</span>
                   </span>
 
                   <span className="flex flex-col bg-teal-50 dark:bg-teal-900/30 p-3 rounded-md shadow-sm">
-                    <span className="text-teal-600 dark:text-teal-300 font-medium">Price:</span>
-                    <span className="text-gray-900 dark:text-white font-semibold">Rs. 1500</span>
+                    <span className={`text-teal-600 dark:text-teal-300 font-medium ${dialogdata.Price ? "" : "animate-pulse"}`}>Price:</span>
+                    <span className={`text-gray-900 dark:text-white font-semibold ${dialogdata.Price ? "" : "animate-pulse"}`}>{dialogdata.Price ? `Rs. ${dialogdata.Price}` : "Loading"}</span>
                   </span>
+
                   <span className="flex flex-col bg-indigo-50 dark:bg-indigo-900/30 p-3 rounded-md shadow-sm">
-                    <span className="text-indigo-600 dark:text-indigo-300 font-medium">Phone Number:</span>
-                    <span className="text-gray-900 dark:text-white font-semibold">Rs. 1500</span>
+                    <span className={`text-indigo-600 dark:text-indigo-300 font-medium ${dialogdata.PhoneNumber ? "" : "animate-pulse"}`}>Phone Number:</span>
+                    <span className={`text-gray-900 dark:text-white font-semibold ${dialogdata.PhoneNumber ? "" : "animate-pulse"}`}>{dialogdata.PhoneNumber ? dialogdata.PhoneNumber : "Loading"}</span>
                   </span>
+
                 </span>
 
 
@@ -359,7 +361,7 @@ export default function Lenders() {
 
 
           </DialogDescription>
-          <button onClick={() => { settrigger(false) }} className='absolute top-3 cursor-pointer right-3 bg-gray-300  p-1 rounded-2xl z-40 '>
+          <button onClick={() => { setdialogdata(""); settrigger(false) }} className='absolute top-3 cursor-pointer right-3 bg-gray-300  p-1 rounded-2xl z-40 '>
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width={15}
