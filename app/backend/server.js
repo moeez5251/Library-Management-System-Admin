@@ -2,15 +2,9 @@ const express = require('express');
 const cors = require('cors');
 const session = require('express-session');
 const app = express();
-
+require('dotenv').config();
 app.use(cors());
 app.use(express.json());
-app.use(session({
-  secret: '123',
-  resave: false,
-  saveUninitialized: false,
-}));
-
 const authRoutes = require('./routes/auth');
 app.use('/api/auth', authRoutes);
 const userRoutes = require('./routes/user');
@@ -19,5 +13,7 @@ const booksRoutes = require('./routes/book');
 app.use('/api/books', booksRoutes);
 const lenders = require('./routes/lenders')
 app.use('/api/lenders', lenders);
+const sendEmailRoute = require('./routes/sendEmail');
+app.use('/api', sendEmailRoute);
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`Server running on http://localhost:${PORT}`));
