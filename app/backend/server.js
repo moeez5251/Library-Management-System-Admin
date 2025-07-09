@@ -15,5 +15,9 @@ const lenders = require('./routes/lenders')
 app.use('/api/lenders', lenders);
 const sendEmailRoute = require('./routes/sendEmail');
 app.use('/api', sendEmailRoute);
+app.get('/', (req, res) => {
+  res.send('✅ App is alive!');
+});
+
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`Server running on http://localhost:${PORT}`));
