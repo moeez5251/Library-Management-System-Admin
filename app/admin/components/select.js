@@ -34,7 +34,7 @@ const ComboBox = ({ options = [], value, onChange }) => {
           </Button>
         </PopoverTrigger>
 
-        <PopoverContent side="left" align="center" className=" p-0">
+        <PopoverContent side="left" align="center"  className="w-fit p-2">
           <Command>
             <CommandGroup>
               {options.map((option) => (

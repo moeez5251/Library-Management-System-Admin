@@ -1,22 +1,22 @@
-const { Resend } = require('resend');
-require('dotenv').config();
 
-const resend = new Resend(process.env.RESEND_API_KEY);
+const nodemailer = require('nodemailer');
 
-const sendEmail = async (to, subject, html) => {
-  try {
-    const response = await resend.emails.send({
-      from: `XLMS <onboarding@resend.dev>`, 
-      to,
-      subject,
-      html,
-    });
+const transporter = nodemailer.createTransport({
+  service: 'gmail',
+  auth: {
+    user: process.env.Email,
+    pass: process.env.Password,
+  },
+});
 
-    return response.message;
-  } catch (error) {
-    console.error('Resend email error:', error);
-    throw error;
-  }
+const sendEmail = async (to, subject, text, html) => {
+  return transporter.sendMail({
+    from: `"XLMS Support" <${process.env.Email}>`,
+    to,
+    subject,
+    text,
+    html,
+  });
 };
 
 module.exports = { sendEmail };

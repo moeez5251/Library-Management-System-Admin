@@ -17,7 +17,7 @@ export function DatePicker({label, date, onChange,disabled="" }) {
 
   return (
     <div className="flex flex-col gap-3">
-      <Label htmlFor="date" className="px-1 font-semibold text-sm">
+      <Label htmlFor="date" className="px-1 font-semibold text-sm gap-1">
         {label}
       </Label>
       <Popover open={open} onOpenChange={setOpen}>

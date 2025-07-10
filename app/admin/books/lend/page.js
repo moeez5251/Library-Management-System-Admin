@@ -5,6 +5,7 @@ import { Toaster } from "@/components/ui/sonner"
 import { useState, useEffect } from 'react'
 import ComboBox from '../../components/select'
 import { DatePicker } from '../../components/datepicker'
+import { Asterisk } from 'lucide-react'
 const Lend = () => {
     const [bookinfo, setbookinfo] = useState({
         Book_Title: "",
@@ -14,8 +15,23 @@ const Lend = () => {
     const [Booktitle, setBooktitle] = useState("")
     const [BookCategory, setBookCategory] = useState("")
     const [Author, setAuthor] = useState("")
-    const [LendingDate, setLendingDate] = useState("")
+    const [LendingDate, setLendingDate] = useState(new Date)
     const [DueDate, setDueDate] = useState("")
+    const [role, setRole] = useState("Strandard User")
+    const [inputs, setInputs] = useState({
+        Lender_name: "",
+        Email: "",
+        Phone: "",
+        Book_Title: "",
+        Catogery: "",
+        Author: "",
+        Lending_Date: "",
+        Due_Date: "",
+        Copies: "",
+        Fine: "",
+        Role: ""
+    })
+
     useEffect(() => {
         (async function fetchTitles() {
             const data = await fetch("http://localhost:5000/api/books/col", {
@@ -62,16 +78,34 @@ const Lend = () => {
         }
     }, [])
     useEffect(() => {
-        console.log(Booktitle, BookCategory, Author);
-
+        setInputs({
+            ...inputs,
+            Book_Title: Booktitle,
+            Catogery: BookCategory,
+            Author: Author,
+            Lending_Date: LendingDate,
+            Due_Date: DueDate,
+            Role: role
+        })
         return () => {
 
         }
-    }, [Booktitle, BookCategory, Author])
-
+    }, [Booktitle, BookCategory, Author, LendingDate, DueDate, role])
+    const handleinput = (e) => {
+        setInputs({ ...inputs, [e.target.name]: e.target.value })
+    }
+    useEffect(() => {
+    console.log(inputs);
+    
+      return () => {
+        
+      }
+    }, [inputs])
+    
     return (
         <>
             <Toaster />
+            <h1 className='font-semibold text-xl mx-4 my-3'>Lend a Book</h1>
             <div className='bg-white mx-4 my-3 py-5 px-8 pb-12 rounded-md '>
                 <div className='border-b-2 pb-1'>
                     <h2 className='font-semibold text-xl'>User Information</h2>
@@ -79,29 +113,29 @@ const Lend = () => {
                 <div className='my-3 flex items-center justify-between'>
                     <div className='flex flex-col gap-2 items-start'>
 
-                        <div className='font-semibold  flex items-start gap-1 text-sm'>
-                            Lender Name
+                        <div className='font-semibold  flex items-center gap-1 text-sm'>
+                            Lender Name <Asterisk size={13} color='red' />
                         </div>
                         <div>
-                            <input className='border px-2 py-1 rounded-sm placeholder:text-sm text-base' type="text" name="User_Name" id="User_Name" />
+                            <input onChange={handleinput} value={inputs.Lender_name} className='border px-2 py-1 rounded-sm placeholder:text-sm text-base' type="text" name="Lender_name" id="User_Name" />
                         </div>
                     </div>
                     <div className='flex flex-col gap-2 items-start'>
 
-                        <div className='font-semibold  flex items-start gap-1 text-sm'>
-                            Email
+                        <div className='font-semibold  flex items-center gap-1 text-sm'>
+                            Email <Asterisk size={13} color='red' />
                         </div>
                         <div>
-                            <input className='border px-2 py-1 rounded-sm placeholder:text-sm text-base' type="text" name="Email" id="Email" />
+                            <input onChange={handleinput} value={inputs.Email} className='border px-2 py-1 rounded-sm placeholder:text-sm text-base' type="text" name="Email" id="Email" />
                         </div>
                     </div>
                     <div className='flex flex-col gap-2 items-start'>
 
-                        <div className='font-semibold  flex items-start gap-1 text-sm'>
-                            Phone Number
+                        <div className='font-semibold  flex items-center gap-1 text-sm'>
+                            Phone Number <Asterisk size={13} color='red' />
                         </div>
                         <div>
-                            <input className='border px-2 py-1 rounded-sm placeholder:text-sm text-base' type="text" name="Phone" id="Phone" />
+                            <input onChange={handleinput} value={inputs.Phone} className='border px-2 py-1 rounded-sm placeholder:text-sm text-base' type="text" name="Phone" id="Phone" />
                         </div>
                     </div>
                 </div>
@@ -111,22 +145,22 @@ const Lend = () => {
                 <div className='my-3 flex items-center justify-between'>
                     <div className='flex flex-col gap-2 items-start'>
 
-                        <div className='font-semibold  flex items-start gap-1 text-sm'>
-                            Book Title
+                        <div className='font-semibold  flex items-center gap-1 text-sm'>
+                            Book Title <Asterisk size={13} color='red' />
                         </div>
                         <ComboBox value={Booktitle} onChange={setBooktitle} options={bookinfo.Book_Title ? bookinfo.Book_Title : []} />
                     </div>
                     <div className='flex flex-col gap-2 items-start'>
 
-                        <div className='font-semibold  flex items-start gap-1 text-sm'>
-                            Genre/Category
+                        <div className='font-semibold  flex items-center gap-1 text-sm'>
+                            Genre/Category <Asterisk size={13} color='red' />
                         </div>
                         <ComboBox value={BookCategory} onChange={setBookCategory} options={bookinfo.Category ? bookinfo.Category : []} />
                     </div>
                     <div className='flex flex-col gap-2 items-start'>
 
-                        <div className='font-semibold  flex items-start gap-1 text-sm'>
-                            Author
+                        <div className='font-semibold  flex items-center gap-1 text-sm'>
+                            Author <Asterisk size={13} color='red' />
                         </div>
                         <ComboBox value={Author} onChange={setAuthor} options={bookinfo.Author ? bookinfo.Author : []} />
                     </div>
@@ -135,20 +169,46 @@ const Lend = () => {
                     <h2 className='font-semibold text-xl'>Lending Details</h2>
                 </div>
                 <div className='my-3 flex items-center justify-between'>
-                    <div className='flex flex-col gap-2 items-start'>
-                        <DatePicker label="Lending Date" date={LendingDate} onChange={setLendingDate} disabled={{ after: new Date(DueDate) - 1 }} />
+                    <div className='flex flex-col  items-center'>
+                        <DatePicker label="Lending Date"
+                            date={LendingDate} onChange={setLendingDate} disabled={{ after: new Date(DueDate) - 1 }} />
                     </div>
                     <div className='flex flex-col gap-2 items-start'>
-                        <DatePicker label="Due Date" date={DueDate} onChange={setDueDate} disabled={{ before: LendingDate.length === 0 ? new Date() : new Date(LendingDate) }} />
+                        <DatePicker label={
+                            <>
+                                Due Date <Asterisk size={13} color="red" /></>} date={DueDate} onChange={setDueDate} disabled={{ before: LendingDate.length === 0 ? new Date() : new Date(LendingDate) }} />
 
                     </div>
                     <div className='flex flex-col gap-2 items-start'>
 
-                        <div className='font-semibold  flex items-start gap-1 text-sm'>
-                            Copies Lent
+                        <div className='font-semibold  flex items-center gap-1 text-sm'>
+                            Copies Lent <Asterisk size={13} color='red' />
                         </div>
                         <div>
-                            <input className='border px-2 py-1 rounded-sm placeholder:text-sm text-base' type="text" name="Copies" id="Copies" />
+                            <input onChange={handleinput} value={inputs.Copies} className='border px-2 py-1 rounded-sm placeholder:text-sm text-base' type="text" name="Copies" id="Copies" />
+                        </div>
+                    </div>
+                </div>
+                <div className='border-b-2 pb-1 mt-8'>
+                    <h2 className='font-semibold text-xl'>Additional Information</h2>
+                </div>
+                <div className='my-3 flex items-center justify-between'>
+                    <div className='flex flex-col gap-2 items-start'>
+
+                        <div className='font-semibold  flex items-center gap-1 text-sm'>
+                            Per Day Fine <Asterisk size={13} color='red' />
+                        </div>
+                        <div>
+                            <input onChange={handleinput} value={inputs.Fine} className='border px-2 py-1 rounded-sm placeholder:text-sm text-base' type="text" name="Fine" id="Fine" />
+                        </div>
+                    </div>
+                    <div className='flex flex-col gap-2 items-start'>
+
+                        <div className='font-semibold  flex items-center gap-1 text-sm'>
+                            User Role
+                        </div>
+                        <div>
+                            <ComboBox value={role} onChange={setRole} options={['Admin', 'Standard User']} />
                         </div>
                     </div>
                 </div>
