@@ -1,13 +1,15 @@
+require("dotenv").config();
 const sql = require('mssql');
 
+
 const config = {
-  user: 'moeez5251_SQLLogin_1',
-  password: 'wq5nj3hluu',
-  server: 'moeez5251.mssql.somee.com', // SQL Server address
-  database: 'moeez5251',
+  user: process.env.user,
+  password: process.env.DB_PASS,
+  server: process.env.server,
+  database: process.env.database,
   options: {
-    encrypt: true, // Required for Azure/Somee
-    trustServerCertificate: true, // Matches TrustServerCertificate=True
+    encrypt: true,
+    trustServerCertificate: true,
   },
   pool: {
     max: 10,

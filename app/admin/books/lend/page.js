@@ -6,6 +6,7 @@ import { useState, useEffect } from 'react'
 import ComboBox from '../../components/select'
 import { DatePicker } from '../../components/datepicker'
 import { Asterisk } from 'lucide-react'
+import Link from 'next/link'
 const Lend = () => {
     const [bookinfo, setbookinfo] = useState({
         Book_Title: "",
@@ -18,6 +19,7 @@ const Lend = () => {
     const [LendingDate, setLendingDate] = useState(new Date)
     const [DueDate, setDueDate] = useState("")
     const [role, setRole] = useState("Strandard User")
+    const [disabledbtn, setdisabledbtn] = useState(true)
     const [inputs, setInputs] = useState({
         Lender_name: "",
         Email: "",
@@ -31,7 +33,6 @@ const Lend = () => {
         Fine: "",
         Role: ""
     })
-
     useEffect(() => {
         (async function fetchTitles() {
             const data = await fetch("http://localhost:5000/api/books/col", {
@@ -95,13 +96,18 @@ const Lend = () => {
         setInputs({ ...inputs, [e.target.name]: e.target.value })
     }
     useEffect(() => {
-    console.log(inputs);
-    
-      return () => {
-        
-      }
+        for (const key in inputs) {
+            if (inputs[key] === "") {
+                setdisabledbtn(true)
+                return
+            }
+        }
+        setdisabledbtn(false)
+        return () => {
+
+        }
     }, [inputs])
-    
+
     return (
         <>
             <Toaster />
@@ -212,6 +218,10 @@ const Lend = () => {
                         </div>
                     </div>
                 </div>
+            </div>
+            <div className='w-full flex justify-center gap-3 my-4'>
+                <Link href="/admin/books" prefetch={true} className='bg-gray-300 px-4 py-2 font-[600] rounded-md  cursor-pointer scale-95 hover:scale-100 transition-transform'>Cancel</Link>
+                <button disabled={disabledbtn} className='bg-[#6841c4] text-white px-4 py-2  rounded-md  cursor-pointer scale-95 hover:scale-100 transition-transform disabled:bg-gray-300 disabled:cursor-auto disabled:pointer-events-none'>Lend a book</button>
             </div>
         </>
     )
