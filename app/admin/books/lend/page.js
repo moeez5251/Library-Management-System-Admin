@@ -5,20 +5,22 @@ import { Toaster } from "@/components/ui/sonner"
 import { useState, useEffect } from 'react'
 import ComboBox from '../../components/select'
 import { DatePicker } from '../../components/datepicker'
-import { Asterisk } from 'lucide-react'
+import { Asterisk, Trash, CircleAlert } from 'lucide-react'
 import Link from 'next/link'
+import { validate } from 'react-email-validator'
 const Lend = () => {
     const [bookinfo, setbookinfo] = useState({
         Book_Title: "",
         Category: "",
         Author: "",
+        fullresponse: ""
     })
     const [Booktitle, setBooktitle] = useState("")
     const [BookCategory, setBookCategory] = useState("")
     const [Author, setAuthor] = useState("")
     const [LendingDate, setLendingDate] = useState(new Date)
     const [DueDate, setDueDate] = useState("")
-    const [role, setRole] = useState("Strandard User")
+    const [role, setRole] = useState("Standard User")
     const [disabledbtn, setdisabledbtn] = useState(true)
     const [inputs, setInputs] = useState({
         Lender_name: "",
@@ -33,6 +35,7 @@ const Lend = () => {
         Fine: "",
         Role: ""
     })
+    const [issubmitting, setissubmitting] = useState(false)
     useEffect(() => {
         (async function fetchTitles() {
             const data = await fetch("http://localhost:5000/api/books/col", {
@@ -68,9 +71,9 @@ const Lend = () => {
                 setbookinfo({
                     Book_Title: filtered_title.map(item => item.Book_Title),
                     Category: filtered_category.map(item => item.Category),
-                    Author: filtered_author.map(item => item.Author)
+                    Author: filtered_author.map(item => item.Author),
+                    fullresponse: result
                 })
-
             }
         })()
 
@@ -107,7 +110,107 @@ const Lend = () => {
 
         }
     }, [inputs])
+    const handleSubmit = async (e) => {
+        if (!validate(inputs.Email)) {
+            toast.custom((t) => (
+                <div className={`bg-red-700 text-white p-4 rounded-md shadow-lg flex items-center gap-3
+                ${t.visible ? 'animate-enter' : 'animate-leave'}`}>
+                    <CircleAlert size={20} />
+                    <p className='text-sm'>Please enter a valid email address.</p>
+                </div>
+            ));
+            return
+        }
+        setissubmitting(true)
+        try {
+            const Due=new Date(DueDate).toLocaleDateString("en-CA")
+            const data = await fetch("http://localhost:5000/api/lenders/insert", {
+                method: "POST",
+                headers: {
+                    "Content-type": "application/json; charset=UTF-8"
+                },
+                body: JSON.stringify({
+                    Lendername: inputs.Lender_name,
+                    Email: inputs.Email,
+                    PhoneNumber: inputs.Phone,
+                    BookTitle: inputs.Book_Title,
+                    Category: inputs.Catogery,
+                    Author: inputs.Author,
+                    IssuedDate: LendingDate.toLocaleDateString("en-CA"),
+                    DueDate: Due,
+                    CopiesLent: Number(inputs.Copies),
+                    Fine: Number(inputs.Fine),
+                    Role: inputs.Role,
 
+                })
+            })
+            if (!data.ok) {
+                const errorData = await data.json();
+                if(errorData.error) {
+                    toast.error(errorData.error)
+                    
+                }
+                console.log(errorData);
+                setissubmitting(false)
+                return
+            }
+            const response = await data.json()
+            toast(response.message)
+            setissubmitting(false)
+        }
+        catch(e) {
+            toast("Unable to lend book")
+            setissubmitting(false)
+        }
+    }
+    const handlebookchange = (e) => {
+        setBooktitle(e)
+        setbookinfo({
+            ...bookinfo,
+            Category: bookinfo.fullresponse.filter(item => item.Book_Title === e).map(item => item.Category),
+            Author: bookinfo.fullresponse.filter(item => item.Book_Title === e).map(item => item.Author),
+        })
+        setBookCategory(bookinfo.fullresponse.filter(item => item.Book_Title === e).map(item => item.Category)[0])
+        setAuthor(bookinfo.fullresponse.filter(item => item.Book_Title === e).map(item => item.Author)[0])
+    }
+    const handlecategorychange = (e) => {
+        setBookCategory(e)
+        setbookinfo({
+            ...bookinfo,
+            Author: bookinfo.fullresponse.filter(item => item.Category === e).map(item => item.Author),
+            Book_Title: bookinfo.fullresponse.filter(item => item.Category === e).map(item => item.Book_Title),
+        })
+        setBooktitle(bookinfo.fullresponse.filter(item => item.Category === e).map(item => item.Book_Title)[0])
+        setAuthor(bookinfo.fullresponse.filter(item => item.Category === e).map(item => item.Author)[0])
+    }
+    const handleauthorchange = (e) => {
+        setAuthor(e)
+        setbookinfo({
+            ...bookinfo,
+            Book_Title: bookinfo.fullresponse.filter(item => item.Author === e).map(item => item.Book_Title),
+            Category: bookinfo.fullresponse.filter(item => item.Author === e).map(item => item.Category),
+        })
+        setBooktitle(bookinfo.fullresponse.filter(item => item.Author === e).map(item => item.Book_Title)[0])
+        setBookCategory(bookinfo.fullresponse.filter(item => item.Author === e).map(item => item.Category)[0])
+    }
+    const reset = () => {
+        setbookinfo({
+            ...bookinfo,
+            Book_Title: bookinfo.fullresponse.filter(
+                (item, index, self) =>
+                    self.findIndex(obj => obj.Book_Title === item.Book_Title) === index
+            ).map(item => item.Book_Title),
+            Category: bookinfo.fullresponse.filter(
+                (item, index, self) =>
+                    self.findIndex(obj => obj.Category === item.Category) === index
+
+            ).map(item => item.Category),
+            Author: bookinfo.fullresponse.filter(
+                (item, index, self) =>
+                    self.findIndex(obj => obj.Author === item.Author) === index
+            ).map(item => item.Author),
+        })
+    }
     return (
         <>
             <Toaster />
@@ -154,21 +257,43 @@ const Lend = () => {
                         <div className='font-semibold  flex items-center gap-1 text-sm'>
                             Book Title <Asterisk size={13} color='red' />
                         </div>
-                        <ComboBox value={Booktitle} onChange={setBooktitle} options={bookinfo.Book_Title ? bookinfo.Book_Title : []} />
+                        <div className='flex items-center gap-2'>
+
+                            <ComboBox value={Booktitle} onChange={handlebookchange} options={bookinfo.Book_Title ? bookinfo.Book_Title : []} />
+                            {
+                                Booktitle.length > 0 &&
+                                <Trash onClick={() => { setBooktitle(''); reset() }} className='cursor-pointer' color='#ff0000' size={20} />
+                            }
+
+                        </div>
                     </div>
                     <div className='flex flex-col gap-2 items-start'>
 
                         <div className='font-semibold  flex items-center gap-1 text-sm'>
                             Genre/Category <Asterisk size={13} color='red' />
                         </div>
-                        <ComboBox value={BookCategory} onChange={setBookCategory} options={bookinfo.Category ? bookinfo.Category : []} />
+                        <div className='flex items-center gap-2'>
+
+                            <ComboBox value={BookCategory} onChange={handlecategorychange} options={bookinfo.Category ? bookinfo.Category : []} />
+                            {
+                                BookCategory.length > 0 &&
+                                <Trash onClick={() => { setBookCategory(''); reset() }} className='cursor-pointer' color='#ff0000' size={20} />
+                            }
+                        </div>
                     </div>
                     <div className='flex flex-col gap-2 items-start'>
 
                         <div className='font-semibold  flex items-center gap-1 text-sm'>
                             Author <Asterisk size={13} color='red' />
                         </div>
-                        <ComboBox value={Author} onChange={setAuthor} options={bookinfo.Author ? bookinfo.Author : []} />
+                        <div className='flex items-center gap-2'>
+
+                            <ComboBox value={Author} onChange={handleauthorchange} options={bookinfo.Author ? bookinfo.Author : []} />
+                            {
+                                Author.length > 0 &&
+                                <Trash onClick={() => { setAuthor(''); reset() }} className='cursor-pointer' color='#ff0000' size={20} />
+                            }
+                        </div>
                     </div>
                 </div>
                 <div className='border-b-2 pb-1 mt-8'>
@@ -221,7 +346,14 @@ const Lend = () => {
             </div>
             <div className='w-full flex justify-center gap-3 my-4'>
                 <Link href="/admin/books" prefetch={true} className='bg-gray-300 px-4 py-2 font-[600] rounded-md  cursor-pointer scale-95 hover:scale-100 transition-transform'>Cancel</Link>
-                <button disabled={disabledbtn} className='bg-[#6841c4] text-white px-4 py-2  rounded-md  cursor-pointer scale-95 hover:scale-100 transition-transform disabled:bg-gray-300 disabled:cursor-auto disabled:pointer-events-none'>Lend a book</button>
+                {
+                    !issubmitting &&
+                    <button onClick={handleSubmit} disabled={disabledbtn} className='bg-[#6841c4] text-white px-4 py-2  rounded-md  cursor-pointer scale-95 hover:scale-100 transition-transform disabled:bg-gray-300 disabled:cursor-auto disabled:pointer-events-none'>Lend a book</button>
+                }
+                {
+                    issubmitting &&
+                    <button disabled className='bg-[#6841c4] text-white px-4 py-2  rounded-md  cursor-pointer scale-95 hover:scale-100 transition-transform disabled:bg-gray-300 disabled:cursor-auto disabled:pointer-events-none'>Lending...</button>
+                }
             </div>
         </>
     )

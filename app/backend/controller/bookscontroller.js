@@ -121,8 +121,8 @@ exports.deletebook = async (req, res) => {
     }
 };
 exports.getbycolumnname = async (req, res) => {
-    const {column}= req.body;
-    if ( column.length === 0) {
+    const { column } = req.body;
+    if (column.length === 0) {
         return res.status(400).json({ error: 'All fields are required' });
     }
     try {
