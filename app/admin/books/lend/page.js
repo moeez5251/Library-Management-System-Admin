@@ -8,6 +8,7 @@ import { DatePicker } from '../../components/datepicker'
 import { Asterisk, Trash, CircleAlert } from 'lucide-react'
 import Link from 'next/link'
 import { validate } from 'react-email-validator'
+import { set } from 'date-fns'
 const Lend = () => {
     const [bookinfo, setbookinfo] = useState({
         Book_Title: "",
@@ -123,7 +124,7 @@ const Lend = () => {
         }
         setissubmitting(true)
         try {
-            const Due=new Date(DueDate).toLocaleDateString("en-CA")
+            const Due = new Date(DueDate).toLocaleDateString("en-CA")
             const data = await fetch("http://localhost:5000/api/lenders/insert", {
                 method: "POST",
                 headers: {
@@ -146,9 +147,9 @@ const Lend = () => {
             })
             if (!data.ok) {
                 const errorData = await data.json();
-                if(errorData.error) {
+                if (errorData.error) {
                     toast.error(errorData.error)
-                    
+
                 }
                 console.log(errorData);
                 setissubmitting(false)
@@ -157,8 +158,21 @@ const Lend = () => {
             const response = await data.json()
             toast(response.message)
             setissubmitting(false)
+            setInputs({
+                Lender_name: "",
+                Email: "",
+                Phone: "",
+                Copies: "",
+                Fine: "",
+                Role: "Standard User"
+            })
+            setBooktitle("")
+            setBookCategory("")
+            setAuthor("")
+            setLendingDate(new Date)
+            setDueDate("")
         }
-        catch(e) {
+        catch (e) {
             toast("Unable to lend book")
             setissubmitting(false)
         }
@@ -316,7 +330,7 @@ const Lend = () => {
                             Copies Lent <Asterisk size={13} color='red' />
                         </div>
                         <div>
-                            <input onChange={handleinput} value={inputs.Copies} className='border px-2 py-1 rounded-sm placeholder:text-sm text-base' type="text" name="Copies" id="Copies" />
+                            <input min={1} onChange={handleinput} value={inputs.Copies} className='border px-2 py-1 rounded-sm placeholder:text-sm text-base' type="number" name="Copies" id="Copies" />
                         </div>
                     </div>
                 </div>
@@ -330,7 +344,7 @@ const Lend = () => {
                             Per Day Fine <Asterisk size={13} color='red' />
                         </div>
                         <div>
-                            <input onChange={handleinput} value={inputs.Fine} className='border px-2 py-1 rounded-sm placeholder:text-sm text-base' type="text" name="Fine" id="Fine" />
+                            <input min={0} onChange={handleinput} value={inputs.Fine} className='border px-2 py-1 rounded-sm placeholder:text-sm text-base' type="number" name="Fine" id="Fine" />
                         </div>
                     </div>
                     <div className='flex flex-col gap-2 items-start'>

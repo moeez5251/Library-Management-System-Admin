@@ -43,13 +43,11 @@ exports.addbook = async (req, res) => {
     try {
 
         const data = req.body
-        console.log(data);
         const pool = await poolPromise;
 
         const existingUserResult = await pool.request()
             .input('email', data.Email)
             .query('SELECT COUNT(*) AS count FROM users WHERE email = @email');
-
         if (existingUserResult.recordset[0].count > 0) {
             return res.status(400).json({ error: 'User with this email already exists' });
         }
@@ -60,8 +58,13 @@ exports.addbook = async (req, res) => {
             .input('Book_Title', data.BookTitle)
             .input('Author', data.Author)
             .input('Category', data.Category)
-            .query("select Price from books where Book_Title=@Book_Title and Author=@Author and Category=@Category")
+            .query("select Price,Book_ID,Total_Copies from books where Book_Title=@Book_Title and Author=@Author and Category=@Category")
         const Price = p.recordset[0].Price
+        const BookID = p.recordset[0].Book_ID
+        const Copies = p.recordset[0].Total_Copies
+        if (Copies < data.CopiesLent) {
+            return res.status(400).json({ error: 'Not enough copies available to lent' });
+        }
         const result = await pool
             .request()
             .input('User_id', userId)
@@ -90,7 +93,8 @@ exports.addbook = async (req, res) => {
             .input('CopiesLent', data.CopiesLent)
             .input('FinePerDay', data.Fine)
             .input('Price', Price)
-            .query(`INSERT INTO borrower (user_id, Name, PhoneNumber, BookTitle, Author, Category, IssuedDate, DueDate, CopiesLent, FinePerDay, Price) VALUES (@user_id, @Name, @PhoneNumber, @BookTitle, @Author, @Category, @IssuedDate, @DueDate, @CopiesLent, @FinePerDay, @Price)`);
+            .input('BookID', BookID)
+            .query(`INSERT INTO borrower (user_id, Name, PhoneNumber, BookTitle, Author, Category, IssuedDate, DueDate, CopiesLent, FinePerDay, Price, Book_ID) VALUES (@user_id, @Name, @PhoneNumber, @BookTitle, @Author, @Category, @IssuedDate, @DueDate, @CopiesLent, @FinePerDay, @Price, @BookID)`);
 
         const text = `
         Hello ${data.Lendername},
@@ -112,6 +116,7 @@ exports.addbook = async (req, res) => {
         Copies Lent: ${data.CopiesLent}
         Fine Per Day: Rs. ${data.Fine}
         Book Price: Rs. ${Price}
+        Total Cost : Rs. ${Price * data.CopiesLent}
 
         Please keep your login credentials safe and return the book on or before the due date to avoid fines.
 
@@ -192,6 +197,7 @@ exports.addbook = async (req, res) => {
             <p class="info">Copies Lent: <strong>${data.CopiesLent}</strong></p>
             <p class="info">Fine Per Day: <strong>Rs. ${data.Fine}</strong></p>
             <p class="info">Book Price: <strong>Rs. ${Price}</strong></p>
+            <p class="info">Total Cost: <strong>Rs. ${Price * data.CopiesLent}</strong></p>
 
             <a style="color: white; text-decoration: none;" href="https://xlms-admin.netlify.app" class="button">Log In Now</a>
 
