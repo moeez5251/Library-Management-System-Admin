@@ -28,7 +28,8 @@ exports.inserting = async (req, res) => {
             .input('Status', Status)
             .input('Pages', Pages)
             .input('Price', Price)
-            .query('INSERT INTO Books (Book_ID, Book_Title, Author, Category, Language, Total_Copies, Status,Pages,Price) VALUES (@Book_ID, @Book_Title, @Author, @Category, @Language, @Total_Copies, @Status,@Pages,@Price)');
+            .input('Available', Total_Copies)
+            .query('INSERT INTO Books (Book_ID, Book_Title, Author, Category, Language, Total_Copies, Status,Pages,Price,Available) VALUES (@Book_ID, @Book_Title, @Author, @Category, @Language, @Total_Copies, @Status,@Pages,@Price,@Available)');
 
         res.status(201).json({ message: 'Book Added successfully' });
     } catch (err) {
@@ -75,6 +76,11 @@ exports.updatebook = async (req, res) => {
     }
     try {
         const pool = await poolPromise;
+        const old = await pool
+            .request()
+            .input('Book_ID', Book_ID)
+            .query('SELECT Available FROM Books WHERE Book_ID = @Book_ID');
+        const oldavailable = old.recordset[0].Available
         const result = await pool
             .request()
             .input('Book_ID', Book_ID)
@@ -86,7 +92,8 @@ exports.updatebook = async (req, res) => {
             .input('Status', Status)
             .input('Pages', Pages)
             .input('Price', Price)
-            .query('UPDATE Books SET Book_Title = @Book_Title, Author = @Author, Category = @Category, Language = @Language, Total_Copies = @Total_Copies, Status = @Status, Pages = @Pages, Price = @Price WHERE Book_ID = @Book_ID');
+            .input('Available', (Number(oldavailable) + Number(Total_Copies)).toString())
+            .query('UPDATE Books SET Book_Title = @Book_Title, Author = @Author, Category = @Category, Language = @Language, Total_Copies = @Total_Copies, Status = @Status, Pages = @Pages, Price = @Price , Available = @Available WHERE Book_ID = @Book_ID');
         res.json({ message: 'Book updated successfully' });
     } catch (err) {
         console.error('Error updating book:', err);

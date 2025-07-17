@@ -128,6 +128,10 @@ export default function Books() {
       header: 'Total Copies',
       cell: info => info.getValue(),
     }),
+    columnHelper.accessor('Available', {
+      header: 'Available',
+      cell: info => info.getValue(),
+    }),
     columnHelper.accessor('Status', {
       header: 'Status',
       cell: ({ row }) => {

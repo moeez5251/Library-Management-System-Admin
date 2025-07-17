@@ -43,43 +43,80 @@ exports.addbook = async (req, res) => {
     try {
 
         const data = req.body
+        let existinguser = false
+        let totalaccountcost = data.Price
         const pool = await poolPromise;
 
         const existingUserResult = await pool.request()
             .input('email', data.Email)
             .query('SELECT COUNT(*) AS count FROM users WHERE email = @email');
         if (existingUserResult.recordset[0].count > 0) {
-            return res.status(400).json({ error: 'User with this email already exists' });
+            existinguser = true
         }
-        const userId = `${data.Lendername[0].toUpperCase()}${uuidv4().replace(/-/g, "").slice(0, 8)}`;
+        let userId = `${data.Lendername[0].toUpperCase()}${uuidv4().replace(/-/g, "").slice(0, 8)}`;
         const password = uuidv4().replace(/-/g, "").slice(0, 8) + uuidv4().replace(/-/g, "").slice(0, 8);
         const hashedPassword = await bcrypt.hash(password, 10);
         const p = await pool.request()
             .input('Book_Title', data.BookTitle)
             .input('Author', data.Author)
             .input('Category', data.Category)
-            .query("select Price,Book_ID,Total_Copies from books where Book_Title=@Book_Title and Author=@Author and Category=@Category")
+            .query("select Price,Book_ID,Available from books where Book_Title=@Book_Title and Author=@Author and Category=@Category")
         const Price = p.recordset[0].Price
         const BookID = p.recordset[0].Book_ID
-        const Copies = p.recordset[0].Total_Copies
+        const Copies = p.recordset[0].Available
         if (Copies < data.CopiesLent) {
-            return res.status(400).json({ error: 'Not enough copies available to lent' });
+            return res.status(400).json({ error: 'Not enough copies available' });
         }
-        const result = await pool
-            .request()
-            .input('User_id', userId)
-            .input('User_Name', data.Lendername)
-            .input('Email', data.Email)
-            .input('Role', data.Role)
-            .input('Membership_Type', 'English')
-            .input('Password', hashedPassword)
-            .input('Cost', Price)
-            .input('Status', 'Active')
-            .query(`
+        else {
+            const update = await pool
+                .request()
+                .input('Book_ID', BookID)
+                .input('Available', (Number(Copies) - Number(data.CopiesLent)).toString())
+                .query(` UPDATE books 
+                SET 
+                Total_Copies = @Available,
+                Status = CASE 
+                            WHEN @Available = 0 THEN 'Out of stock' 
+                            ELSE 'Available' 
+                        END
+                OUTPUT INSERTED.Available, INSERTED.Status
+                WHERE Book_ID = @Book_ID`)
+        }
+        if (!existinguser) {
+            await pool
+                .request()
+                .input('User_id', userId)
+                .input('User_Name', data.Lendername)
+                .input('Email', data.Email)
+                .input('Role', data.Role)
+                .input('Membership_Type', 'English')
+                .input('Password', hashedPassword)
+                .input('Cost', Price)
+                .input('Status', 'Active')
+                .query(`
                 INSERT INTO users (User_id, User_Name, Email, Role, Membership_Type, Password, Cost, Status)
                 OUTPUT INSERTED.User_id
                 VALUES (@User_id, @User_Name, @Email, @Role, @Membership_Type, @Password, @Cost, @Status);
             `);
+
+        }
+        else {
+            const id = await pool
+                .request()
+                .input('email', data.Email)
+                .query('Select User_id,Cost from users where email=@email')
+            userId = id.recordset[0].User_id
+            const updatecost = await pool
+                .request()
+                .input('User_id', userId)
+                .input('Cost', (Number(id.recordset[0].Cost) + Number(Price) * data.CopiesLent).toString())
+                .query(`  UPDATE users 
+                SET Cost = @Cost 
+                OUTPUT INSERTED.Cost
+                WHERE User_id = @User_id`)
+            totalaccountcost = updatecost.recordset[0].Cost
+            console.log(totalaccountcost);
+        }
         const insert = await pool
             .request()
             .input('user_id', userId)
@@ -104,8 +141,7 @@ exports.addbook = async (req, res) => {
         Login Credentials:
         ---------------------
         Email: ${data.Email}
-        Password: ${password}
-
+        Total Account Cost: Rs. ${totalaccountcost}
         Book Issued Details:
         ---------------------
         Title: ${data.BookTitle}
@@ -186,8 +222,8 @@ exports.addbook = async (req, res) => {
 
             <p class="section-title">Login Credentials</p>
             <p class="info">Email: <strong>${data.Email}</strong></p>
-            <p class="info">Password: <strong>${password}</strong></p>
-
+           
+            <p class="info">Total Account Cost: <strong>Rs. ${totalaccountcost}</strong></p>
             <p class="section-title">Book Issued</p>
             <p class="info">Title: <strong>${data.BookTitle}</strong></p>
             <p class="info">Author: <strong>${data.Author}</strong></p>
