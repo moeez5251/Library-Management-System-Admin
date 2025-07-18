@@ -2,6 +2,7 @@ const { poolPromise } = require('../models/db');
 const bcrypt = require("bcrypt");
 const { v4: uuidv4 } = require('uuid');
 const { sendEmail } = require('./mailer');
+const { generatetoken } = require('./tokengenerator')
 exports.getalllenders = async (req, res) => {
     const { API } = req.body;
     if (API !== process.env.XLMS_API) {
@@ -43,6 +44,7 @@ exports.addbook = async (req, res) => {
     try {
 
         const data = req.body
+        console.log(data);
         let existinguser = false
         let totalaccountcost = data.Price
         const pool = await poolPromise;
@@ -132,18 +134,29 @@ exports.addbook = async (req, res) => {
             .input('Price', Price)
             .input('BookID', BookID)
             .query(`INSERT INTO borrower (user_id, Name, PhoneNumber, BookTitle, Author, Category, IssuedDate, DueDate, CopiesLent, FinePerDay, Price, Book_ID) VALUES (@user_id, @Name, @PhoneNumber, @BookTitle, @Author, @Category, @IssuedDate, @DueDate, @CopiesLent, @FinePerDay, @Price, @BookID)`);
-
+        const link = await generatetoken(userId)
         const text = `
         Hello ${data.Lendername},
 
         Your account has been successfully created and the book has been issued. Below are your details:
 
+        ===========================
+        🔐 IMPORTANT SECURITY NOTICE:
+        ===========================
+        Your account has been created with a default password.
+        Please change your password immediately for security purposes.
+
+        Change your password here:
+        https://xlms-admin.netlify.app/change-password
+
+        ===========================
         Login Credentials:
-        ---------------------
+        ---------------------------
         Email: ${data.Email}
         Total Account Cost: Rs. ${totalaccountcost}
+
         Book Issued Details:
-        ---------------------
+        ---------------------------
         Title: ${data.BookTitle}
         Author: ${data.Author}
         Category: ${data.Category}
@@ -152,21 +165,23 @@ exports.addbook = async (req, res) => {
         Copies Lent: ${data.CopiesLent}
         Fine Per Day: Rs. ${data.Fine}
         Book Price: Rs. ${Price}
-        Total Cost : Rs. ${Price * data.CopiesLent}
+        Total Cost: Rs. ${Price * data.CopiesLent}
 
         Please keep your login credentials safe and return the book on or before the due date to avoid fines.
 
-        You can log in at: https://xlms-admin.netlify.app
+        You can log in here after changing your password:
+        https://xlms-admin.netlify.app
 
         If you have any questions, feel free to reach out to us.
 
         Thank you,  
         XLMS
 
+
         `;
 
         const html = `
-        <!DOCTYPE html>
+            <!DOCTYPE html>
         <html>
         <head>
         <meta charset="UTF-8">
@@ -205,25 +220,37 @@ exports.addbook = async (req, res) => {
             color: #777;
             }
             .button {
-            background-color: #4CAF50;
-            color: white;
             padding: 10px 16px;
             text-decoration: none;
             border-radius: 5px;
             display: inline-block;
             margin-top: 15px;
             }
+            .primary-button {
+            background-color: #f44336; /* red for urgency */
+            color: white;
+            }
+            .secondary-button {
+            background-color: #4CAF50;
+            color: white;
+            }
         </style>
         </head>
         <body>
         <div class="container">
             <h2>Welcome, ${data.Lendername}!</h2>
-            <p>Your account has been successfully created and the book has been issued. Here are your details:</p>
+            <p>Your account has been successfully created and the book has been issued.</p>
+
+            <p style="color: #c0392b; font-weight: bold;">
+            For security reasons, please change your password immediately before logging in. All new accounts have a default password set.
+            </p>
+
+            <a href=${link} class="button primary-button">Change Password Now</a>
 
             <p class="section-title">Login Credentials</p>
             <p class="info">Email: <strong>${data.Email}</strong></p>
-           
             <p class="info">Total Account Cost: <strong>Rs. ${totalaccountcost}</strong></p>
+
             <p class="section-title">Book Issued</p>
             <p class="info">Title: <strong>${data.BookTitle}</strong></p>
             <p class="info">Author: <strong>${data.Author}</strong></p>
@@ -235,7 +262,7 @@ exports.addbook = async (req, res) => {
             <p class="info">Book Price: <strong>Rs. ${Price}</strong></p>
             <p class="info">Total Cost: <strong>Rs. ${Price * data.CopiesLent}</strong></p>
 
-            <a style="color: white; text-decoration: none;" href="https://xlms-admin.netlify.app" class="button">Log In Now</a>
+            <a href="https://xlms-admin.netlify.app" class="button secondary-button">Log In After Changing Password</a>
 
             <p class="footer">
             If you did not request this account or book, please contact our support team immediately.<br><br>
@@ -244,6 +271,7 @@ exports.addbook = async (req, res) => {
         </div>
         </body>
         </html>
+
 `;
 
         sendEmail(data.Email, 'Thank you for creating an account with XLMS', text, html);

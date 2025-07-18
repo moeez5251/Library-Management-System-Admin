@@ -105,12 +105,15 @@ export default function Books() {
         const status = row.getValue('Book_Title');
         const id = row.getValue('Book_ID');
 
-        return <Link data-id={id} className='text-[#235fff] font-semibold hover:underline' href={`/admin/managebooks/${id}`} prefetch={true}>{status}</Link>
+        return <Link data-id={id} className='text-[#235fff] font-semibold hover:underline text-nowrap' href={`/admin/managebooks/${id}`} prefetch={true}>{status}</Link>
       },
     }),
     columnHelper.accessor('Author', {
       header: 'Author',
-      cell: info => info.getValue(),
+      cell: ({row})=>{
+        const status = row.getValue('Author');
+        return <span className='text-sm text-nowrap'>{status}</span>;
+      }
     }),
     columnHelper.accessor('Category', {
       header: 'Category',
@@ -125,7 +128,7 @@ export default function Books() {
       cell: info => info.getValue(),
     }),
     columnHelper.accessor('Total_Copies', {
-      header: 'Total Copies',
+      header: 'Total',
       cell: info => info.getValue(),
     }),
     columnHelper.accessor('Available', {

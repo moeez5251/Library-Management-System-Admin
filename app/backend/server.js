@@ -19,8 +19,8 @@ const booksRoutes = require('./routes/book');
 app.use('/api/books', booksRoutes);
 const lenders = require('./routes/lenders')
 app.use('/api/lenders', lenders);
-const sendEmailRoute = require('./routes/sendEmail');
-app.use('/api', sendEmailRoute);
+const tokenRoutes = require('./routes/token');
+app.use('/api/token', tokenRoutes);
 app.get('/', (req, res) => {
   res.send('✅ App is alive!');
 });

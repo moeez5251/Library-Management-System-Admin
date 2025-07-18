@@ -123,8 +123,11 @@ export default function Lenders() {
       cell: info => info.getValue(),
     }),
     columnHelper.accessor('CopiesLent', {
-      header: 'CopiesLent',
-      cell: info => info.getValue(),
+      header: 'Copies',
+      cell:({ row }) => {
+        const id = row.getValue('CopiesLent');
+        return <span className='w-full text-center block'>{id}</span>;
+      },
     }),
     columnHelper.accessor('IssuedDate', {
       header: 'Issued Date',
@@ -209,7 +212,7 @@ export default function Lenders() {
     }
   }, [])
   useEffect(() => {
-    router.prefetch("/admin/members/add");
+    router.prefetch("/admin/books/add");
 
     return () => {
 

@@ -13,7 +13,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
-import { ChevronDown, Disc, PlusIcon, Trash2, UserPlus,CircleAlert } from 'lucide-react';
+import { ChevronDown, Disc, PlusIcon, Trash2, UserPlus, CircleAlert } from 'lucide-react';
 import ComboBox from '../components/combobox';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
@@ -28,6 +28,11 @@ import {
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { toast } from "sonner"
 import { Toaster } from "@/components/ui/sonner"
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from "@/components/ui/tooltip"
 export default function Members() {
   const columnHelper = createColumnHelper();
   const [checked, setchecked] = useState(
@@ -105,12 +110,20 @@ export default function Members() {
         const status = row.getValue('User_Name');
         const id = row.getValue('User_id');
 
-        return <Link data-id={id} className='text-[#235fff] font-semibold hover:underline' href={`/admin/members/${id}`} prefetch={true}>{status}</Link>
+        return <Link data-id={id} className='text-[#235fff] font-semibold hover:underline text-nowrap' href={`/admin/members/${id}`} prefetch={true}>{status}</Link>
       },
     }),
     columnHelper.accessor('Email', {
       header: 'Email',
-      cell: info => info.getValue(),
+      cell: ({ row }) => {
+        const status = row.getValue('Email');
+        return <Tooltip>
+          <TooltipTrigger className='text-sm text-nowrap  overflow-hidden'>{status.split('@')[0] + '...'}</TooltipTrigger>
+          <TooltipContent>
+            <p className='text-sm'>{status}</p>
+          </TooltipContent>
+        </Tooltip>
+      },
     }),
     columnHelper.accessor('Role', {
       header: 'Role',
@@ -219,7 +232,7 @@ export default function Members() {
           <div className={`bg-red-700 text-white p-4 rounded-md shadow-lg
           flex items-center gap-3
           ${t.visible ? 'animate-enter' : 'animate-leave'}`}>
-          <CircleAlert size={20} />
+            <CircleAlert size={20} />
             <p className='text-sm'>{error.error}</p>
           </div>
         ))
