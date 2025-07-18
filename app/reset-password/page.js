@@ -1,4 +1,6 @@
 "use client"
+export const dynamic = 'force-dynamic';
+
 import React, { useEffect } from 'react'
 import { useSearchParams } from 'next/navigation'
 import { useState } from 'react'
@@ -59,7 +61,7 @@ const Reset = () => {
         return () => {
 
         };
-    }, [])
+    }, [searchParams])
     return (
         <>
             <Toaster />
