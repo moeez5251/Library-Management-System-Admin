@@ -236,7 +236,7 @@ export default function Books() {
               />
             </svg>
           </button>
-          <input className="w-full h-full px-2 py-[0.7rem] font-normal bg-transparent text-sm border-none focus:outline-none" placeholder="Search Books" value={input} onChange={(e) => { setinput(e.target.value); console.log(input, input.length) }} type="text" />
+          <input className="w-full h-full px-2 py-[0.7rem] font-normal bg-transparent text-sm border-none focus:outline-none" placeholder="Search Books" value={input} onChange={(e) => { setinput(e.target.value);}} type="text" />
           <button onClick={() => { setinput("") }} className={`cursor-pointer ${input.length === 0 ? "opacity-0" : "block"} transition-opacity`} >
             <svg
               xmlns="http://www.w3.org/2000/svg"

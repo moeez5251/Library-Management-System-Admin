@@ -3,7 +3,6 @@ const { poolPromise } = require('../models/db');
 
 exports.login = async (req, res) => {
   const { email, password } = req.body;
-  console.log(req.body);
 
   try {
     const pool = await poolPromise;

@@ -201,7 +201,6 @@ export default function Lenders() {
       return
     }
     const response = await data.json()
-    console.log(response);
     setdata(response)
     setLoading(false)
   }

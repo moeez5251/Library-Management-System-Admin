@@ -85,7 +85,6 @@ export default function Home() {
         body: JSON.stringify(inputs)
       })
       const data = await log.json();
-      console.log(data)
       if (data.message.trim() === "Login successful") {
         toast.success("Login Successful")
         sessionStorage.setItem("user-info", JSON.stringify(data.user))

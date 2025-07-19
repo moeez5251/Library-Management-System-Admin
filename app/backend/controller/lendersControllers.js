@@ -44,9 +44,8 @@ exports.addbook = async (req, res) => {
     try {
 
         const data = req.body
-        console.log(data);
         let existinguser = false
-        let totalaccountcost = data.Price
+        let totalaccountcost = 0
         const pool = await poolPromise;
 
         const existingUserResult = await pool.request()
@@ -70,13 +69,13 @@ exports.addbook = async (req, res) => {
             return res.status(400).json({ error: 'Not enough copies available' });
         }
         else {
-            const update = await pool
+            await pool
                 .request()
                 .input('Book_ID', BookID)
                 .input('Available', (Number(Copies) - Number(data.CopiesLent)).toString())
                 .query(` UPDATE books 
                 SET 
-                Total_Copies = @Available,
+                Available = @Available,
                 Status = CASE 
                             WHEN @Available = 0 THEN 'Out of stock' 
                             ELSE 'Available' 
@@ -93,14 +92,14 @@ exports.addbook = async (req, res) => {
                 .input('Role', data.Role)
                 .input('Membership_Type', 'English')
                 .input('Password', hashedPassword)
-                .input('Cost', Price)
+                .input('Cost', Price * data.CopiesLent)
                 .input('Status', 'Active')
                 .query(`
                 INSERT INTO users (User_id, User_Name, Email, Role, Membership_Type, Password, Cost, Status)
                 OUTPUT INSERTED.User_id
                 VALUES (@User_id, @User_Name, @Email, @Role, @Membership_Type, @Password, @Cost, @Status);
             `);
-
+            totalaccountcost = Price * data.CopiesLent
         }
         else {
             const id = await pool
@@ -117,7 +116,6 @@ exports.addbook = async (req, res) => {
                 OUTPUT INSERTED.Cost
                 WHERE User_id = @User_id`)
             totalaccountcost = updatecost.recordset[0].Cost
-            console.log(totalaccountcost);
         }
         const insert = await pool
             .request()
@@ -134,20 +132,25 @@ exports.addbook = async (req, res) => {
             .input('Price', Price)
             .input('BookID', BookID)
             .query(`INSERT INTO borrower (user_id, Name, PhoneNumber, BookTitle, Author, Category, IssuedDate, DueDate, CopiesLent, FinePerDay, Price, Book_ID) VALUES (@user_id, @Name, @PhoneNumber, @BookTitle, @Author, @Category, @IssuedDate, @DueDate, @CopiesLent, @FinePerDay, @Price, @BookID)`);
-        const link = await generatetoken(userId)
+        let link = ""
+        if (!existinguser) {
+            link = await generatetoken(userId)
+        }
         const text = `
         Hello ${data.Lendername},
+        ${link.length > 0 ? `Your account has been successfully created and the book has been issued. Below are your details:` : "Your Account and Book Details are :"
+            }
 
-        Your account has been successfully created and the book has been issued. Below are your details:
-
-        ===========================
-        🔐 IMPORTANT SECURITY NOTICE:
-        ===========================
-        Your account has been created with a default password.
-        Please change your password immediately for security purposes.
-
-        Change your password here:
-        https://xlms-admin.netlify.app/change-password
+        ${link.length > 0 ?
+                `
+                ===========================
+                🔐 IMPORTANT SECURITY NOTICE:
+                ===========================
+                Your account has been created with a default password.
+                Please change your password immediately for security purposes.
+               Change your password here:
+            https://xlms-admin.netlify.app/change-password`: ""
+            }
 
         ===========================
         Login Credentials:
@@ -166,11 +169,13 @@ exports.addbook = async (req, res) => {
         Fine Per Day: Rs. ${data.Fine}
         Book Price: Rs. ${Price}
         Total Cost: Rs. ${Price * data.CopiesLent}
-
-        Please keep your login credentials safe and return the book on or before the due date to avoid fines.
-
-        You can log in here after changing your password:
-        https://xlms-admin.netlify.app
+        
+        ${link.length > 0 ?
+                ` Please keep your login credentials safe and return the book on or before the due date to avoid fines.
+            
+            You can log in here after changing your password:
+            https://xlms-admin.netlify.app`: ""
+            }
 
         If you have any questions, feel free to reach out to us.
 
@@ -239,13 +244,17 @@ exports.addbook = async (req, res) => {
         <body>
         <div class="container">
             <h2>Welcome, ${data.Lendername}!</h2>
-            <p>Your account has been successfully created and the book has been issued.</p>
+            ${link.length > 0 ?
+                `  <p>Your account has been successfully created and the book has been issued.</p>`
+                : `<p>Your account and book details are:</p>`
+            }
 
-            <p style="color: #c0392b; font-weight: bold;">
-            For security reasons, please change your password immediately before logging in. All new accounts have a default password set.
-            </p>
-
-            <a href=${link} class="button primary-button">Change Password Now</a>
+            ${link.length > 0 ?
+                `<p style="color: #c0392b; font-weight: bold;">
+                    For security reasons, please change your password immediately before logging in. All new accounts have a default password set.
+                    </p>
+                 <a style="color:white;" href=${link} class="button primary-button">Change Password Now</a>` : ""
+            }
 
             <p class="section-title">Login Credentials</p>
             <p class="info">Email: <strong>${data.Email}</strong></p>
@@ -261,8 +270,9 @@ exports.addbook = async (req, res) => {
             <p class="info">Fine Per Day: <strong>Rs. ${data.Fine}</strong></p>
             <p class="info">Book Price: <strong>Rs. ${Price}</strong></p>
             <p class="info">Total Cost: <strong>Rs. ${Price * data.CopiesLent}</strong></p>
-
-            <a href="https://xlms-admin.netlify.app" class="button secondary-button">Log In After Changing Password</a>
+            ${link.length > 0 ?
+                `<a style="color:white;" href="https://xlms-admin.netlify.app" class="button secondary-button">Log In After Changing Password</a>` : ""
+            }
 
             <p class="footer">
             If you did not request this account or book, please contact our support team immediately.<br><br>
@@ -274,14 +284,13 @@ exports.addbook = async (req, res) => {
 
 `;
 
-        sendEmail(data.Email, 'Thank you for creating an account with XLMS', text, html);
+        sendEmail(data.Email, link.length > 0 ? "Thank you for creating an account with XLMS" : "Account and Book Details", text, html);
 
 
         res.status(200).json({ message: 'Book issued successfully' });
 
     }
     catch (e) {
-        console.log(e);
         res.status(500).json({ message: 'Server error', error: e });
     }
 }

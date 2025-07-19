@@ -151,7 +151,6 @@ const Lend = () => {
                     toast.error(errorData.error)
 
                 }
-                console.log(errorData);
                 setissubmitting(false)
                 return
             }
