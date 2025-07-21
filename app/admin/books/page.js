@@ -124,7 +124,7 @@ export default function Lenders() {
     }),
     columnHelper.accessor('CopiesLent', {
       header: 'Copies',
-      cell:({ row }) => {
+      cell: ({ row }) => {
         const id = row.getValue('CopiesLent');
         return <span className='w-full text-center block'>{id}</span>;
       },
@@ -353,7 +353,10 @@ export default function Lenders() {
                     <span className={`text-indigo-600 dark:text-indigo-300 font-medium ${dialogdata.PhoneNumber ? "" : "animate-pulse"}`}>Phone Number:</span>
                     <span className={`text-gray-900 dark:text-white font-semibold ${dialogdata.PhoneNumber ? "" : "animate-pulse"}`}>{dialogdata.PhoneNumber ? dialogdata.PhoneNumber : "Loading"}</span>
                   </span>
-
+                  <span className="flex flex-col bg-purple-50 dark:bg-purple-900/30 p-3 rounded-md shadow-sm">
+                    <span className={`text-purple-600 dark:text-purple-300 font-medium ${dialogdata.BookTitle ? "" : "animate-pulse"}}`}>Email:</span>
+                    <span className={`text-gray-900 dark:text-white font-semibold break-words whitespace-normal w-full ${dialogdata.Email ? "" : "animate-pulse"}`}>{dialogdata.Email ? dialogdata.Email : "Loading"}</span>
+                  </span>
                 </span>
 
 

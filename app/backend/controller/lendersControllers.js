@@ -34,6 +34,12 @@ exports.getlenderbyid = async (req, res) => {
         if (!lender) {
             return res.status(404).json({ message: 'Lender not found' });
         }
+        const userid = await result.recordset[0].user_id
+        const useremail = await pool
+            .request()
+            .input('ID', userid)
+            .query('SELECT Email FROM users WHERE User_id = @ID');
+        lender.Email = useremail.recordset[0].Email;
         res.status(200).json(lender);
     } catch (error) {
         console.error('Error fetching lender by ID:', error);
@@ -105,8 +111,11 @@ exports.addbook = async (req, res) => {
             const id = await pool
                 .request()
                 .input('email', data.Email)
-                .query('Select User_id,Cost from users where email=@email')
+                .query('Select User_id,Cost,Status from users where email=@email')
             userId = id.recordset[0].User_id
+            if (id.recordset[0].Status.trim() === 'Deactivated') {
+                return res.status(400).json({ error: 'Unable to lend. This account is deactivated' });
+            }
             const updatecost = await pool
                 .request()
                 .input('User_id', userId)
@@ -116,6 +125,7 @@ exports.addbook = async (req, res) => {
                 OUTPUT INSERTED.Cost
                 WHERE User_id = @User_id`)
             totalaccountcost = updatecost.recordset[0].Cost
+
         }
         const insert = await pool
             .request()

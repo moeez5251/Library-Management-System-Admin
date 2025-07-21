@@ -2,7 +2,14 @@
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { useState, useEffect } from "react"
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion"
 import React from 'react'
+
 const Sidebar = () => {
   const params = usePathname()
   const [active, setactive] = useState({
@@ -12,9 +19,10 @@ const Sidebar = () => {
     reports: false,
     lendedbooks: false,
     members: false,
-    settings: false,
     notifications: false,
-    logout: false
+    profile: false,
+    info: false,
+
   })
   const handleswitch = (active_tab) => {
     setactive({
@@ -24,9 +32,9 @@ const Sidebar = () => {
       reports: false,
       lendedbooks: false,
       members: false,
-      settings: false,
       notifications: false,
-      logout: false,
+      profile: false,
+      info: false,
       [active_tab]: true
     })
   }
@@ -171,29 +179,7 @@ const Sidebar = () => {
         <div className='font-semibold text-base'>Manage Books</div>
 
       </Link>
-      <Link href="/admin/reports" prefetch={true} onClick={() => handleswitch("reports")} data-active={active.reports} className='flex items-center gap-2 mx-auto py-2.5 cursor-pointer px-4.5 w-[80%] data-[active=true]:bg-[#6841c4] data-[active=true]:text-white data-[active=true]:rounded-lg transition-all '>
-        <div>
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width={24}
-            height={24}
-            fill="none"
-            className="injected-svg"
-            color="#526b7a"
-            data-src="https://cdn.hugeicons.com/icons/complaint-stroke-rounded.svg"
-          >
-            <path
-              stroke="#526b7a"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={1.5}
-              d="M16.996 9.013h.008m0-2.004V4.505M22 6.792c0 2.646-2.24 4.792-5.004 4.792-.325 0-.649-.03-.968-.09-.23-.043-.344-.064-.425-.052-.08.012-.194.072-.42.194a3.25 3.25 0 0 1-2.114.329c.274-.338.46-.743.543-1.177.05-.265-.074-.523-.26-.712a4.668 4.668 0 0 1-1.36-3.284c0-2.646 2.24-4.792 5.004-4.792C19.76 2 22 4.146 22 6.792ZM7.502 22H4.718c-.323 0-.648-.046-.945-.173-.966-.415-1.457-.964-1.685-1.307a.542.542 0 0 1 .03-.631c1.12-1.488 3.716-2.386 5.384-2.386M7.507 22h2.783c.324 0 .648-.046.945-.173.967-.415 1.457-.964 1.686-1.307a.542.542 0 0 0-.03-.631c-1.12-1.488-3.716-2.386-5.384-2.386m2.778-5.214a2.776 2.776 0 0 1-2.778 2.772 2.776 2.776 0 0 1-2.78-2.772 2.776 2.776 0 0 1 2.78-2.773 2.776 2.776 0 0 1 2.778 2.773Z"
-            />
-          </svg>
-        </div>
-        <div className='font-semibold text-base'>Reports</div>
 
-      </Link>
       <Link href="/admin/books" prefetch={true} onClick={() => handleswitch("books")} data-active={active.books} className='flex items-center gap-2 mx-auto py-2.5 cursor-pointer px-4 w-[80%] data-[active=true]:bg-[#6841c4] data-[active=true]:text-white data-[active=true]:rounded-lg transition-all '>
         <div>
           <svg
@@ -258,44 +244,7 @@ const Sidebar = () => {
         <div className='font-semibold text-base'>Members</div>
 
       </Link>
-      <Link href="/admin/settings" prefetch={true} onClick={() => handleswitch("settings")} data-active={active.settings} className='flex items-center gap-2 mx-auto py-2.5 cursor-pointer px-4.5 w-[80%] data-[active=true]:bg-[#6841c4] data-[active=true]:text-white data-[active=true]:rounded-lg transition-all '>
-        <div>
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width={20}
-            height={20}
-            fill="none"
-            className="injected-svg"
-            color="#526b7a"
-            data-src="https://cdn.hugeicons.com/icons/setting-done-01-stroke-standard.svg"
-            viewBox="0 0 24 24"
-          >
-            <path
-              stroke="#526b7a"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={1.5}
-              d="M10.5 22v0a.888.888 0 0 1-.853-.64l-.728-2.518-1.478-.829-2.552.632a1 1 0 0 1-1.1-.46L2.425 15.89a1 1 0 0 1 .198-1.261l1.79-1.576v-2.106l-1.79-1.576a1 1 0 0 1-.199-1.261l1.364-2.295a1 1 0 0 1 1.1-.46l2.552.632L9 5l.772-2.316A1 1 0 0 1 10.721 2h2.558a1 1 0 0 1 .949.684L15 5l1.56.987 2.552-.632a1 1 0 0 1 1.1.46l1.39 2.338a1 1 0 0 1-.154 1.22l-.627.624M14.5 9.551a3.5 3.5 0 1 0-4.95 4.95"
-            />
-            <path
-              stroke="#526b7a"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={1.5}
-              d="M17 21.998a5 5 0 1 0 0-10 5 5 0 0 0 0 10Z"
-            />
-            <path
-              stroke="#526b7a"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={1.5}
-              d="m15 17 1.5 1.5 2.5-3"
-            />
-          </svg>
-        </div>
-        <div className='font-semibold text-base'>Settings</div>
 
-      </Link>
       <Link href="/admin/notifications" prefetch={true} onClick={() => handleswitch("notifications")} data-active={active.notifications} className='flex items-center gap-2 mx-auto py-2.5 cursor-pointer px-4.5 w-[80%] data-[active=true]:bg-[#6841c4] data-[active=true]:text-white data-[active=true]:rounded-lg transition-all '>
         <div>
           <svg
@@ -320,37 +269,98 @@ const Sidebar = () => {
         <div className='font-semibold text-base'>Notifications</div>
 
       </Link>
-      <Link href="/" onClick={() => handleswitch("logout")} data-active={active.logout} className='flex items-center gap-2 mx-auto py-2.5 cursor-pointer px-4.5 w-[80%] data-[active=true]:bg-[#6841c4] data-[active=true]:text-white data-[active=true]:rounded-lg transition-all'>
-        <div>
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width={20}
-            height={20}
-            fill="none"
-            className="injected-svg"
-            color="#526b7a"
-            data-src="https://cdn.hugeicons.com/icons/logout-04-stroke-rounded.svg"
-            viewBox="0 0 24 24"
-          >
-            <path
-              stroke="#526b7a"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={1.5}
-              d="M7.023 5.5a9 9 0 1 0 9.953 0"
-            />
-            <path
-              stroke="#526b7a"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={1.5}
-              d="M12 11V2m0 9c-.7 0-2.008-1.994-2.5-2.5M12 11c.7 0 2.008-1.994 2.5-2.5"
-            />
-          </svg>
-        </div>
-        <div className='font-semibold text-base'>Log Out</div>
+      <Accordion type="single" collapsible>
+        <AccordionItem value="item-1">
+          <AccordionTrigger onClick={() => handleswitch("profile")} data-active={active.profile} className='flex items-center justify-normal gap-2 flex-none mx-auto py-2.5 cursor-pointer px-4.5 w-[80%] data-[active=true]:bg-[#6841c4] data-[active=true]:text-white data-[active=true]:rounded-lg transition-all duration-150'>
+            <div>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width={20}
+                height={20}
+                fill="none"
+                className="injected-svg"
+                color="#526b7"
+                data-src="https://cdn.hugeicons.com/icons/account-setting-01-stroke-standard.svg?v=2.0"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke="#526b7a"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={1.5}
+                  d="M22 13.967v-3.934c-2.857 0-4.714-3.103-3.268-5.566L15.268 2.5c-1.464 2.494-5.07 2.494-6.534 0L5.27 4.467C6.716 6.93 4.857 10.033 2 10.033v3.934c2.857 0 4.714 3.103 3.268 5.566L8.732 21.5c1.465-2.495 5.073-2.495 6.538 0l3.464-1.967c-1.447-2.463.41-5.566 3.266-5.566Z"
+                />
+                <path
+                  stroke="#526b7a"
+                  strokeLinecap="round"
+                  strokeWidth={1.5}
+                  d="M8.5 16.5a4.039 4.039 0 0 1 3.5-2.02c1.496 0 2.801.812 3.5 2.02M14 10a2 2 0 1 1-4 0 2 2 0 0 1 4 0Z"
+                />
+              </svg>
+            </div>
+            <div className='font-semibold text-base w-full'>Profile</div>
 
-      </Link>
+          </AccordionTrigger>
+          <AccordionContent className="transition-all duration-1000">
+            <Link href="/admin/profile" prefetch={true} onClick={() => handleswitch("info")} data-active={active.info} className='flex items-center gap-2 mx-auto py-2.5 cursor-pointer px-4.5 w-[80%] data-[active=true]:bg-[#6841c4] data-[active=true]:text-white data-[active=true]:rounded-lg transition-all '>
+              <div>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width={20}
+                  height={20}
+                  fill="none"
+                  className="injected-svg"
+                  color="#526b7a"
+                  data-src="https://cdn.hugeicons.com/icons/user-warning-01-stroke-standard.svg?v=2.0"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke="#526b7a"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={1.5}
+                    d="m18.874 19.914.537-.514c.573-.55.785-1.381.378-2.053C18.244 14.803 15.213 13.5 12 13.5s-6.245 1.303-7.789 3.847c-.407.672-.195 1.503.378 2.053l.537.514c.391.375.922.586 1.476.586h10.796c.554 0 1.085-.211 1.476-.586ZM15.5 7a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0ZM19 5v4M19 12v.01"
+                  />
+                </svg>
+              </div>
+              <div className='font-semibold text-base'>Account Information</div>
+
+            </Link>
+            <Link href="/admin" prefetch={true}  className='flex items-center gap-2 mx-auto py-2.5 cursor-pointer px-4.5 w-[80%] data-[active=true]:bg-[#6841c4] data-[active=true]:text-white data-[active=true]:rounded-lg transition-all '>
+              <div>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width={20}
+                  height={20}
+                  fill="none"
+                  className="injected-svg"
+                  color="red"
+                  data-src="https://cdn.hugeicons.com/icons/logout-03-stroke-rounded.svg?v=2.0"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke="red"
+                    strokeLinecap="round"
+                    strokeWidth={1.5}
+                    d="M15 17.625c-.074 1.852-1.617 3.424-3.684 3.374-.481-.012-1.076-.18-2.265-.515-2.861-.807-5.345-2.164-5.941-5.203C3 14.723 3 14.095 3 12.837v-1.674c0-1.257 0-1.886.11-2.445.596-3.038 3.08-4.395 5.941-5.202 1.19-.335 1.784-.503 2.265-.515 2.067-.05 3.61 1.522 3.684 3.374"
+                  />
+                  <path
+                    stroke="red"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={1.5}
+                    d="M21 12H10m11 0c0-.7-1.994-2.008-2.5-2.5M21 12c0 .7-1.994 2.008-2.5 2.5"
+                  />
+                </svg>
+              </div>
+              <div className='font-semibold text-base text-red-600'>Log out</div>
+
+            </Link>
+          </AccordionContent>
+        </AccordionItem>
+      </Accordion>
+
+
 
     </>
   )
