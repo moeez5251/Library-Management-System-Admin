@@ -1,7 +1,6 @@
 const express = require('express');
 const router = express.Router();
 const { sendEmail } = require('../controller/mailer');
-
 router.post('/send-email', async (req, res) => {
   const { to, subject, text, html } = req.body;
   if (!to || !subject || !text || !html) {
@@ -12,8 +11,7 @@ router.post('/send-email', async (req, res) => {
     await sendEmail(to, subject, text, html);
     res.json({ message: 'Email sent' });
   } catch (err) {
-    res.status(500).json({ error: 'Sending email failed'});
+    res.status(500).json({ error: 'Sending email failed' });
   }
 });
-
 module.exports = router;

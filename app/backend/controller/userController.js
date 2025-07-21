@@ -170,3 +170,36 @@ exports.deleteaccount = async (req, res) => {
     res.status(500).json({ error: 'Internal Server Error' });
   }
 }
+exports.changepassword = async (req, res) => {
+  const { ID, OldPassword, NewPassword } = req.body;
+  if (!ID || !OldPassword || !NewPassword) {
+    return res.status(400).json({ error: 'All fields are required' });
+  }
+  try {
+    const pool = await poolPromise;
+    const userResult = await pool.request()
+      .input('ID', ID)
+      .query('SELECT Password FROM users WHERE User_id = @ID');
+
+    if (userResult.recordset.length === 0) {
+      return res.status(404).json({ error: 'User not found' });
+    }
+
+    const user = userResult.recordset[0];
+    const isMatch = await bcrypt.compare(OldPassword, user.Password);
+    if (!isMatch) {
+      return res.status(400).json({ error: 'Invalid Password' });
+    }
+
+    const hashedNewPassword = await bcrypt.hash(NewPassword, 10);
+    await pool.request()
+      .input('ID', ID)
+      .input('NewPassword', hashedNewPassword)
+      .query('UPDATE users SET Password = @NewPassword WHERE User_id = @ID');
+
+    res.json({ message: 'Password changed successfully' });
+  } catch (err) {
+    console.error('Error changing password:', err);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+}

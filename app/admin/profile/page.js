@@ -1,6 +1,17 @@
 "use client"
-import { Eye, EyeOff } from 'lucide-react';
-import React, { useState } from 'react'
+import { Toaster } from '@/components/ui/sonner';
+import { Eye, EyeOff, AlertCircle } from 'lucide-react';
+import Link from 'next/link';
+import React, { useState, useEffect } from 'react'
+import { toast } from 'sonner';
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from '@/components/ui/dialog';
+import {
+  InputOTP,
+  InputOTPGroup,
+  InputOTPSeparator,
+  InputOTPSlot,
+} from "@/components/ui/input-otp"
+import { Button } from '@/components/ui/button';
 const Settings = () => {
   const [inputs, setInputs] = useState({
     user_id: '',
@@ -15,14 +26,130 @@ const Settings = () => {
     newPasswordVisible: false,
     reNewPasswordVisible: false
   })
+  const [issubmitting, setissubmitting] = useState(false);
+  const [opening, setopening] = useState(true)
+  const [otpvalue, setotpvalue] = useState("")
   const handlechange = (e) => {
     setInputs({
       ...inputs,
       [e.target.name]: e.target.value
     });
+
   }
+  useEffect(() => {
+    if (inputs.OldPassword && inputs.NewPassword && inputs.ReNew) {
+      setissubmitting(true);
+    }
+    else {
+      setissubmitting(false);
+    }
+    return () => {
+
+    }
+  }, [inputs])
+  const handlechangepassword = async () => {
+    setissubmitting(false);
+    if (inputs.NewPassword.trim().length < 8 && inputs.ReNew.trim().length < 8) {
+      toast.custom((t) => (
+        <div className={`bg-red-600 text-white p-4 text-sm rounded-md shadow-lg
+        ${t.visible ? 'animate-enter' : 'animate-leave'}`}>
+          <AlertCircle className='inline mr-2' size={16} />
+          Password must be at least 8 characters long.
+        </div>
+      ));
+      setissubmitting(true);
+      return;
+    }
+    if (inputs.NewPassword !== inputs.ReNew) {
+      toast.custom((t) => (
+        <div className={`bg-red-600 text-white p-4 text-sm rounded-md shadow-lg
+        ${t.visible ? 'animate-enter' : 'animate-leave'}`}>
+          <AlertCircle className='inline mr-2' size={16} />
+          New Password Must be same.
+        </div>
+      ));
+      setissubmitting(true);
+      return;
+    }
+    if (inputs.OldPassword === inputs.NewPassword) {
+      toast.custom((t) => (
+        <div className={`bg-red-600 text-white p-4 text-sm rounded-md shadow-lg
+        ${t.visible ? 'animate-enter' : 'animate-leave'}`}>
+          <AlertCircle className='inline mr-2' size={16} />
+          New Password must be different from Old Password.
+        </div>
+      ));
+      setissubmitting(true);
+      return;
+    }
+    const data = await fetch("http://localhost:5000/api/users/changepassword", {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        ID: inputs.user_id,
+        OldPassword: inputs.OldPassword,
+        NewPassword: inputs.NewPassword
+      })
+    })
+    if (!data.ok) {
+      const errorData = await data.json();
+      toast.error(errorData.error);
+      setissubmitting(true);
+      return;
+    }
+    const response = await data.json();
+    toast.custom((t) => (
+      <div className={`bg-green-600 text-white p-4 text-sm rounded-md
+      shadow-lg ${t.visible ? 'animate-enter' : 'animate-leave'}`}>
+        {response.message}
+      </div>
+    ));
+    // Resetting the form inputs after successful password change
+    setInputs({
+      ...inputs,
+      OldPassword: '',
+      NewPassword: '',
+      ReNew: ''
+    })
+    setissubmitting(true);
+  }
+  useEffect(() => {
+    (async () => {
+      const data = await fetch("http://localhost:5000/api/users/getbyid", {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          ID: "M6ea45869"
+        })
+      })
+      if (!data.ok) {
+
+        toast.error("Failed to fetch user data");
+        return;
+      }
+      const userData = await data.json();
+
+      setInputs({
+        user_id: "M6ea45869",
+        UserName: userData.User_Name,
+        Email: userData.Email,
+        OldPassword: '',
+        NewPassword: '',
+        ReNew: ''
+      });
+    })()
+    return () => {
+
+    }
+  }, [])
+
   return (
     <>
+      <Toaster />
       <div className='bg-white mx-4 my-3 py-5 px-8 pb-12 rounded-md'>
         <div className='font-semibold border-b-2 pb-1 text-lg'>
           Account Information
@@ -54,7 +181,7 @@ const Settings = () => {
               Email
             </div>
             <div>
-              <input disabled className='border px-2 py-1 rounded-sm placeholder:text-sm text-base' type="text" name="Email" id="Email" placeholder='Loading...' />
+              <input disabled value={inputs.Email} onChange={handlechange} className='border px-2 py-1 rounded-sm placeholder:text-sm text-base' type="text" name="Email" id="Email" placeholder='Loading...' />
             </div>
           </div>
 
@@ -118,6 +245,65 @@ const Settings = () => {
           </div>
         </div>
       </div>
+      <div className='flex items-center justify-center gap-4 mt-4'>
+
+        <Link href={'/admin'} prefetch={true} className='bg-gray-300 px-4 py-2 rounded-sm cursor-pointer'>Cancel</Link>
+        <button onClick={handlechangepassword} disabled={!issubmitting} className='bg-[#6841c4] text-white px-4 py-2 rounded-sm cursor-pointer transition-transform scale-95 hover:scale-100 font-normal disabled:bg-gray-300 disabled:pointer-events-none disabled:cursor-auto'>Update</button>
+      </div>
+      <Dialog open={opening} onopenchange={setopening}>
+        <DialogContent >
+          <DialogHeader>
+            <DialogTitle className="text-center">Enter OTP for Verification</DialogTitle>
+          </DialogHeader>
+          <DialogDescription></DialogDescription>
+          <button onClick={() => { setopening(false); }} className='absolute top-3 cursor-pointer right-3 bg-gray-300  p-1 rounded-2xl z-40 '>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width={20}
+              height={20}
+              fill="none"
+              className="injected-svg"
+              color="black"
+              data-src="https://cdn.hugeicons.com/icons/multiplication-sign-solid-rounded.svg"
+              viewBox="0 0 24 24"
+            >
+              <path
+                fill="black"
+                fillRule="evenodd"
+                d="M5.116 5.116a1.25 1.25 0 0 1 1.768 0L12 10.232l5.116-5.116a1.25 1.25 0 0 1 1.768 1.768L13.768 12l5.116 5.116a1.25 1.25 0 0 1-1.768 1.768L12 13.768l-5.116 5.116a1.25 1.25 0 0 1-1.768-1.768L10.232 12 5.116 6.884a1.25 1.25 0 0 1 0-1.768Z"
+                clipRule="evenodd"
+              />
+            </svg>
+          </button>
+          <div className='text-center'>Email sent to <span className='text-[#6841c4]'>{inputs.Email.slice(0, 4) + "***@***"}</span></div>
+          <div className='mx-auto'>
+
+            <InputOTP maxLength={6} value={otpvalue} onChange={async (value) => {
+              setotpvalue(value)
+              if (value.length === 6) {
+
+              }
+            }}>
+              <InputOTPGroup>
+                <InputOTPSlot autoFocus={true} className="text-xl text-[#6841c4]" index={0} />
+                <InputOTPSlot className="text-xl text-[#6841c4]" index={1} />
+                <InputOTPSlot className="text-xl text-[#6841c4]" index={2} />
+              </InputOTPGroup>
+              <InputOTPSeparator />
+              <InputOTPGroup>
+                <InputOTPSlot className="text-xl text-[#6841c4]" index={3} />
+                <InputOTPSlot className="text-xl text-[#6841c4]" index={4} />
+                <InputOTPSlot className="text-xl text-[#6841c4]" index={5} />
+              </InputOTPGroup>
+            </InputOTP>
+            <Button disabled={otpvalue.length !== 6} className="w-[95%] btn-verify bg-[#6841c4] text-base h-10 mt-8 rounded-full cursor-pointer hover:bg-[#5917f3]">Verify</Button>
+
+          </div>
+
+          <DialogFooter className="text-center block my-3 ">Didn&apos;t receive code? <span className='text-[#6841c4] cursor-pointer'>Click to resend.</span></DialogFooter>
+        </DialogContent>
+      </Dialog>
+
     </>
   )
 }

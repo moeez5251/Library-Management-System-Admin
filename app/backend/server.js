@@ -21,6 +21,8 @@ const lenders = require('./routes/lenders')
 app.use('/api/lenders', lenders);
 const tokenRoutes = require('./routes/token');
 app.use('/api/token', tokenRoutes);
+const sendEmailRoutes = require('./routes/mail');
+app.use('/api/mail', sendEmailRoutes);
 app.get('/', (req, res) => {
   res.send('✅ App is alive!');
 });

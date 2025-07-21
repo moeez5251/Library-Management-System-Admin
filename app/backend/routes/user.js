@@ -9,4 +9,5 @@ router.post('/update', userController.updateuser);
 router.post('/deactivate', userController.deactivateUser);
 router.post('/activate', userController.activateUser);
 router.delete('/delete', userController.deleteaccount);
+router.put('/changepassword', userController.changepassword);
 module.exports = router;
