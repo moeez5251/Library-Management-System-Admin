@@ -12,6 +12,8 @@ import {
   InputOTPSlot,
 } from "@/components/ui/input-otp"
 import { Button } from '@/components/ui/button';
+import { motion, AnimatePresence, transformValue } from "motion/react"
+import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs"
 const Settings = () => {
   const [inputs, setInputs] = useState({
     user_id: '',
@@ -27,8 +29,19 @@ const Settings = () => {
     reNewPasswordVisible: false
   })
   const [issubmitting, setissubmitting] = useState(false);
-  const [opening, setopening] = useState(true)
+  const [opening, setopening] = useState(false)
   const [otpvalue, setotpvalue] = useState("")
+  const [isverifying, setisverifying] = useState(false);
+  const [selectedTab, setSelectedTab] = useState("otp");
+  const [dialoginputs, setDialoginputs] = useState({
+    NewPassword: '',
+    ReNew: ''
+  })
+  const [dialogicons, setDialogicons] = useState({
+    newPasswordVisible: false,
+    reNewPasswordVisible: false
+  })
+  const [disabledchange, setDisabledchange] = useState(true)
   const handlechange = (e) => {
     setInputs({
       ...inputs,
@@ -106,7 +119,6 @@ const Settings = () => {
         {response.message}
       </div>
     ));
-    // Resetting the form inputs after successful password change
     setInputs({
       ...inputs,
       OldPassword: '',
@@ -146,6 +158,123 @@ const Settings = () => {
 
     }
   }, [])
+  const handledialog = async () => {
+    setopening(true);
+
+    const data = await fetch("http://localhost:5000/api/mail/otp", {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        Name: inputs.UserName,
+        Email: inputs.Email
+      })
+    });
+    if (!data.ok) {
+      const errorData = await data.json();
+      toast.error(errorData.error);
+      return;
+    }
+
+  }
+  const handleResend = async () => {
+    const data = await fetch("http://localhost:5000/api/mail/resend", {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        Name: inputs.UserName,
+        Email: inputs.Email
+      })
+    });
+    if (!data.ok) {
+      const errorData = await data.json();
+      toast.error(errorData.error);
+      return;
+    }
+    toast.success("OTP Resent Successfully");
+  }
+  const handleverify = async (e) => {
+    setisverifying(true);
+    const data = await fetch("http://localhost:5000/api/mail/verify", {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        Email: inputs.Email,
+        OTP: otpvalue.length === 6 ? otpvalue : e
+      })
+    });
+    if (!data.ok) {
+      const errorData = await data.json();
+      toast.error(errorData.error);
+      setisverifying(false);
+      return;
+
+    }
+    setSelectedTab("change");
+    setotpvalue("");
+    setisverifying(false);
+  }
+  const handledialoginputs = (e) => {
+    setDialoginputs({
+      ...dialoginputs,
+      [e.target.name]: e.target.value
+    })
+  }
+  const handlereset = async () => {
+    setisverifying(true);
+    if (dialoginputs.NewPassword.trim().length < 8) {
+      toast.custom((t) => (
+        <div className={`bg-red-600 text-white p-4 text-sm rounded-md shadow-lg
+        ${t.visible ? 'animate-enter' : 'animate-leave'}`}>
+          <AlertCircle className='inline mr-2' size={16} />
+          Password must be at least 8 characters long.
+        </div>
+      ));
+      setisverifying(false);
+      return;
+    }
+    const data = await fetch("http://localhost:5000/api/mail/reset", {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        ID: inputs.user_id,
+        Email: inputs.Email,
+        NewPassword: dialoginputs.NewPassword
+      })
+    });
+    if (!data.ok) {
+      const errorData = await data.json();
+      toast.error(errorData.error);
+      return;
+    }
+    toast.success("Password updated Successfully");
+    setDialoginputs({
+      NewPassword: '',
+      ReNew: ''
+    });
+    setSelectedTab("otp");
+    setopening(false);
+    setisverifying(false);
+  }
+  useEffect(() => {
+    if (dialoginputs.NewPassword && dialoginputs.ReNew && dialoginputs.NewPassword === dialoginputs.ReNew) {
+      setDisabledchange(false);
+    }
+    else {
+      setDisabledchange(true);
+    }
+
+    return () => {
+
+    }
+  }, [dialoginputs])
 
   return (
     <>
@@ -189,7 +318,7 @@ const Settings = () => {
 
         <div className='font-semibold border-b-2 pb-1 text-lg flex items-center justify-between'>
           Change Password
-          <div className='text-sm font-semibold text-[#6841c4] cursor-pointer hover:underline '>Forget Password ?</div>
+          <div onClick={handledialog} className='text-sm font-semibold text-[#6841c4] cursor-pointer hover:underline '>Forget Password ?</div>
         </div>
         <div className='my-3 flex items-center justify-between'>
           <div className='flex flex-col gap-2 items-start'>
@@ -253,7 +382,7 @@ const Settings = () => {
       <Dialog open={opening} onopenchange={setopening}>
         <DialogContent >
           <DialogHeader>
-            <DialogTitle className="text-center">Enter OTP for Verification</DialogTitle>
+            <DialogTitle className="text-center">{selectedTab === 'otp' ? "Enter OTP for Verification" : "Enter New Password"}</DialogTitle>
           </DialogHeader>
           <DialogDescription></DialogDescription>
           <button onClick={() => { setopening(false); }} className='absolute top-3 cursor-pointer right-3 bg-gray-300  p-1 rounded-2xl z-40 '>
@@ -275,34 +404,123 @@ const Settings = () => {
               />
             </svg>
           </button>
-          <div className='text-center'>Email sent to <span className='text-[#6841c4]'>{inputs.Email.slice(0, 4) + "***@***"}</span></div>
-          <div className='mx-auto'>
+          <Tabs value={selectedTab} onValueChange={setSelectedTab} className="w-full">
+            <AnimatePresence mode="wait">
+              {selectedTab === "otp" && (
+                <motion.div
+                  key="tab1"
+                  transition={{ duration: 0.3 }}
+                >
+                  <div className='flex flex-col items-center justify-center gap-4'>
 
-            <InputOTP maxLength={6} value={otpvalue} onChange={async (value) => {
-              setotpvalue(value)
-              if (value.length === 6) {
+                    <div className='text-center'>Email sent to <span className='text-[#6841c4]'>{inputs.Email.slice(0, 3) + "***@***.com"}</span></div>
+                    <div className='mx-auto'>
 
-              }
-            }}>
-              <InputOTPGroup>
-                <InputOTPSlot autoFocus={true} className="text-xl text-[#6841c4]" index={0} />
-                <InputOTPSlot className="text-xl text-[#6841c4]" index={1} />
-                <InputOTPSlot className="text-xl text-[#6841c4]" index={2} />
-              </InputOTPGroup>
-              <InputOTPSeparator />
-              <InputOTPGroup>
-                <InputOTPSlot className="text-xl text-[#6841c4]" index={3} />
-                <InputOTPSlot className="text-xl text-[#6841c4]" index={4} />
-                <InputOTPSlot className="text-xl text-[#6841c4]" index={5} />
-              </InputOTPGroup>
-            </InputOTP>
-            <Button disabled={otpvalue.length !== 6} className="w-[95%] btn-verify bg-[#6841c4] text-base h-10 mt-8 rounded-full cursor-pointer hover:bg-[#5917f3]">Verify</Button>
+                      <InputOTP maxLength={6} value={otpvalue} onChange={async (value) => {
+                        setotpvalue(value)
+                        if (value.length === 6) {
+                          handleverify(value);
+                        }
+                      }}>
+                        <InputOTPGroup>
+                          <InputOTPSlot autoFocus={true} className="text-xl text-[#6841c4]" index={0} />
+                          <InputOTPSlot className="text-xl text-[#6841c4]" index={1} />
+                          <InputOTPSlot className="text-xl text-[#6841c4]" index={2} />
+                        </InputOTPGroup>
+                        <InputOTPSeparator />
+                        <InputOTPGroup>
+                          <InputOTPSlot className="text-xl text-[#6841c4]" index={3} />
+                          <InputOTPSlot className="text-xl text-[#6841c4]" index={4} />
+                          <InputOTPSlot className="text-xl text-[#6841c4]" index={5} />
+                        </InputOTPGroup>
+                      </InputOTP>
+                      {
+                        !isverifying &&
+                        <Button onClick={handleverify} disabled={otpvalue.length !== 6} className="w-[95%] btn-verify bg-[#6841c4] text-base h-10 mt-8 rounded-full cursor-pointer hover:bg-[#5917f3]">Verify</Button>
+                      }
+                      {
+                        isverifying &&
+                        <Button disabled className="w-[95%]  bg-[#6841c4] text-base h-10 mt-8 rounded-full cursor-pointer hover:bg-[#5917f3]">Verify</Button>
+                      }
 
-          </div>
+                    </div>
 
-          <DialogFooter className="text-center block my-3 ">Didn&apos;t receive code? <span className='text-[#6841c4] cursor-pointer'>Click to resend.</span></DialogFooter>
+                    <DialogFooter className="text-center block my-3 ">Didn&apos;t receive code? <span onClick={handleResend} className='text-[#6841c4] cursor-pointer'>Click to resend.</span></DialogFooter>
+
+                  </div>
+                </motion.div>
+              )}
+              {selectedTab === "change" && (
+                <motion.div
+                  key="tab2"
+                  initial={{ opacity: 0, x: 20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  exit={{ opacity: 0, x: -20 }}
+                  transition={{ duration: 0.8 }}
+                >
+                  <div className='flex flex-col items-center justify-center gap-4'>
+                    <div className='flex flex-col gap-2 items-start justify-start  w-[95%] mx-auto'>
+
+                      <div className='font-semibold text-sm flex items-start gap-1 '>
+                        Enter  New Password
+                      </div>
+                      <div className='relative w-full'>
+                        <input value={dialoginputs.NewPassword} onChange={handledialoginputs} className='border px-2 py-1 rounded-sm placeholder:text-sm text-base w-full' type={dialogicons.newPasswordVisible ? "text" : "password"} name="NewPassword" id="NewPassword" placeholder='Enter New Password' />
+                        {
+                          !dialogicons.newPasswordVisible &&
+                          <Eye onClick={() => { setDialogicons({ ...dialogicons, newPasswordVisible: true }) }} className='absolute -right-6 top-2 cursor-pointer' size={18} />
+                        }
+                        {
+                          dialogicons.newPasswordVisible &&
+                          <EyeOff onClick={() => { setDialogicons({ ...dialogicons, newPasswordVisible: false }) }} className='absolute -right-6 top-2 cursor-pointer' size={18} />
+                        }
+                      </div>
+                    </div>
+                    <div className='flex flex-col gap-2 items-start justify-start  w-[95%] mx-auto'>
+
+                      <div className='font-semibold text-sm flex items-start gap-1 '>
+                        Re-Enter  New Password
+                      </div>
+                      <div className='relative w-full'>
+                        <input value={dialoginputs.ReNew} onChange={handledialoginputs} className='border px-2 py-1 rounded-sm placeholder:text-sm text-base w-full' type={dialogicons.reNewPasswordVisible ? "text" : "password"} name="ReNew" id="ReNew" placeholder='Enter New Password' />
+                        {
+                          !dialogicons.reNewPasswordVisible &&
+                          <Eye onClick={() => { setDialogicons({ ...dialogicons, reNewPasswordVisible: true }) }} className='absolute -right-6 top-2 cursor-pointer' size={18} />
+                        }
+                        {
+                          dialogicons.reNewPasswordVisible &&
+                          <EyeOff onClick={() => { setDialogicons({ ...dialogicons, reNewPasswordVisible: false }) }} className='absolute -right-6 top-2 cursor-pointer' size={18} />
+                        }
+                      </div>
+                    </div>
+                    {
+                      !isverifying &&
+                      <div className='mx-auto'>
+                        <Button onClick={handlereset} disabled={disabledchange} className=" btn-verify bg-[#6841c4] text-base h-10 mt-8 rounded-full cursor-pointer hover:bg-[#5917f3]">Change Password</Button>
+
+                      </div>
+                    }
+                    {
+                      isverifying &&
+                      <div className='mx-auto'>
+                        <Button disabled={true} className=" btn-verify bg-[#6841c4] text-base h-10 mt-8 rounded-full cursor-pointer hover:bg-[#5917f3]">Change Password</Button>
+
+                      </div>
+                    }
+
+
+
+                  </div>
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </Tabs>
+
+
         </DialogContent>
+
       </Dialog>
+
 
     </>
   )
