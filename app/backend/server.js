@@ -23,6 +23,8 @@ const tokenRoutes = require('./routes/token');
 app.use('/api/token', tokenRoutes);
 const sendEmailRoutes = require('./routes/mail');
 app.use('/api/mail', sendEmailRoutes);
+const NotificationsRoutes = require('./routes/notifications');
+app.use('/api/notifications', NotificationsRoutes);
 app.get('/', (req, res) => {
   res.send('✅ App is alive!');
 });

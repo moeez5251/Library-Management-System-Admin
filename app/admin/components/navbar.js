@@ -89,7 +89,10 @@ const AdminDashboard = () => {
                                 d="M3.914 13.086a2 2 0 0 0 .586-1.414V9.5a7.5 7.5 0 1 1 15 0v2.172a2 2 0 0 0 .586 1.414L21.5 14.5v1.382a.96.96 0 0 1-.558.883c-1.56.702-4.54 1.735-8.942 1.735-4.401 0-7.382-1.033-8.942-1.735a.96.96 0 0 1-.558-.883V14.5l1.414-1.414ZM9 21c.796.621 1.848.999 3 .999s2.204-.378 3-.999"
                             />
                         </svg>
-                        <div className='absolute -top-1 -right-0.5 bg-red-600 text-white text-xs px-1 rounded-full'>0</div>
+                        <div className='absolute -top-1 -right-0.5  bg-red-600 text-white text-xs px-1 rounded-full'>0</div>
+                        <span
+                            className="absolute -top-1 -right-0.5 h-4 w-4 animate-ping rounded-full bg-red-400 opacity-75"
+                        ></span>
                     </div>
                     <div className='bg-[#f1f1fd] p-2 rounded-full cursor-pointer scale-100 transition-all hover:scale-110'>
                         <svg

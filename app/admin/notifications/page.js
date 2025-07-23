@@ -1,8 +1,90 @@
-import React from 'react'
+"use client"
+import React, { useState, useEffect } from 'react'
 
+import { MessageSquareWarning } from 'lucide-react';
+import { Toaster } from '@/components/ui/sonner';
+import { toast } from 'sonner';
+import dayjs from 'dayjs';
+import relativeTime from 'dayjs/plugin/relativeTime';
+import customParseFormat from 'dayjs/plugin/customParseFormat';
 const Notifications = () => {
+  const [Notifications, setNotifications] = useState([])
+  useEffect(() => {
+    (async () => {
+      const data = await fetch("http://localhost:5000/api/notifications/get", {
+        method: "POST",
+        headers: {
+          "Content-type": "application/json; charset=UTF-8"
+        },
+        body: JSON.stringify({ Userid: "M6ea45869" })
+      })
+      if (!data.ok) {
+        toast.error("Failed to fetch notifications");
+        return;
+      }
+      const response = await data.json();
+
+      setNotifications(response.map(item => {
+        const parsed = dayjs(item.CreatedAt, "DD/MM/YYYY, HH:mm:ss");
+
+        return {
+          id: item.Id,
+          message: item.Message,
+          read: item.IsRead,
+          time: parsed.isValid() ? parsed.fromNow() : "Invalid date",
+          formatted: parsed.isValid() ? parsed.format("DD/MM/YYYY, HH:mm:ss") : "Invalid date"
+        };
+      }));
+
+    })()
+
+    return () => {
+
+    }
+  }, [])
+  useEffect(() => {
+    dayjs.extend(relativeTime);
+    dayjs.extend(customParseFormat);
+    console.log(Notifications);
+    return () => {
+
+    }
+  }, [Notifications])
+
   return (
-    <div className='animate-page'>Notifications</div>
+    <>
+      <Toaster />
+      <h1 className='font-semibold text-xl mx-4 my-2 '>Notifications</h1>
+      <div className='bg-white px-4 rounded-lg shadow-md mx-4 pt-4 pb-8 h-full overflow-y-auto'>
+        <div className="flex flex-col gap-4 p-4">
+          {Notifications.map((item, index) => (
+            <div
+              key={index}
+              className={`flex items-center px-4 py-3 rounded-xl border ${item.read
+                ? "bg-gray-50 border-gray-200"
+                : "bg-white border-blue-200 ring-1 ring-blue-100"
+                } shadow-sm hover:shadow-md transition-shadow duration-200`}
+            >
+              <div className="flex items-center gap-3">
+                {
+                  <MessageSquareWarning className="w-5 h-5 text-blue-500" />
+                }
+                <div >
+                  <div
+                    className={`${item.read ? "text-gray-600 font-normal" : "text-gray-900 font-semibold"
+                      }`}
+                  >
+                    {item.message}
+                  </div>
+                  <div className="text-sm text-gray-400">{item.time}</div>
+                </div>
+              </div>
+
+            </div>
+          ))}
+        </div>
+      </div>
+    </>
   )
 }
 
