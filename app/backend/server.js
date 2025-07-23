@@ -14,6 +14,7 @@ app.use(express.json());
 app.use(cookieParser());
 const unprotectedRoutes = [
   '/api/auth/login',
+  '/'
 ];
 app.use((req, res, next) => {
   if (unprotectedRoutes.includes(req.path)) return next();
