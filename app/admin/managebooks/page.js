@@ -148,9 +148,12 @@ export default function Books() {
   async function fetch_data() {
     const data = await fetch("http://localhost:5000/api/books/get", {
       method: "POST",
+        credentials: "include",
+
       headers: {
         "Content-type": "application/json; charset=UTF-8"
       },
+      credentials: "include",
       body: JSON.stringify({
         API: process.env.NEXT_PUBLIC_XLMS_API
       })
@@ -193,6 +196,8 @@ export default function Books() {
         headers: {
           "Content-type": "application/json; charset=UTF-8"
         },
+        credentials: "include",
+
         body: JSON.stringify(checked.selected)
       })
       const response = await data.json()

@@ -156,6 +156,8 @@ export default function Members() {
       headers: {
         "Content-type": "application/json; charset=UTF-8"
       },
+      credentials: "include",
+
       body: JSON.stringify({ API: process.env.NEXT_PUBLIC_XLMS_API })
     })
     if (!data.ok) {
@@ -196,6 +198,8 @@ export default function Members() {
         headers: {
           "Content-type": "application/json; charset=UTF-8"
         },
+        credentials: "include",
+
         body: JSON.stringify(checked.selected)
       })
       const response = await data.json()
@@ -222,6 +226,8 @@ export default function Members() {
       headers: {
         "Content-type": "application/json; charset=UTF-8"
       },
+        credentials: "include",
+
       body: JSON.stringify(checked.selected)
     })
     if (!data.ok) {
@@ -275,7 +281,7 @@ export default function Members() {
               />
             </svg>
           </button>
-          <input className="w-full h-full px-2 py-[0.7rem] font-normal bg-transparent text-sm border-none focus:outline-none" placeholder="Search a user" value={input} onChange={(e) => { setinput(e.target.value);  }} type="text" />
+          <input className="w-full h-full px-2 py-[0.7rem] font-normal bg-transparent text-sm border-none focus:outline-none" placeholder="Search a user" value={input} onChange={(e) => { setinput(e.target.value); }} type="text" />
           <button onClick={() => { setinput("") }} className={`cursor-pointer ${input.length === 0 ? "opacity-0" : "block"} transition-opacity`} >
             <svg
               xmlns="http://www.w3.org/2000/svg"

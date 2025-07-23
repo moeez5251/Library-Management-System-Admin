@@ -41,6 +41,8 @@ const Lend = () => {
         (async function fetchTitles() {
             const data = await fetch("http://localhost:5000/api/books/col", {
                 method: "POST",
+        credentials: "include",
+
                 headers: {
                     "Content-Type": "application/json"
                 },
@@ -127,6 +129,8 @@ const Lend = () => {
             const Due = new Date(DueDate).toLocaleDateString("en-CA")
             const data = await fetch("http://localhost:5000/api/lenders/insert", {
                 method: "POST",
+        credentials: "include",
+
                 headers: {
                     "Content-type": "application/json; charset=UTF-8"
                 },

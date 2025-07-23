@@ -48,6 +48,8 @@ const DynamicPage = ({ params }) => {
           'Content-Type': 'application/json',
           'Accept': 'application/json'
         },
+        credentials: "include",
+
         body: JSON.stringify({
           ID: slug
         })
@@ -121,6 +123,8 @@ const DynamicPage = ({ params }) => {
           'Content-Type': 'application/json',
           'Accept': 'application/json'
         },
+        credentials: "include",
+
         body: JSON.stringify({
           ID: userid,
           User_Name: inputs.User_Name,
@@ -159,6 +163,8 @@ const DynamicPage = ({ params }) => {
         headers: {
           "Content-type": "application/json; charset=UTF-8"
         },
+        credentials: "include",
+
         body: JSON.stringify({
           ID: userid
         })
@@ -195,6 +201,8 @@ const DynamicPage = ({ params }) => {
     try {
       const data = await fetch("http://localhost:5000/api/users/deactivate", {
       method: "POST",
+        credentials: "include",
+
       headers: {
         "Content-type": "application/json; charset=UTF-8"
       },

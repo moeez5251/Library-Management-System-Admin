@@ -170,6 +170,8 @@ export default function Lenders() {
         headers: {
           "Content-type": "application/json; charset=UTF-8"
         },
+        credentials: "include",
+
         body: JSON.stringify({
           ID: e.target.dataset.bid,
 
@@ -193,6 +195,7 @@ export default function Lenders() {
       headers: {
         "Content-type": "application/json; charset=UTF-8"
       },
+      credentials: "include",
       body: JSON.stringify({ API: process.env.NEXT_PUBLIC_XLMS_API })
     })
     if (!data.ok) {

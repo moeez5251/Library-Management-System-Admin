@@ -1,9 +1,24 @@
 const express = require('express');
 const cors = require('cors');
 const app = express();
+const cookieParser = require('cookie-parser');
+const verifyToken = require('./middleware/app'); // Ensure this path is correct
 require('dotenv').config();
-app.use(cors());
+app.use(cors({
+  origin: process.env.URL,  // or your frontend dev URL
+  credentials: true,
+}));
+
+
 app.use(express.json());
+app.use(cookieParser());
+const unprotectedRoutes = [
+  '/api/auth/login',
+];
+app.use((req, res, next) => {
+  if (unprotectedRoutes.includes(req.path)) return next();
+  verifyToken(req, res, next);
+});
 process.on('uncaughtException', (err) => {
   console.error('Uncaught Exception:', err);
 });
@@ -25,6 +40,8 @@ const sendEmailRoutes = require('./routes/mail');
 app.use('/api/mail', sendEmailRoutes);
 const NotificationsRoutes = require('./routes/notifications');
 app.use('/api/notifications', NotificationsRoutes);
+const resourceRoutes = require('./routes/resource')
+app.use('/api/resource', resourceRoutes)
 app.get('/', (req, res) => {
   res.send('✅ App is alive!');
 });

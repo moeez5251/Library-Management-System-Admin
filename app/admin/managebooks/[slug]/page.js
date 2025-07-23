@@ -50,6 +50,8 @@ const Edit = ({ params }) => {
 
       const data = await fetch("http://localhost:5000/api/books/update", {
         method: "PUT",
+        credentials: "include",
+
         headers: {
           "Content-type": "application/json; charset=UTF-8"
         },
@@ -109,6 +111,8 @@ const Edit = ({ params }) => {
           headers: {
             "Content-type": "application/json; charset=UTF-8"
           },
+        credentials: "include",
+
           body: JSON.stringify({
             ID: bookid
           })

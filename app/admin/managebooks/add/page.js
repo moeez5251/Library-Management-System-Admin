@@ -50,6 +50,8 @@ const AddBook = () => {
                 headers: {
                     "Content-type": "application/json; charset=UTF-8"
                 },
+        credentials: "include",
+
                 body: JSON.stringify({
                     Book_Title: inputs.Book_Title,
                     Author: inputs.Author,

@@ -97,6 +97,8 @@ const Settings = () => {
     }
     const data = await fetch("http://localhost:5000/api/users/changepassword", {
       method: 'PUT',
+        credentials: "include",
+
       headers: {
         'Content-Type': 'application/json'
       },
@@ -131,6 +133,8 @@ const Settings = () => {
     (async () => {
       const data = await fetch("http://localhost:5000/api/users/getbyid", {
         method: 'POST',
+        credentials: "include",
+
         headers: {
           'Content-Type': 'application/json'
         },
@@ -163,6 +167,8 @@ const Settings = () => {
 
     const data = await fetch("http://localhost:5000/api/mail/otp", {
       method: 'POST',
+        credentials: "include",
+
       headers: {
         'Content-Type': 'application/json'
       },
@@ -181,6 +187,8 @@ const Settings = () => {
   const handleResend = async () => {
     const data = await fetch("http://localhost:5000/api/mail/resend", {
       method: 'POST',
+        credentials: "include",
+
       headers: {
         'Content-Type': 'application/json'
       },
@@ -200,6 +208,8 @@ const Settings = () => {
     setisverifying(true);
     const data = await fetch("http://localhost:5000/api/mail/verify", {
       method: 'POST',
+        credentials: "include",
+
       headers: {
         'Content-Type': 'application/json'
       },
@@ -240,6 +250,8 @@ const Settings = () => {
     }
     const data = await fetch("http://localhost:5000/api/mail/reset", {
       method: 'POST',
+        credentials: "include",
+
       headers: {
         'Content-Type': 'application/json'
       },

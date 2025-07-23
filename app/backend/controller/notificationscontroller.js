@@ -48,3 +48,31 @@ exports.getnotifications = async (req, res) => {
         res.status(500).json({ error: 'Internal Server Error' });
     }
 }
+exports.markasread = async (req, res) => {
+    const { Userid
+        , NotificationId
+    } = req.body;
+    const promise = await poolPromise;
+    try {
+        if (NotificationId) {
+            const result = await promise
+                .request()
+                .input('Userid', Userid)
+                .input('NotificationId', NotificationId)
+                .input('IsRead', true)
+                .query('UPDATE Notifications SET IsRead = @IsRead WHERE UserId = @Userid AND Id = @NotificationId');
+            res.json({ message: 'Notification marked as read successfully' });
+        }
+        else {
+            const result = await promise
+                .request()
+                .input('Userid', Userid)
+                .input('IsRead', true)
+                .query('UPDATE Notifications SET IsRead = @IsRead WHERE UserId = @Userid');
+            res.json({ message: 'All notifications marked as read successfully' });
+        }
+    } catch (e) {
+        console.error('Error marking notification as read:', e);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+}
