@@ -45,7 +45,7 @@ const AddBook = () => {
         setbook(false)
         try {
 
-            const data = await fetch("https://library-management-system-hvhv.onrender.comapi/books/insert", {
+            const data = await fetch("https://library-management-system-hvhv.onrender.com/api/books/insert", {
                 method: "POST",
                 headers: {
                     "Content-type": "application/json; charset=UTF-8"

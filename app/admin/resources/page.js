@@ -36,7 +36,7 @@ const Resources = () => {
       setissubmitting(false)
       return
     }
-    const data=await fetch("https://library-management-system-hvhv.onrender.comapi/resource/add",{
+    const data=await fetch("https://library-management-system-hvhv.onrender.com/api/resource/add",{
       method:"POST",
         credentials: "include",
 

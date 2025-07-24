@@ -146,7 +146,7 @@ export default function Books() {
   const [Delete, setDelete] = useState(false)
   const [Disabledelete, setDisabledelete] = useState(false)
   async function fetch_data() {
-    const data = await fetch("https://library-management-system-hvhv.onrender.comapi/books/get", {
+    const data = await fetch("https://library-management-system-hvhv.onrender.com/api/books/get", {
       method: "POST",
         credentials: "include",
 
@@ -191,7 +191,7 @@ export default function Books() {
     setDisabledelete(true)
     try {
 
-      const data = await fetch("https://library-management-system-hvhv.onrender.comapi/books/delete", {
+      const data = await fetch("https://library-management-system-hvhv.onrender.com/api/books/delete", {
         method: "DELETE",
         headers: {
           "Content-type": "application/json; charset=UTF-8"

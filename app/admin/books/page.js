@@ -165,7 +165,7 @@ export default function Lenders() {
   const handleclick = async (e) => {
     settrigger(true)
     try {
-      const data = await fetch("https://library-management-system-hvhv.onrender.comapi/lenders/getlenderbyid", {
+      const data = await fetch("https://library-management-system-hvhv.onrender.com/api/lenders/getlenderbyid", {
         method: "POST",
         headers: {
           "Content-type": "application/json; charset=UTF-8"
@@ -190,7 +190,7 @@ export default function Lenders() {
     }
   }
   async function fetch_data() {
-    const data = await fetch("https://library-management-system-hvhv.onrender.comapi/lenders/all", {
+    const data = await fetch("https://library-management-system-hvhv.onrender.com/api/lenders/all", {
       method: "POST",
       headers: {
         "Content-type": "application/json; charset=UTF-8"

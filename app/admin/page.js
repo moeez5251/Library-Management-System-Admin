@@ -40,7 +40,7 @@ const AdminDashboard = () => {
     }, [])
     useEffect(() => {
         (async () => {
-            const data = await fetch("https://library-management-system-hvhv.onrender.comapi/other/getbookdata", {
+            const data = await fetch("https://library-management-system-hvhv.onrender.com/api/other/getbookdata", {
                 method: "GET",
                 headers: {
                     "Content-Type": "application/json"
