@@ -2,11 +2,11 @@ const express = require('express');
 const cors = require('cors');
 const app = express();
 const cookieParser = require('cookie-parser');
-const verifyToken = require('./middleware/app'); // Ensure this path is correct
+const verifyToken = require('./middleware/app');
 require('dotenv').config();
 app.use(cors({
-  origin: process.env.URL,  // or your frontend dev URL
-  credentials: true,
+  origin: process.env.URL,  // MUST match your frontend
+  credentials: true                 // Allow cookies to be sent
 }));
 
 
@@ -26,7 +26,6 @@ process.on('uncaughtException', (err) => {
 process.on('unhandledRejection', (err) => {
   console.error('Unhandled Rejection:', err);
 });
-
 const authRoutes = require('./routes/auth');
 app.use('/api/auth', authRoutes);
 const userRoutes = require('./routes/user');

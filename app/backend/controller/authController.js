@@ -28,14 +28,16 @@ exports.login = async (req, res) => {
     if (!isPasswordValid) {
       return res.status(401).json({ message: 'Invalid Email/Password' });
     }
-    const token = generateToken(user);
+    const token = generateToken(user.recordset[0]);
+
     res.cookie('jwt', token, {
       httpOnly: true,
-      secure: process.env.NODE_ENV === 'production',  // true in prod (needs HTTPS)
-      maxAge: 7 * 24 * 60 * 60 * 1000,  // 7 days
-      sameSite: 'none',  // required for cross-site cookies
+      secure: process.env.NODE_ENV === 'production',
+      sameSite: process.env.NODE_ENV === 'production' ? 'None' : 'Lax',
       path: '/',
+      maxAge: 7 * 24 * 60 * 60 * 1000
     });
+
 
     res.json({ message: 'Login successful', token, userid: user.recordset[0].User_id });
   }
