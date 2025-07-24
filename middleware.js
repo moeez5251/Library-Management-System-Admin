@@ -7,7 +7,7 @@ export function middleware(request) {
     const token = request.cookies.get('jwt')?.value;
     if (!token) {
       const url = request.nextUrl.clone();
-      url.pathname = '/login';
+      url.pathname = '/';
       return NextResponse.redirect(url);
     }
   }
