@@ -45,7 +45,6 @@ export function ChartPieDonutText({ data }) {
 
     ])
     React.useEffect(() => {
-        console.log(data);
         setrawData([
             { type: "Lended", stock: data.Totalborrowers, fill: "#fe4c00" },
             { type: "Available", stock: data.availablebooks, fill: "#00e597" },
@@ -57,7 +56,6 @@ export function ChartPieDonutText({ data }) {
         }
     }, [data])
     React.useEffect(() => {
-        console.log(rawData);
 
         return () => {
 

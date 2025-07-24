@@ -177,7 +177,6 @@ exports.OTP = async (req, res) => {
         res.status(200).json({ message: 'OTP sent successfully' });
     }
     catch (err) {
-        console.log(err);
         return res.status(500).json({ error: 'Internal Server Error' });
     }
 }
@@ -381,7 +380,6 @@ exports.verifyotp = async (req, res) => {
             return res.status(400).json({ error: 'Invalid OTP' });
         }
     } catch (err) {
-        console.log(err);
         return res.status(500).json({ error: 'Internal Server Error' });
     }
 }
@@ -404,7 +402,6 @@ exports.resetpassword = async (req, res) => {
         }
     }
     catch (e) {
-        console.log(e);
         return res.status(500).json({ error: 'Internal Server Error' });
     }
 }
