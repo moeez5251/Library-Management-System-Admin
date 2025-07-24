@@ -88,7 +88,7 @@ export default function Home() {
       const data = await log.json();
       if (data.message.trim() === "Login successful") {
         localStorage.setItem("userID", data.userid)
-        window.location.href = '/admin'
+        router.push("/admin")
       }
       else {
         toast.error(data.message)
