@@ -95,7 +95,7 @@ const Settings = () => {
       setissubmitting(true);
       return;
     }
-    const data = await fetch("https://library-management-system-07a7.onrender.com/api/users/changepassword", {
+    const data = await fetch("https://library-management-system-production-5742.up.railway.app/api/users/changepassword", {
       method: 'PUT',
         credentials: "include",
 
@@ -131,7 +131,7 @@ const Settings = () => {
   }
   useEffect(() => {
     (async () => {
-      const data = await fetch("https://library-management-system-07a7.onrender.com/api/users/getbyid", {
+      const data = await fetch("https://library-management-system-production-5742.up.railway.app/api/users/getbyid", {
         method: 'POST',
         credentials: "include",
 
@@ -165,7 +165,7 @@ const Settings = () => {
   const handledialog = async () => {
     setopening(true);
 
-    const data = await fetch("https://library-management-system-07a7.onrender.com/api/mail/otp", {
+    const data = await fetch("https://library-management-system-production-5742.up.railway.app/api/mail/otp", {
       method: 'POST',
         credentials: "include",
 
@@ -185,7 +185,7 @@ const Settings = () => {
 
   }
   const handleResend = async () => {
-    const data = await fetch("https://library-management-system-07a7.onrender.com/api/mail/resend", {
+    const data = await fetch("https://library-management-system-production-5742.up.railway.app/api/mail/resend", {
       method: 'POST',
         credentials: "include",
 
@@ -206,7 +206,7 @@ const Settings = () => {
   }
   const handleverify = async (e) => {
     setisverifying(true);
-    const data = await fetch("https://library-management-system-07a7.onrender.com/api/mail/verify", {
+    const data = await fetch("https://library-management-system-production-5742.up.railway.app/api/mail/verify", {
       method: 'POST',
         credentials: "include",
 
@@ -248,7 +248,7 @@ const Settings = () => {
       setisverifying(false);
       return;
     }
-    const data = await fetch("https://library-management-system-07a7.onrender.com/api/mail/reset", {
+    const data = await fetch("https://library-management-system-production-5742.up.railway.app/api/mail/reset", {
       method: 'POST',
         credentials: "include",
 

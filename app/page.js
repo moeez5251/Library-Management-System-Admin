@@ -77,7 +77,7 @@ export default function Home() {
       })
     }
     try {
-      const log = await fetch("https://library-management-system-07a7.onrender.com/api/auth/login", {
+      const log = await fetch("https://library-management-system-production-5742.up.railway.app/api/auth/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json"

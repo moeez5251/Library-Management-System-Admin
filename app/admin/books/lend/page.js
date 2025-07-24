@@ -39,7 +39,7 @@ const Lend = () => {
     const [issubmitting, setissubmitting] = useState(false)
     useEffect(() => {
         (async function fetchTitles() {
-            const data = await fetch("https://library-management-system-07a7.onrender.com/api/books/col", {
+            const data = await fetch("https://library-management-system-production-5742.up.railway.app/api/books/col", {
                 method: "POST",
         credentials: "include",
 
@@ -127,7 +127,7 @@ const Lend = () => {
         setissubmitting(true)
         try {
             const Due = new Date(DueDate).toLocaleDateString("en-CA")
-            const data = await fetch("https://library-management-system-07a7.onrender.com/api/lenders/insert", {
+            const data = await fetch("https://library-management-system-production-5742.up.railway.app/api/lenders/insert", {
                 method: "POST",
         credentials: "include",
 

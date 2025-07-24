@@ -37,7 +37,7 @@ const ResetClient = () => {
 
     (async () => {
       try {
-        const res = await fetch("https://library-management-system-07a7.onrender.com/api/token/verify", {
+        const res = await fetch("https://library-management-system-production-5742.up.railway.app/api/token/verify", {
           method: "POST",
         credentials: "include",
 
@@ -105,7 +105,7 @@ const ResetClient = () => {
       });
       setissubmitting(false)
     }
-    const data = await fetch("https://library-management-system-07a7.onrender.com/api/token/update", {
+    const data = await fetch("https://library-management-system-production-5742.up.railway.app/api/token/update", {
       method: "PUT",
         credentials: "include",
 
