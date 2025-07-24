@@ -146,7 +146,7 @@ export default function Books() {
   const [Delete, setDelete] = useState(false)
   const [Disabledelete, setDisabledelete] = useState(false)
   async function fetch_data() {
-    const data = await fetch("https://library-management-system-07a7.onrender.com/api/books/get", {
+    const data = await fetch("http://localhost:5000/api/books/get", {
       method: "POST",
         credentials: "include",
 
