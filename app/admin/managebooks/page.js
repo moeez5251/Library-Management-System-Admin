@@ -191,7 +191,7 @@ export default function Books() {
     setDisabledelete(true)
     try {
 
-      const data = await fetch("http://localhost:5000/api/books/delete", {
+      const data = await fetch("https://library-management-system-07a7.onrender.com/api/books/delete", {
         method: "DELETE",
         headers: {
           "Content-type": "application/json; charset=UTF-8"

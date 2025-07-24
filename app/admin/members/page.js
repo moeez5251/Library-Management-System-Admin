@@ -151,7 +151,7 @@ export default function Members() {
   const [deactivate, setDeactivate] = useState(false)
 
   async function fetch_data() {
-    const data = await fetch("http://localhost:5000/api/users/all", {
+    const data = await fetch("https://library-management-system-07a7.onrender.com/api/users/all", {
       method: "POST",
       headers: {
         "Content-type": "application/json; charset=UTF-8"
@@ -193,7 +193,7 @@ export default function Members() {
     setDisabledelete(true)
     try {
 
-      const data = await fetch("http://localhost:5000/api/users/delete", {
+      const data = await fetch("https://library-management-system-07a7.onrender.com/api/users/delete", {
         method: "DELETE",
         headers: {
           "Content-type": "application/json; charset=UTF-8"
@@ -221,7 +221,7 @@ export default function Members() {
   }
   const handledeactivate = async () => {
     setDisabledelete(true)
-    const data = await fetch("http://localhost:5000/api/users/deactivate", {
+    const data = await fetch("https://library-management-system-07a7.onrender.com/api/users/deactivate", {
       method: "POST",
       headers: {
         "Content-type": "application/json; charset=UTF-8"

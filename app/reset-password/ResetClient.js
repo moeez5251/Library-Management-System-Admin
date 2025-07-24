@@ -37,7 +37,7 @@ const ResetClient = () => {
 
     (async () => {
       try {
-        const res = await fetch("http://localhost:5000/api/token/verify", {
+        const res = await fetch("https://library-management-system-07a7.onrender.com/api/token/verify", {
           method: "POST",
         credentials: "include",
 
@@ -105,7 +105,7 @@ const ResetClient = () => {
       });
       setissubmitting(false)
     }
-    const data = await fetch("http://localhost:5000/api/token/update", {
+    const data = await fetch("https://library-management-system-07a7.onrender.com/api/token/update", {
       method: "PUT",
         credentials: "include",
 

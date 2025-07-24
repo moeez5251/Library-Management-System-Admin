@@ -1,6 +1,8 @@
 "use client"
 
 import * as React from "react"
+
+
 import { Pie, PieChart, Label } from "recharts"
 
 import {
@@ -8,7 +10,7 @@ import {
     CardContent,
     CardHeader,
     CardTitle,
-} from   "@/components/ui/card"
+} from "@/components/ui/card"
 import {
     ChartConfig,
     ChartContainer,
@@ -19,12 +21,6 @@ import {
 } from "@/components/ui/chart"
 import { CardDescription } from "@/components/ui/card"
 
-const rawData = [
-    { type: "Lended", stock: 50, fill: "#fe4c00" },
-    { type: "Available", stock: 20, fill: "#00e597" },
-    { type: "OverDue", stock: 10, fill: "#0092f6" },
-
-]
 
 const chartConfig = {
     Lended: {
@@ -41,12 +37,38 @@ const chartConfig = {
     },
 }
 
-export function ChartPieDonutText() {
+export function ChartPieDonutText({ data }) {
+    const [rawData, setrawData] = React.useState([
+        { type: "Lended", stock: data.Totalborrowers ? data.Totalborrowers : 0, fill: "#fe4c00" },
+        { type: "Available", stock: data.availablebooks ? data.availablebooks : 0, fill: "#00e597" },
+        { type: "OverDue", stock: data.overduebooks ? data.overduebooks : 0, fill: "#0092f6" },
+
+    ])
+    React.useEffect(() => {
+        console.log(data);
+        setrawData([
+            { type: "Lended", stock: data.Totalborrowers, fill: "#fe4c00" },
+            { type: "Available", stock: data.availablebooks, fill: "#00e597" },
+            { type: "OverDue", stock: data.overduebooks, fill: "#0092f6" },
+        ])
+
+        return () => {
+
+        }
+    }, [data])
+    React.useEffect(() => {
+        console.log(rawData);
+
+        return () => {
+
+        }
+    }, [rawData])
+
     const totalVisitors = rawData.reduce((acc, curr) => acc + curr.stock, 0)
 
     const chartData = rawData.map((item) => ({
         ...item,
-        percent: ((item.stock / totalVisitors) * 100).toFixed(1), 
+        percent: ((item.stock / totalVisitors) * 100).toFixed(1),
     }))
 
     return (
@@ -108,8 +130,8 @@ export function ChartPieDonutText() {
                                                 style={{ backgroundColor: item.fill }}
                                             />
                                             <div className="flex items-center gap-1 flex-col">
-                                            <span className="" >{item.type} </span>
-                                            <span className="font-semibold" >{item.percent}%</span>
+                                                <span className="" >{item.type} </span>
+                                                <span className="font-semibold" >{isNaN(item.percent) ? "0.00" : item.percent} %</span>
                                             </div>
                                         </div>
                                     ))}

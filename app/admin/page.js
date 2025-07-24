@@ -1,23 +1,61 @@
 "use client"
-import React from 'react'
+import React, { useState } from 'react'
 import { ChartTooltipIndicatorLine } from './components/chart'
 import { ChartPieDonutText } from './components/piechart'
 import { createSwapy } from 'swapy'
 import { useEffect } from 'react'
 import { ChartNoAxesCombined } from 'lucide-react'
+import { useRouter } from 'next/navigation'
 const AdminDashboard = () => {
+    const router = useRouter()
+    const [inputs, setInputs] = useState({
+        Totalbooks: "",
+        Totalusers: "",
+        Totalborrowers: "",
+        lendedbooks: "",
+        availablebooks: "",
+        overduebooks: ""
+    })
     useEffect(() => {
 
 
         const container = document.querySelector('.swapy')
         const swapy = createSwapy(container, {
             animation: 'spring',
-            swapMode:"hover"
+            swapMode: "hover"
         })
         return () => {
 
         }
     }, [])
+    useEffect(() => {
+        router.prefetch("/admin/managebooks")
+        router.prefetch("/admin/members")
+        router.prefetch("/admin/books")
+        router.prefetch("/admin/managebooks/add")
+
+        return () => {
+
+        }
+    }, [])
+    useEffect(() => {
+        (async () => {
+            const data = await fetch("https://library-management-system-07a7.onrender.com/api/other/getbookdata", {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                credentials: "include"
+            })
+            const res = await data.json()
+            setInputs(res)
+        })()
+
+        return () => {
+
+        }
+    }, [])
+
 
     return (
         <div className='animate-page'>
@@ -25,7 +63,7 @@ const AdminDashboard = () => {
                 <h1 className='font-semibold text-xl'>Welcome Admin</h1>
                 <div className='flex items-center gap-2'>
                     <div className='font-semibold text-lg'>Quick Actions :</div>
-                    <button className='bg-[#6841c4] text-white px-3 py-2 rounded-lg cursor-pointer transition-transform scale-90 hover:scale-100 font-normal'>Add New Book</button>
+                    <button onClick={() => { router.push("/admin/managebooks/add") }} className='bg-[#6841c4] text-white px-3 py-2 rounded-lg cursor-pointer transition-transform scale-90 hover:scale-100 font-normal'>Add New Book</button>
                 </div>
             </div>
             <div className='px-5 m-5 py-3 rounded-xl flex items-center justify-center gap-5 bg-white '>
@@ -52,11 +90,16 @@ const AdminDashboard = () => {
                     </div>
                     <div className='flex flex-col items-center gap-2'>
                         <div className='font-semibold text-lg'>Total Books</div>
-                        <div className='font-semibold text-lg w-24 h-8 rounded-md'>
-                            <div className="card__skeleton w-full h-full rounded-md"></div>
-                        </div>
+                        {
+                            inputs.Totalbooks ?
+                                <div className='text-lg font-semibold'>{inputs.Totalbooks}</div>
+                                :
+                                <div className='font-semibold text-lg w-24 h-8 rounded-md'>
+                                    <div className="card__skeleton w-full h-full rounded-md"></div>
+                                </div>
+                        }
                     </div>
-                    <button className='bg-[#ffffff] text-gray-500  p-2 rounded-md cursor-pointer'>View Details</button>
+                    <button onClick={() => { router.push("/admin/managebooks") }} className='bg-[#ffffff] text-gray-500  p-2 rounded-md cursor-pointer'>View Details</button>
                 </div>
                 <div className='bg-[#ededfe] w-[20%]  flex flex-col items-center py-5 justify-center rounded-lg shadow-sm scale-95 hover:scale-100 transition-transform gap-5 border-2 border-[#dad7f6] '>
                     <div className='bg-[#6259fe] w-fit px-3 py-2 rounded-md text-lg'>
@@ -81,11 +124,16 @@ const AdminDashboard = () => {
                     </div>
                     <div className='flex flex-col items-center gap-2'>
                         <div className='font-semibold text-lg'>Lended Books</div>
-                        <div className='font-semibold text-lg w-24 h-8 rounded-md'>
-                            <div className="card__skeleton w-full h-full rounded-md"></div>
-                        </div>
+                        {
+                            inputs.Totalborrowers ?
+                                <div className='text-lg font-semibold'>{inputs.Totalborrowers}</div>
+                                :
+                                <div className='font-semibold text-lg w-24 h-8 rounded-md'>
+                                    <div className="card__skeleton w-full h-full rounded-md"></div>
+                                </div>
+                        }
                     </div>
-                    <button className='bg-[#ffffff] text-gray-500 p-2 rounded-md cursor-pointer'>View Details</button>
+                    <button onClick={() => { router.push("/admin/books") }} className='bg-[#ffffff] text-gray-500 p-2 rounded-md cursor-pointer'>View Details</button>
                 </div>
                 <div className='bg-[#e7f9f9] w-[20%]  flex flex-col items-center py-5 justify-center rounded-lg shadow-sm scale-95 hover:scale-100 transition-transform gap-5 border-2 border-[#c4e9e4] '>
                     <div className='bg-[#11ccc7] w-fit px-3 py-2 rounded-md text-lg'>
@@ -110,11 +158,16 @@ const AdminDashboard = () => {
                     </div>
                     <div className='flex flex-col items-center gap-2'>
                         <div className='font-semibold text-lg'>Available Books</div>
-                        <div className='font-semibold text-lg w-24 h-8 rounded-md'>
-                            <div className="card__skeleton w-full h-full rounded-md"></div>
-                        </div>
+                        {
+                            inputs.availablebooks ?
+                                <div className='text-lg font-semibold'>{inputs.availablebooks}</div>
+                                :
+                                <div className='font-semibold text-lg w-24 h-8 rounded-md'>
+                                    <div className="card__skeleton w-full h-full rounded-md"></div>
+                                </div>
+                        }
                     </div>
-                    <button className='bg-[#ffffff] text-gray-500 p-2 rounded-md cursor-pointer'>View Details</button>
+                    <button onClick={() => { router.push("/admin/managebooks") }} className='bg-[#ffffff] text-gray-500 p-2 rounded-md cursor-pointer'>View Details</button>
                 </div>
                 <div className='bg-[#eaf9ef] w-[20%]  flex flex-col items-center py-5 justify-center rounded-lg shadow-sm scale-95 hover:scale-100 transition-transform gap-5 border-2 border-[#c9e4d6] '>
                     <div className='bg-[#37c971] w-fit px-3 py-2 rounded-md text-lg'>
@@ -152,11 +205,16 @@ const AdminDashboard = () => {
                     </div>
                     <div className='flex flex-col items-center gap-2'>
                         <div className='font-semibold text-lg'>Total Users</div>
-                        <div className='font-semibold text-lg w-24 h-8 rounded-md'>
-                            <div className="card__skeleton w-full h-full rounded-md"></div>
-                        </div>
+                        {
+                            inputs.Totalusers ?
+                                <div className='text-lg font-semibold'>{inputs.Totalusers}</div>
+                                :
+                                <div className='font-semibold text-lg w-24 h-8 rounded-md'>
+                                    <div className="card__skeleton w-full h-full rounded-md"></div>
+                                </div>
+                        }
                     </div>
-                    <button className='bg-[#ffffff] text-gray-500 p-2 rounded-md cursor-pointer'>View Details</button>
+                    <button onClick={() => { router.push("/admin/members") }} className='bg-[#ffffff] text-gray-500 p-2 rounded-md cursor-pointer'>View Details</button>
                 </div>
                 <div className='bg-[#fff1f6] w-[20%]  flex flex-col items-center py-5 justify-center rounded-lg shadow-sm scale-95 hover:scale-100 transition-transform gap-5 border-2 border-[#efd4dd] '>
                     <div className='bg-[#fd6492] w-fit px-3 py-2 rounded-md text-lg'>
@@ -181,21 +239,26 @@ const AdminDashboard = () => {
                     </div>
                     <div className='flex flex-col items-center gap-2'>
                         <div className='font-semibold text-lg'>OverDue Books</div>
-                        <div className='font-semibold text-lg w-24 h-8 rounded-md'>
-                            <div className="card__skeleton w-full h-full rounded-md"></div>
-                        </div>
+                        {
+                            inputs.overduebooks ?
+                                <div className='text-lg font-semibold'>{inputs.overduebooks}</div>
+                                :
+                                <div className='font-semibold text-lg w-24 h-8 rounded-md'>
+                                    <div className="card__skeleton w-full h-full rounded-md"></div>
+                                </div>
+                        }
                     </div>
-                    <button className='bg-[#ffffff] text-gray-500 p-2 rounded-md cursor-pointer'>View Details</button>
+                    <button onClick={() => { router.push("/admin/managebooks") }} className='bg-[#ffffff] text-gray-500 p-2 rounded-md cursor-pointer'>View Details</button>
                 </div>
 
             </div>
-                <div className='text-black mx-5 my-3 font-semibold text-xl flex items-center gap-1'>Swap charts <ChartNoAxesCombined color='#00d38b' size={20} /> for best view</div>
+            <div className='text-black mx-5 my-3 font-semibold text-xl flex items-center gap-1'>Swap charts <ChartNoAxesCombined color='#00d38b' size={20} /> for best view</div>
             <div className='flex  mx-4 my-2 gap-3 swapy'>
                 <div data-swapy-slot="a" className='w-[60%]'>
                     <ChartTooltipIndicatorLine />
                 </div>
                 <div data-swapy-slot="b" className='w-1/2'>
-                    <ChartPieDonutText />
+                    <ChartPieDonutText data={inputs} />
                 </div>
             </div>
         </div>

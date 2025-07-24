@@ -5,8 +5,8 @@ const cookieParser = require('cookie-parser');
 const verifyToken = require('./middleware/app');
 require('dotenv').config();
 app.use(cors({
-  origin: process.env.URL,  // MUST match your frontend
-  credentials: true                 // Allow cookies to be sent
+  origin: process.env.URL, 
+  credentials: true                
 }));
 
 
@@ -42,6 +42,8 @@ const NotificationsRoutes = require('./routes/notifications');
 app.use('/api/notifications', NotificationsRoutes);
 const resourceRoutes = require('./routes/resource')
 app.use('/api/resource', resourceRoutes)
+const otherController = require('./routes/other');
+app.use('/api/other', otherController);
 app.get('/', (req, res) => {
   res.send('✅ App is alive!');
 });

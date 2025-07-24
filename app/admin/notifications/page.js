@@ -12,7 +12,7 @@ const Notifications = () => {
   const [Notifications, setNotifications] = useState([])
   useEffect(() => {
     (async () => {
-      const data = await fetch("http://localhost:5000/api/notifications/get", {
+      const data = await fetch("https://library-management-system-07a7.onrender.com/api/notifications/get", {
         method: "POST",
         credentials: "include",
 
@@ -42,7 +42,7 @@ const Notifications = () => {
     })()
 
     return async () => {
-      const data = await fetch("http://localhost:5000/api/notifications/markasread", {
+      const data = await fetch("https://library-management-system-07a7.onrender.com/api/notifications/markasread", {
         method: "POST",
         credentials: "include",
 

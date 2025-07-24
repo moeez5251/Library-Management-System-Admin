@@ -77,7 +77,7 @@ const AddUser = () => {
         }
         setuser(false)
         try {
-            const data = await fetch("http://localhost:5000/api/users/register", {
+            const data = await fetch("https://library-management-system-07a7.onrender.com/api/users/register", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"

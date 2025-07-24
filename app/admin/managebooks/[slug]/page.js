@@ -48,7 +48,7 @@ const Edit = ({ params }) => {
     setbook(false)
     try {
 
-      const data = await fetch("http://localhost:5000/api/books/update", {
+      const data = await fetch("https://library-management-system-07a7.onrender.com/api/books/update", {
         method: "PUT",
         credentials: "include",
 
@@ -106,7 +106,7 @@ const Edit = ({ params }) => {
     (async function fetchdata() {
       if (bookid) {
 
-        const data = await fetch("http://localhost:5000/api/books/getbyID", {
+        const data = await fetch("https://library-management-system-07a7.onrender.com/api/books/getbyID", {
           method: "POST",
           headers: {
             "Content-type": "application/json; charset=UTF-8"
