@@ -32,8 +32,8 @@ exports.login = async (req, res) => {
 
     res.cookie('jwt', token, {
       httpOnly: true,
-      secure: process.env.NODE_ENV == 'production',
-      sameSite: process.env.NODE_ENV == 'production' ? 'None' : 'Lax',
+      secure: true,
+      sameSite: 'None',
       path: '/',
       maxAge: 3600000 
     });
