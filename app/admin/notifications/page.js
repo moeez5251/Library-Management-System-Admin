@@ -12,7 +12,7 @@ const Notifications = () => {
   const [Notifications, setNotifications] = useState([])
   useEffect(() => {
     (async () => {
-      const data = await fetch("https://library-management-system-production-5742.up.railway.app/api/notifications/get", {
+      const data = await fetch("https://library-management-system-hvhv.onrender.comapi/notifications/get", {
         method: "POST",
         credentials: "include",
 
@@ -42,7 +42,7 @@ const Notifications = () => {
     })()
 
     return async () => {
-      const data = await fetch("https://library-management-system-production-5742.up.railway.app/api/notifications/markasread", {
+      const data = await fetch("https://library-management-system-hvhv.onrender.comapi/notifications/markasread", {
         method: "POST",
         credentials: "include",
 

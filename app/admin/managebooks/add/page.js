@@ -45,7 +45,7 @@ const AddBook = () => {
         setbook(false)
         try {
 
-            const data = await fetch("https://library-management-system-production-5742.up.railway.app/api/books/insert", {
+            const data = await fetch("https://library-management-system-hvhv.onrender.comapi/books/insert", {
                 method: "POST",
                 headers: {
                     "Content-type": "application/json; charset=UTF-8"

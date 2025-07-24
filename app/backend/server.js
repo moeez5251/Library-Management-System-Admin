@@ -5,7 +5,7 @@ const cookieParser = require('cookie-parser');
 const verifyToken = require('./middleware/app');
 require('dotenv').config();
 app.use(cors({
-  origin: process.env.URL, 
+  origin: process.env.UR, 
   credentials: true                
 }));
 

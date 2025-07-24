@@ -42,7 +42,7 @@ const DynamicPage = ({ params }) => {
     (async function getuserid() {
       const { slug } = await params
       setuserid(slug)
-      const data = await fetch("https://library-management-system-production-5742.up.railway.app/api/users/getbyid", {
+      const data = await fetch("https://library-management-system-hvhv.onrender.comapi/users/getbyid", {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -117,7 +117,7 @@ const DynamicPage = ({ params }) => {
     setuser(false)
     try {
 
-      const data = await fetch("https://library-management-system-production-5742.up.railway.app/api/users/update", {
+      const data = await fetch("https://library-management-system-hvhv.onrender.comapi/users/update", {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -158,7 +158,7 @@ const DynamicPage = ({ params }) => {
     settoggleact(true)
     try {
 
-      const data = await fetch("https://library-management-system-production-5742.up.railway.app/api/users/activate", {
+      const data = await fetch("https://library-management-system-hvhv.onrender.comapi/users/activate", {
         method: "POST",
         headers: {
           "Content-type": "application/json; charset=UTF-8"
@@ -199,7 +199,7 @@ const DynamicPage = ({ params }) => {
   const handledeactivate = async () => {
     settoggleact(true)
     try {
-      const data = await fetch("https://library-management-system-production-5742.up.railway.app/api/users/deactivate", {
+      const data = await fetch("https://library-management-system-hvhv.onrender.comapi/users/deactivate", {
       method: "POST",
         credentials: "include",
 
