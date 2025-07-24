@@ -12,6 +12,7 @@ function generateToken(user) {
 
 exports.login = async (req, res) => {
   const { email, password } = req.body;
+  console.log(email,password);
   try {
     const promise = await poolPromise
 
