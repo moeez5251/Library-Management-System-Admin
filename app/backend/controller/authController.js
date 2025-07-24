@@ -30,12 +30,12 @@ exports.login = async (req, res) => {
     }
     const token = generateToken(user.recordset[0]);
 
-    res.cookie('jwt', token, {
+    await res.cookie('jwt', token, {
       httpOnly: true,
       secure: process.env.NODE_ENV === 'production',
       sameSite: process.env.NODE_ENV === 'production' ? 'None' : 'Lax',
       path: '/',
-      maxAge: 3600000 
+      maxAge: 3600000
     });
 
 

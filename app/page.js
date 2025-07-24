@@ -1,7 +1,7 @@
 "use client"
 import Link from "next/link";
 import { Label } from "@/components/ui/label"
-import { useState,useEffect } from "react";
+import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { LoaderCircleIcon } from "lucide-react";
 import { validate } from 'react-email-validator';
@@ -88,7 +88,7 @@ export default function Home() {
       const data = await log.json();
       if (data.message.trim() === "Login successful") {
         localStorage.setItem("userID", data.userid)
-        router.push("/admin")
+        window.location.href = '/admin'
       }
       else {
         toast.error(data.message)
@@ -102,12 +102,12 @@ export default function Home() {
   }
   useEffect(() => {
     router.prefetch("/admin")
-  
+
     return () => {
-      
+
     }
   }, [])
-  
+
   return (
     <>
       <Toaster />
