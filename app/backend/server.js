@@ -22,7 +22,9 @@ app.use(express.json());
 app.use(cookieParser());
 const unprotectedRoutes = [
   '/api/auth/login',
-  '/'
+  '/',
+  '/api/token/verify',
+  '/api/token/update'
 ]; 
 app.use((req, res, next) => {
   if (unprotectedRoutes.includes(req.path)) return next();
