@@ -24,7 +24,7 @@ const generatetoken = async (id) => {
         .input('used', false)
         .query('INSERT INTO PasswordResetTokens (token, user_id, expires_at, used) VALUES (@token, @user_id, @expires_at, @used)');
 
-    const resetLink = `${process.env.URL}/reset-password?token=${token}`;
+    const resetLink = `$https://xlms-admin.netlify.app/reset-password?token=${token}`;
     return resetLink;
 }
 
