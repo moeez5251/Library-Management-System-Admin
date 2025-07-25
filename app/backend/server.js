@@ -4,7 +4,7 @@ const app = express();
 const cookieParser = require('cookie-parser');
 const verifyToken = require('./middleware/app');
 require('dotenv').config();
-const allowedOrigins = process.env.ALLOWED_ORIGINS?.split(',') || [];
+const allowedOrigins = process.env.URL?.split(',') || [];
 
 app.use(cors({
   origin: (origin, callback) => {
