@@ -163,6 +163,18 @@ const Lend = () => {
             const response = await data.json()
             toast(response.message)
             setissubmitting(false)
+            await fetch("https://library-management-system-hvhv.onrender.com/api/notifications/add", {
+                method: "POST",
+                headers: {
+                    "Content-type": "application/json; charset=UTF-8",
+                    "Authorization": `Bearer ${sessionStorage.getItem("token")}`
+                },
+                credentials: "include",
+                body: JSON.stringify({
+                    Message: ` New Book wsas Lended to ${inputs.Lender_name} `,
+                    Userid: localStorage.getItem("userID")
+                })
+            })
             setInputs({
                 Lender_name: "",
                 Email: "",
@@ -176,6 +188,7 @@ const Lend = () => {
             setAuthor("")
             setLendingDate(new Date)
             setDueDate("")
+
         }
         catch (e) {
             toast("Unable to lend book")
