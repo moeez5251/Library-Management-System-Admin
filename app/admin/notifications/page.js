@@ -20,7 +20,7 @@ const Notifications = () => {
           "Content-type": "application/json; charset=UTF-8",
           "Authorization": `Bearer ${sessionStorage.getItem("token")}`
         },
-        body: JSON.stringify({ Userid: "M6ea45869" })
+        body: JSON.stringify({ Userid: localStorage.getItem("userID") })
       })
       if (!data.ok) {
         toast.error("Failed to fetch notifications");
@@ -51,7 +51,7 @@ const Notifications = () => {
           "Content-type": "application/json; charset=UTF-8",
           "Authorization": `Bearer ${sessionStorage.getItem("token")}`
         },
-        body: JSON.stringify({ Userid: "M6ea45869" })
+        body: JSON.stringify({ Userid: localStorage.getItem("userID") })
       })
       if (!data.ok) {
         toast.error("Failed to mark notifications as read");

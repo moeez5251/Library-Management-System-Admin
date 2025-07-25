@@ -14,6 +14,7 @@ import {
 import { Button } from '@/components/ui/button';
 import { motion, AnimatePresence, transformValue } from "motion/react"
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs"
+import router from '@/app/backend/routes/auth';
 const Settings = () => {
   const [inputs, setInputs] = useState({
     user_id: '',
@@ -97,11 +98,11 @@ const Settings = () => {
     }
     const data = await fetch("https://library-management-system-hvhv.onrender.com/api/users/changepassword", {
       method: 'PUT',
-        credentials: "include",
+      credentials: "include",
 
       headers: {
         'Content-Type': 'application/json',
-          "Authorization": `Bearer ${sessionStorage.getItem("token")}`
+        "Authorization": `Bearer ${sessionStorage.getItem("token")}`
       },
       body: JSON.stringify({
         ID: inputs.user_id,
@@ -141,7 +142,7 @@ const Settings = () => {
           "Authorization": `Bearer ${sessionStorage.getItem("token")}`
         },
         body: JSON.stringify({
-          ID: "M6ea45869"
+          ID: localStorage.getItem("userID")
         })
       })
       if (!data.ok) {
@@ -150,9 +151,8 @@ const Settings = () => {
         return;
       }
       const userData = await data.json();
-
       setInputs({
-        user_id: "M6ea45869",
+        user_id: localStorage.getItem("userID"),
         UserName: userData.User_Name,
         Email: userData.Email,
         OldPassword: '',
@@ -169,11 +169,11 @@ const Settings = () => {
 
     const data = await fetch("https://library-management-system-hvhv.onrender.com/api/mail/otp", {
       method: 'POST',
-        credentials: "include",
+      credentials: "include",
 
       headers: {
         'Content-Type': 'application/json',
-          "Authorization": `Bearer ${sessionStorage.getItem("token")}`
+        "Authorization": `Bearer ${sessionStorage.getItem("token")}`
       },
       body: JSON.stringify({
         Name: inputs.UserName,
@@ -190,11 +190,11 @@ const Settings = () => {
   const handleResend = async () => {
     const data = await fetch("https://library-management-system-hvhv.onrender.com/api/mail/resend", {
       method: 'POST',
-        credentials: "include",
+      credentials: "include",
 
       headers: {
         'Content-Type': 'application/json',
-          "Authorization": `Bearer ${sessionStorage.getItem("token")}`
+        "Authorization": `Bearer ${sessionStorage.getItem("token")}`
       },
       body: JSON.stringify({
         Name: inputs.UserName,
@@ -212,11 +212,11 @@ const Settings = () => {
     setisverifying(true);
     const data = await fetch("https://library-management-system-hvhv.onrender.com/api/mail/verify", {
       method: 'POST',
-        credentials: "include",
+      credentials: "include",
 
       headers: {
         'Content-Type': 'application/json',
-          "Authorization": `Bearer ${sessionStorage.getItem("token")}`
+        "Authorization": `Bearer ${sessionStorage.getItem("token")}`
       },
       body: JSON.stringify({
         Email: inputs.Email,
@@ -240,6 +240,7 @@ const Settings = () => {
       [e.target.name]: e.target.value
     })
   }
+
   const handlereset = async () => {
     setisverifying(true);
     if (dialoginputs.NewPassword.trim().length < 8) {
@@ -255,11 +256,11 @@ const Settings = () => {
     }
     const data = await fetch("https://library-management-system-hvhv.onrender.com/api/mail/reset", {
       method: 'POST',
-        credentials: "include",
+      credentials: "include",
 
       headers: {
         'Content-Type': 'application/json',
-          "Authorization": `Bearer ${sessionStorage.getItem("token")}`
+        "Authorization": `Bearer ${sessionStorage.getItem("token")}`
       },
       body: JSON.stringify({
         ID: inputs.user_id,

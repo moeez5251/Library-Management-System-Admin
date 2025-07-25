@@ -42,10 +42,10 @@ exports.login = async (req, res) => {
     }
     const token = generateToken(user);
     const createdAt = new Date();
-    const expiresAt = new Date(createdAt.getTime() + 60 * 60 * 1000); 
+    const expiresAt = new Date(createdAt.getTime() + 60 * 60 * 1000);
 
     await pool.request()
-      .input('session_id',  uuidv4()) 
+      .input('session_id', uuidv4())
       .input('user_id', user.User_id)
       .input('session_token', token)
       .input('created_at', createdAt)
@@ -64,3 +64,20 @@ exports.login = async (req, res) => {
   }
 };
 
+exports.logout = async (req, res) => {
+  try {
+    const token = req.headers.authorization.split(' ')[1];
+    const pool = await poolPromise;
+    const result = await pool.request()
+      .input('token', token)
+      .query(`
+        DELETE FROM sessions
+        WHERE session_token = @token
+      `);
+    
+    res.json({ message: 'Logout successful' });
+  } catch (error) {
+    console.error('Logout error:', error.message, error.stack);
+    res.status(500).json({ message: 'Server error', error: error.message });
+  }
+}

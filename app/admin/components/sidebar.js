@@ -1,6 +1,6 @@
 "use client"
 import Link from "next/link"
-import { usePathname } from "next/navigation"
+import { usePathname, useRouter } from "next/navigation"
 import { useState, useEffect } from "react"
 import {
   Accordion,
@@ -9,9 +9,9 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion"
 import React from 'react'
-
 const Sidebar = () => {
   const params = usePathname()
+  const router = useRouter()
   const [active, setactive] = useState({
     dashboard: true,
     resources: false,
@@ -69,6 +69,43 @@ const Sidebar = () => {
     }
   }, [])
 
+  const handlelogout = async () => {
+    const data = await fetch("http://localhost:5000/api/auth/logout",
+      {
+        method: "POST",
+        credentials: "include",
+        headers: {
+          'Content-Type': 'application/json',
+          "Authorization": `Bearer ${sessionStorage.getItem("token")}`
+        },
+      })
+    if (!data.ok) {
+      const errorData = await data.json();
+      toast.error(errorData.error);
+      return;
+    }
+    sessionStorage.removeItem("token");
+    localStorage.removeItem("userID");
+    router.push("/");
+
+  }
+  useEffect(() => {
+    router.prefetch("/")
+
+    return () => {
+
+    }
+  }, [])
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    if (!token) {
+      router.push('/');
+    }
+
+    return () => {
+
+    }
+  }, [])
 
   return (
     <>
@@ -326,7 +363,7 @@ const Sidebar = () => {
               <div className='font-semibold text-base'>Account Information</div>
 
             </Link>
-            <Link href="/admin" prefetch={true}  className='flex items-center gap-2 mx-auto py-2.5 cursor-pointer px-4.5 w-[80%] data-[active=true]:bg-[#6841c4] data-[active=true]:text-white data-[active=true]:rounded-lg transition-all '>
+            <div onClick={handlelogout} className='flex items-center gap-2 mx-auto py-2.5 cursor-pointer px-4.5 w-[80%] data-[active=true]:bg-[#6841c4] data-[active=true]:text-white data-[active=true]:rounded-lg transition-all '>
               <div>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -355,7 +392,7 @@ const Sidebar = () => {
               </div>
               <div className='font-semibold text-base text-red-600'>Log out</div>
 
-            </Link>
+            </div>
           </AccordionContent>
         </AccordionItem>
       </Accordion>
