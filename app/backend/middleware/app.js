@@ -22,7 +22,7 @@ const authenticate = async (req, res, next) => {
         SELECT * FROM sessions
         WHERE session_token = @token AND expires_at > GETUTCDATE()
       `);
-
+      
     if (!result.recordset.length) {
       return res.status(401).json({ message: 'Session expired or invalid' });
     }

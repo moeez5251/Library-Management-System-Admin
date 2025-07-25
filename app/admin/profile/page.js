@@ -14,7 +14,6 @@ import {
 import { Button } from '@/components/ui/button';
 import { motion, AnimatePresence, transformValue } from "motion/react"
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs"
-import router from '@/app/backend/routes/auth';
 const Settings = () => {
   const [inputs, setInputs] = useState({
     user_id: '',
