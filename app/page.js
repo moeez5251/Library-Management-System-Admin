@@ -77,7 +77,7 @@ export default function Home() {
       })
     }
     try {
-      const log = await fetch("https://library-management-system-hvhv.onrender.com/api/auth/login", {
+      const log = await fetch("/api/auth/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json"

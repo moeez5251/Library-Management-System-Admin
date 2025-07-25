@@ -37,7 +37,9 @@ exports.login = async (req, res) => {
     if (user.Status === "Deactivated") {
       return res.status(401).json({ message: 'Your account is Deactivated' });
     }
-
+    if (user.Role !== "Admin") {
+      return res.status(403).json({ message: 'Access denied: Admins only' });
+    }
     const token = generateToken(user);
     res.cookie('jwt', token, {
       httpOnly: true,
