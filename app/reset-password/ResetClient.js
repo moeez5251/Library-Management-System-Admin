@@ -67,7 +67,6 @@ const ResetClient = () => {
           second: "2-digit",
           hour12: false
         });
-        console.log(response,date);
         if (response.token.used || response.token.expires_at < date) {
           setTokeninfo({
             token: { ...response.token, used: true },
