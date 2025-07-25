@@ -100,7 +100,8 @@ const Settings = () => {
         credentials: "include",
 
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+          "Authorization": `Bearer ${sessionStorage.getItem("token")}`
       },
       body: JSON.stringify({
         ID: inputs.user_id,
@@ -136,7 +137,8 @@ const Settings = () => {
         credentials: "include",
 
         headers: {
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
+          "Authorization": `Bearer ${sessionStorage.getItem("token")}`
         },
         body: JSON.stringify({
           ID: "M6ea45869"
@@ -170,7 +172,8 @@ const Settings = () => {
         credentials: "include",
 
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+          "Authorization": `Bearer ${sessionStorage.getItem("token")}`
       },
       body: JSON.stringify({
         Name: inputs.UserName,
@@ -190,7 +193,8 @@ const Settings = () => {
         credentials: "include",
 
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+          "Authorization": `Bearer ${sessionStorage.getItem("token")}`
       },
       body: JSON.stringify({
         Name: inputs.UserName,
@@ -211,7 +215,8 @@ const Settings = () => {
         credentials: "include",
 
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+          "Authorization": `Bearer ${sessionStorage.getItem("token")}`
       },
       body: JSON.stringify({
         Email: inputs.Email,
@@ -253,7 +258,8 @@ const Settings = () => {
         credentials: "include",
 
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+          "Authorization": `Bearer ${sessionStorage.getItem("token")}`
       },
       body: JSON.stringify({
         ID: inputs.user_id,

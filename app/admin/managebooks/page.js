@@ -110,7 +110,7 @@ export default function Books() {
     }),
     columnHelper.accessor('Author', {
       header: 'Author',
-      cell: ({row})=>{
+      cell: ({ row }) => {
         const status = row.getValue('Author');
         return <span className='text-sm text-nowrap'>{status}</span>;
       }
@@ -148,10 +148,12 @@ export default function Books() {
   async function fetch_data() {
     const data = await fetch("https://library-management-system-hvhv.onrender.com/api/books/get", {
       method: "POST",
-        credentials: "include",
+      credentials: "include",
 
       headers: {
-        "Content-type": "application/json; charset=UTF-8"
+        "Content-type": "application/json; charset=UTF-8",
+        "Authorization": `Bearer ${sessionStorage.getItem("token")}`,
+
       },
       credentials: "include",
       body: JSON.stringify({
@@ -194,7 +196,8 @@ export default function Books() {
       const data = await fetch("https://library-management-system-hvhv.onrender.com/api/books/delete", {
         method: "DELETE",
         headers: {
-          "Content-type": "application/json; charset=UTF-8"
+          "Content-type": "application/json; charset=UTF-8",
+          "Authorization": `Bearer ${sessionStorage.getItem("token")}`,
         },
         credentials: "include",
 
@@ -241,7 +244,7 @@ export default function Books() {
               />
             </svg>
           </button>
-          <input className="w-full h-full px-2 py-[0.7rem] font-normal bg-transparent text-sm border-none focus:outline-none" placeholder="Search Books" value={input} onChange={(e) => { setinput(e.target.value);}} type="text" />
+          <input className="w-full h-full px-2 py-[0.7rem] font-normal bg-transparent text-sm border-none focus:outline-none" placeholder="Search Books" value={input} onChange={(e) => { setinput(e.target.value); }} type="text" />
           <button onClick={() => { setinput("") }} className={`cursor-pointer ${input.length === 0 ? "opacity-0" : "block"} transition-opacity`} >
             <svg
               xmlns="http://www.w3.org/2000/svg"

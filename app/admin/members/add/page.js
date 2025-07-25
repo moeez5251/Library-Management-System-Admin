@@ -80,8 +80,10 @@ const AddUser = () => {
             const data = await fetch("https://library-management-system-hvhv.onrender.com/api/users/register", {
                 method: "POST",
                 headers: {
-                    "Content-Type": "application/json"
+                    "Content-Type": "application/json",
+          "Authorization": `Bearer ${sessionStorage.getItem("token")}`
                 },
+                credentials: "include",
                 body: JSON.stringify({
                     User_Name: inputs.User_Name,
                     Email: inputs.Email,
@@ -89,10 +91,11 @@ const AddUser = () => {
                     Membership_Type: inputs.Membership_Type,
                     Password: inputs.Password,
                     API: process.env.NEXT_PUBLIC_XLMS_API
-                })
+                }),
             })
             if (!data.ok) {
                 const errorData = await data.json();
+                console.error("Error response:", errorData);
                 toast.error(errorData.error);
                 setuser(true);
                 return;

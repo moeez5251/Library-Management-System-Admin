@@ -17,7 +17,8 @@ const Notifications = () => {
         credentials: "include",
 
         headers: {
-          "Content-type": "application/json; charset=UTF-8"
+          "Content-type": "application/json; charset=UTF-8",
+          "Authorization": `Bearer ${sessionStorage.getItem("token")}`
         },
         body: JSON.stringify({ Userid: "M6ea45869" })
       })
@@ -47,7 +48,8 @@ const Notifications = () => {
         credentials: "include",
 
         headers: {
-          "Content-type": "application/json; charset=UTF-8"
+          "Content-type": "application/json; charset=UTF-8",
+          "Authorization": `Bearer ${sessionStorage.getItem("token")}`
         },
         body: JSON.stringify({ Userid: "M6ea45869" })
       })

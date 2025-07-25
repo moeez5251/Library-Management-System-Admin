@@ -88,6 +88,7 @@ export default function Home() {
       const data = await log.json();
       if (data.message.trim() === "Login successful") {
         localStorage.setItem("userID", data.userid)
+        sessionStorage.setItem("token", data.token)
         router.push("/admin")
       }
       else {

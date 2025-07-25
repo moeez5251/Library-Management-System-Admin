@@ -46,7 +46,8 @@ const DynamicPage = ({ params }) => {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'Accept': 'application/json'
+          'Accept': 'application/json',
+          "Authorization": `Bearer ${sessionStorage.getItem("token")}`
         },
         credentials: "include",
 
@@ -121,7 +122,8 @@ const DynamicPage = ({ params }) => {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'Accept': 'application/json'
+          'Accept': 'application/json',
+          "Authorization": `Bearer ${sessionStorage.getItem("token")}`
         },
         credentials: "include",
 
@@ -161,7 +163,8 @@ const DynamicPage = ({ params }) => {
       const data = await fetch("https://library-management-system-hvhv.onrender.com/api/users/activate", {
         method: "POST",
         headers: {
-          "Content-type": "application/json; charset=UTF-8"
+          "Content-type": "application/json; charset=UTF-8",
+          "Authorization": `Bearer ${sessionStorage.getItem("token")}`
         },
         credentials: "include",
 
@@ -204,7 +207,8 @@ const DynamicPage = ({ params }) => {
         credentials: "include",
 
       headers: {
-        "Content-type": "application/json; charset=UTF-8"
+        "Content-type": "application/json; charset=UTF-8",
+          "Authorization": `Bearer ${sessionStorage.getItem("token")}`
       },
       body: JSON.stringify(Array.from([userid]))
     })

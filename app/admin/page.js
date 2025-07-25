@@ -43,7 +43,10 @@ const AdminDashboard = () => {
             const data = await fetch("https://library-management-system-hvhv.onrender.com/api/other/getbookdata", {
                 method: "GET",
                 headers: {
-                    "Content-Type": "application/json"
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${sessionStorage.getItem("token")}`,
+
+
                 },
                 credentials: "include"
             })

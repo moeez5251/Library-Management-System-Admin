@@ -168,7 +168,9 @@ export default function Lenders() {
       const data = await fetch("https://library-management-system-hvhv.onrender.com/api/lenders/getlenderbyid", {
         method: "POST",
         headers: {
-          "Content-type": "application/json; charset=UTF-8"
+          "Content-type": "application/json; charset=UTF-8",
+          "Authorization": `Bearer ${sessionStorage.getItem("token")}`,
+
         },
         credentials: "include",
 
@@ -193,7 +195,8 @@ export default function Lenders() {
     const data = await fetch("https://library-management-system-hvhv.onrender.com/api/lenders/all", {
       method: "POST",
       headers: {
-        "Content-type": "application/json; charset=UTF-8"
+        "Content-type": "application/json; charset=UTF-8",
+          "Authorization": `Bearer ${sessionStorage.getItem("token")}`,
       },
       credentials: "include",
       body: JSON.stringify({ API: process.env.NEXT_PUBLIC_XLMS_API })

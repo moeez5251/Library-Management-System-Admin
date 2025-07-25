@@ -1,7 +1,7 @@
 const bcrypt = require('bcrypt');
 const { poolPromise } = require('../models/db');
 const jwt = require('jsonwebtoken');
-
+const { v4: uuidv4 } = require('uuid');
 function generateToken(user) {
   return jwt.sign(
     { id: user.User_id, email: user.Email },  // payload
@@ -41,12 +41,20 @@ exports.login = async (req, res) => {
       return res.status(403).json({ message: 'Access denied: Admins only' });
     }
     const token = generateToken(user);
-    res.cookie('jwt', token, {
-      httpOnly: true,
-      secure: process.env.NODE_ENV === 'production',
-      sameSite: 'None',
-      maxAge: 3600000
-    });
+    const createdAt = new Date();
+    const expiresAt = new Date(createdAt.getTime() + 60 * 60 * 1000); 
+
+    await pool.request()
+      .input('session_id',  uuidv4()) 
+      .input('user_id', user.User_id)
+      .input('session_token', token)
+      .input('created_at', createdAt)
+      .input('expires_at', expiresAt)
+      .query(`
+    INSERT INTO sessions (session_id, user_id, session_token, created_at, expires_at)
+    VALUES (NEWID(), @user_id, @session_token, @created_at, @expires_at)
+  `);
+
 
     res.json({ message: 'Login successful', token, userid: user.User_id });
 

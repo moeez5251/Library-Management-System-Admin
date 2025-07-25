@@ -48,9 +48,10 @@ const AddBook = () => {
             const data = await fetch("https://library-management-system-hvhv.onrender.com/api/books/insert", {
                 method: "POST",
                 headers: {
-                    "Content-type": "application/json; charset=UTF-8"
+                    "Content-type": "application/json; charset=UTF-8",
+                    "Authorization": `Bearer ${sessionStorage.getItem("token")}`
                 },
-        credentials: "include",
+                credentials: "include",
 
                 body: JSON.stringify({
                     Book_Title: inputs.Book_Title,

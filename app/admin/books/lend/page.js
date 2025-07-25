@@ -41,10 +41,11 @@ const Lend = () => {
         (async function fetchTitles() {
             const data = await fetch("https://library-management-system-hvhv.onrender.com/api/books/col", {
                 method: "POST",
-        credentials: "include",
+                credentials: "include",
 
                 headers: {
-                    "Content-Type": "application/json"
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${sessionStorage.getItem("token")}`,
                 },
                 body: JSON.stringify({
                     column: ["Book_Title", "Category", "Author"]
@@ -129,10 +130,11 @@ const Lend = () => {
             const Due = new Date(DueDate).toLocaleDateString("en-CA")
             const data = await fetch("https://library-management-system-hvhv.onrender.com/api/lenders/insert", {
                 method: "POST",
-        credentials: "include",
+                credentials: "include",
 
                 headers: {
-                    "Content-type": "application/json; charset=UTF-8"
+                    "Content-type": "application/json; charset=UTF-8",
+                    "Authorization": `Bearer ${sessionStorage.getItem("token")}`,
                 },
                 body: JSON.stringify({
                     Lendername: inputs.Lender_name,

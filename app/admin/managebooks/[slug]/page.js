@@ -53,7 +53,8 @@ const Edit = ({ params }) => {
         credentials: "include",
 
         headers: {
-          "Content-type": "application/json; charset=UTF-8"
+          "Content-type": "application/json; charset=UTF-8",
+          "Authorization": `Bearer ${sessionStorage.getItem("token")}`
         },
         body: JSON.stringify({
           Book_ID: bookid,
@@ -109,7 +110,8 @@ const Edit = ({ params }) => {
         const data = await fetch("https://library-management-system-hvhv.onrender.com/api/books/getbyID", {
           method: "POST",
           headers: {
-            "Content-type": "application/json; charset=UTF-8"
+            "Content-type": "application/json; charset=UTF-8",
+          "Authorization": `Bearer ${sessionStorage.getItem("token")}`
           },
         credentials: "include",
 

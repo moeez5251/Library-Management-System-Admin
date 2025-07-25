@@ -2,7 +2,7 @@ const express = require('express');
 const cors = require('cors');
 const app = express();
 const cookieParser = require('cookie-parser');
-const verifyToken = require('./middleware/app');
+const authenticate=require('./middleware/app')
 require('dotenv').config();
 const allowedOrigins = process.env.URL?.split(',') || [];
 
@@ -26,7 +26,7 @@ const unprotectedRoutes = [
 ]; 
 app.use((req, res, next) => {
   if (unprotectedRoutes.includes(req.path)) return next();
-  verifyToken(req, res, next);
+  authenticate(req, res, next);
 });
 process.on('uncaughtException', (err) => {
   console.error('Uncaught Exception:', err);
