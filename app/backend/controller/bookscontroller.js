@@ -2,7 +2,7 @@ const { poolPromise } = require('../models/db');
 const { v4: uuidv4 } = require('uuid');
 require('dotenv').config();
 exports.inserting = async (req, res) => {
-    const { Book_Title, Author, Category, Language, Total_Copies, Status, Pages, Price, API } = req.body;
+    const {Book_Title, Author, Category, Language, Total_Copies, Status, Pages, Price, API } = req.body;
     try {
         if (API !== process.env.XLMS_API) {
             return res.status(400).json({ message: 'Invalid API' });

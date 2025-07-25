@@ -23,6 +23,10 @@ exports.addnotifications = async (req, res) => {
             .input('CreatedAt', created)
             .input('IsRead', false)
             .query('INSERT INTO Notifications (Userid, Message, CreatedAt,IsRead) VALUES (@Userid, @Message ,  @CreatedAt, @IsRead)');
+        await promise
+            .request()
+            .input('IsRead', true)
+            .query('Delete FROM Notifications WHERE IsRead = @IsRead');
         res.json({ message: 'Notification added successfully' });
 
     }

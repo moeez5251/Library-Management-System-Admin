@@ -62,7 +62,8 @@ const AddBook = () => {
                     Price: Number(inputs.Price),
                     Status: inputs.Status,
                     Pages: Number(inputs.Pages),
-                    API: process.env.NEXT_PUBLIC_XLMS_API
+                    API: process.env.NEXT_PUBLIC_XLMS_API,
+
                 })
             }
             )
@@ -87,6 +88,18 @@ const AddBook = () => {
                 Pages: ""
             })
             setbook(true)
+            await fetch("https://library-management-system-hvhv.onrender.com/api/notifications/add", {
+                method: "POST",
+                headers: {
+                    "Content-type": "application/json; charset=UTF-8",
+                    "Authorization": `Bearer ${sessionStorage.getItem("token")}`
+                },
+                credentials: "include",
+                body: JSON.stringify({
+                    Message: "New Book Added",
+                    Userid: localStorage.getItem("userID")
+                })
+            })
         }
         catch {
             toast("Unable to add book")

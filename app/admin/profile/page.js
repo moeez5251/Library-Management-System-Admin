@@ -129,6 +129,18 @@ const Settings = () => {
       ReNew: ''
     })
     setissubmitting(true);
+    await fetch("https://library-management-system-hvhv.onrender.com/api/notifications/add", {
+      method: "POST",
+      headers: {
+        "Content-type": "application/json; charset=UTF-8",
+        "Authorization": `Bearer ${sessionStorage.getItem("token")}`
+      },
+      credentials: "include",
+      body: JSON.stringify({
+        Message: "Your Password was Changed",
+        Userid: localStorage.getItem("userID")
+      })
+    })
   }
   useEffect(() => {
     (async () => {
@@ -280,6 +292,18 @@ const Settings = () => {
     setSelectedTab("otp");
     setopening(false);
     setisverifying(false);
+    await fetch("https://library-management-system-hvhv.onrender.com/api/notifications/add", {
+      method: "POST",
+      headers: {
+        "Content-type": "application/json; charset=UTF-8",
+        "Authorization": `Bearer ${sessionStorage.getItem("token")}`
+      },
+      credentials: "include",
+      body: JSON.stringify({
+        Message: "Your password just reset",
+        Userid: localStorage.getItem("userID")
+      })
+    })
   }
   useEffect(() => {
     if (dialoginputs.NewPassword && dialoginputs.ReNew && dialoginputs.NewPassword === dialoginputs.ReNew) {

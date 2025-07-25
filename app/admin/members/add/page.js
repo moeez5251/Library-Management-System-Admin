@@ -81,7 +81,7 @@ const AddUser = () => {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
-          "Authorization": `Bearer ${sessionStorage.getItem("token")}`
+                    "Authorization": `Bearer ${sessionStorage.getItem("token")}`
                 },
                 credentials: "include",
                 body: JSON.stringify({
@@ -113,6 +113,18 @@ const AddUser = () => {
                 setMemberShip("");
                 setrole("Standard-User");
                 setuser(true);
+                await fetch("https://library-management-system-hvhv.onrender.com/api/notifications/add", {
+                    method: "POST",
+                    headers: {
+                        "Content-type": "application/json; charset=UTF-8",
+                        "Authorization": `Bearer ${sessionStorage.getItem("token")}`
+                    },
+                    credentials: "include",
+                    body: JSON.stringify({
+                        Message: "New User Registered",
+                        Userid: localStorage.getItem("userID")
+                    })
+                })
             }
         } catch (err) {
             toast.error("Internal Server Error, Please try again later")
