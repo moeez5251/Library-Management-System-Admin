@@ -113,12 +113,12 @@ export default function Home() {
     <>
       <Toaster />
       <div className="flex h-screen bg-gray-100">
-        <div className="w-1/2 h-full  ">
+        <div className="w-1/2 h-full  hidden lg:block ">
           <div className="w-full h-full">
             <img className="w-full h-full object-cover" src="/LMS.webp" alt="Library Image" />
           </div>
         </div>
-        <div className="w-1/2 flex flex-col justify-center bg-white px-20 gap-8">
+        <div className="lg:w-1/2 w-full flex flex-col justify-center bg-white px-6 sm:px-12 md:px-20 gap-8">
           <div className="flex items-center  text-[#6841c4] text-xl font-bold gap-2 border border-[#e3e7ea] w-fit px-2 py-1 mx-auto ">
             <div>
 
@@ -150,7 +150,7 @@ export default function Home() {
             ASPIRE LMS
           </div>
           <div className="flex flex-col  gap-2 ">
-            <h2 className="font-semibold text-xl">Log Into Admin Aspire LMS</h2>
+            <h2 className="font-semibold text-lg sm:text-xl text-nowrap">Log Into Admin Aspire LMS</h2>
             <p className="text-[#526b7a] text-sm">ADMIN LOGIN</p>
           </div>
           <div className="flex flex-col gap-6">

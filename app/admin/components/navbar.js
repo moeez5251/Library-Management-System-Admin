@@ -1,10 +1,93 @@
+"use client"
 import Link from 'next/link'
-import React from 'react'
+import React, { useState, useEffect } from 'react'
+import {
+    Popover,
+    PopoverContent,
+    PopoverTrigger,
+} from "@/components/ui/popover"
+import dayjs from 'dayjs';
+import relativeTime from 'dayjs/plugin/relativeTime';
+import customParseFormat from 'dayjs/plugin/customParseFormat';
+import { useRouter } from 'next/navigation';
 const AdminDashboard = () => {
+    const [notifications, setnotifications] = useState([])
+    const router = useRouter()
+    useEffect(() => {
+        (async () => {
+            const data = await fetch("https://library-management-system-hvhv.onrender.com/api/notifications/get", {
+                method: "POST",
+                credentials: "include",
+
+                headers: {
+                    "Content-type": "application/json; charset=UTF-8",
+                    "Authorization": `Bearer ${sessionStorage.getItem("token")}`
+                },
+                body: JSON.stringify({ Userid: localStorage.getItem("userID") })
+            })
+            if (!data.ok) {
+
+                return;
+            }
+            const response = await data.json();
+
+            setnotifications(response.map(item => {
+                const parsed = dayjs(item.CreatedAt, "DD/MM/YYYY, HH:mm:ss");
+
+                return {
+                    id: item.Id,
+                    message: item.Message,
+                    read: item.IsRead,
+                    time: parsed.isValid() ? parsed.fromNow() : "Invalid date",
+                    formatted: parsed.isValid() ? parsed.format("DD/MM/YYYY, HH:mm:ss") : "Invalid date"
+                };
+            }));
+
+        })()
+
+        return async () => {
+
+        }
+    }, [])
+    useEffect(() => {
+        dayjs.extend(relativeTime);
+        dayjs.extend(customParseFormat);
+        return () => {
+
+        }
+    }, [notifications])
+    useEffect(() => {
+        router.prefetch("/admin/profile")
+        router.prefetch("/")
+
+        return () => {
+
+        }
+    }, [])
+    const handlelogout = async () => {
+        const data = await fetch("https://library-management-system-hvhv.onrender.com/api/auth/logout",
+            {
+                method: "POST",
+                credentials: "include",
+                headers: {
+                    'Content-Type': 'application/json',
+                    "Authorization": `Bearer ${sessionStorage.getItem("token")}`
+                },
+            })
+        if (!data.ok) {
+            const errorData = await data.json();
+            toast.error(errorData.error);
+            return;
+        }
+        sessionStorage.removeItem("token");
+        localStorage.removeItem("userID");
+        router.push("/");
+
+    }
     return (
         <>
-            <header className="flex  items-center justify-between px-4 py-2 mx-10 my-2">
-                <Link href="/" prefetch={true} className="flex items-center  text-[#6841c4] text-xl font-bold gap-2 border border-[#e3e7ea] w-[17%] justify-center py-1 ">
+            <header className="flex  items-center justify-between px-4 py-2 mx-0 sm:mx-10 my-2">
+                <Link href="/" prefetch={true} className="lg:flex items-center hidden  text-[#6841c4] text-xl font-bold gap-2 border border-[#e3e7ea] px-5 lg:px-0 lg:w-[17%] justify-center py-1 text-nowrap ">
                     <div>
 
                         <svg
@@ -34,101 +117,96 @@ const AdminDashboard = () => {
 
                     ASPIRE LMS
                 </Link>
+                <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width={30}
+                    height={30}
+                    fill="none"
+                    className="injected-svg"
+                    color="#6841c4"
+                    data-src="https://cdn.hugeicons.com/icons/menu-01-solid-rounded.svg?v=2.0"
+                    viewBox="0 0 24 24"
+                >
+                    <path
+                        fill="#6841c4"
+                        fillRule="evenodd"
+                        d="M3 5a1 1 0 0 1 1-1h16a1 1 0 1 1 0 2H4a1 1 0 0 1-1-1ZM3 12a1 1 0 0 1 1-1h16a1 1 0 1 1 0 2H4a1 1 0 0 1-1-1ZM3 19a1 1 0 0 1 1-1h16a1 1 0 1 1 0 2H4a1 1 0 0 1-1-1Z"
+                        clipRule="evenodd"
+                    />
+                </svg>
 
-                <div className='flex items-center justify-center'>
-                    <label className="relative flex items-center justify-center w-12 h-6 mx-auto cursor-pointer">
-                        <input type="checkbox" className="peer sr-only" id="darkModeToggle" />
-
-                        <svg className="absolute w-3 h-3 text-white transition-all duration-200 ease-out peer-checked:opacity-0 peer-checked:rotate-[-30deg] peer-checked:scale-75 right-1 top-1" viewBox="0 0 12 12" aria-hidden="true">
-                            <g fill="none" stroke="currentColor" strokeWidth="1" strokeLinecap="round">
-                                <circle cx="6" cy="6" r="2" />
-                                <g strokeDasharray="1.5 1.5">
-                                    <polyline points="6 10,6 11.5" transform="rotate(0,6,6)" />
-                                    <polyline points="6 10,6 11.5" transform="rotate(45,6,6)" />
-                                    <polyline points="6 10,6 11.5" transform="rotate(90,6,6)" />
-                                    <polyline points="6 10,6 11.5" transform="rotate(135,6,6)" />
-                                    <polyline points="6 10,6 11.5" transform="rotate(180,6,6)" />
-                                    <polyline points="6 10,6 11.5" transform="rotate(225,6,6)" />
-                                    <polyline points="6 10,6 11.5" transform="rotate(270,6,6)" />
-                                    <polyline points="6 10,6 11.5" transform="rotate(315,6,6)" />
-                                </g>
-                            </g>
-                        </svg>
-
-                        <svg className="absolute w-3 h-3 text-white opacity-0 transform translate-x-[-0.75rem] rotate-30 scale-75 transition-all duration-300 ease-in peer-checked:opacity-100 peer-checked:translate-x-[-1.5rem] peer-checked:rotate-0 peer-checked:scale-100 right-1 top-1" viewBox="0 0 12 12" aria-hidden="true">
-                            <g fill="none" stroke="currentColor" strokeWidth="1" strokeLinejoin="round" transform="rotate(-45,6,6)">
-                                <path d="m9,10c-2.209,0-4-1.791-4-4s1.791-4,4-4c.304,0,.598.041.883.105-.995-.992-2.367-1.605-3.883-1.605C2.962.5.5,2.962.5,6s2.462,5.5,5.5,5.5c1.516,0,2.888-.613,3.883-1.605-.285.064-.578.105-.883.105Z" />
-                            </g>
-                        </svg>
-
-                        <div className="w-12 h-6 bg-blue-300 peer-checked:bg-purple-700 rounded-full transition-colors duration-300 ease-in-out"></div>
-
-                        <div className="absolute top-0.5 left-0.5 w-5 h-5 bg-white rounded-full shadow-md transition-transform duration-300 ease-in-out peer-checked:translate-x-6"></div>
-
-                        <span className="sr-only">Toggle Dark Mode</span>
-                    </label>
-                </div>
                 <div className='flex items-center justify-center gap-4'>
+                    <Popover>
+                        <PopoverTrigger>
+                            <div className='bg-[#f1f1fd] p-2 rounded-full cursor-pointer scale-100 transition-all hover:scale-110 relative'>
+                                <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    width={20}
+                                    height={20}
+                                    fill="none"
+                                    className="injected-svg"
+                                    color="#526b7a"
+                                    data-src="https://cdn.hugeicons.com/icons/notification-03-stroke-standard.svg"
+                                    viewBox="0 0 24 24"
+                                >
+                                    <path
+                                        stroke="#526b7a"
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
+                                        strokeWidth={1.5}
+                                        d="M3.914 13.086a2 2 0 0 0 .586-1.414V9.5a7.5 7.5 0 1 1 15 0v2.172a2 2 0 0 0 .586 1.414L21.5 14.5v1.382a.96.96 0 0 1-.558.883c-1.56.702-4.54 1.735-8.942 1.735-4.401 0-7.382-1.033-8.942-1.735a.96.96 0 0 1-.558-.883V14.5l1.414-1.414ZM9 21c.796.621 1.848.999 3 .999s2.204-.378 3-.999"
+                                    />
+                                </svg>
+                                <div className='absolute -top-1 -right-0.5  bg-red-600 text-white text-xs px-1 rounded-full'>{notifications.length}</div>
+                                {
+                                    notifications.length > 0 &&
+                                    <span
+                                        className="absolute -top-1 -right-0.5 h-4 w-4 animate-ping rounded-full bg-red-400 opacity-75"
+                                    ></span>
+                                }
+                            </div>
+                        </PopoverTrigger>
+                        <PopoverContent className="w-80 max-h-96 overflow-y-auto p-2 space-y-2">
+                            {notifications.length > 0 && notifications.map((item, index) => (
+                                <div
+                                    key={index}
+                                    className={`flex items-center px-4 py-3 rounded-xl border ${item.read
+                                        ? "bg-gray-50 border-gray-200"
+                                        : "bg-white border-blue-200 ring-1 ring-blue-100"
+                                        } shadow-sm hover:shadow-md transition-shadow duration-200`}
+                                >
+                                    <div className="flex items-center gap-3">
+                                        <div>
+                                            <div
+                                                className={`${item.read
+                                                    ? "text-gray-600 font-normal"
+                                                    : "text-gray-900 font-semibold"
+                                                    }`}
+                                            >
+                                                {item.message}
+                                            </div>
+                                            <div className="text-sm text-gray-400">{item.time}</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            ))}
+                            {
+                                notifications.length === 0 && (
+                                    <div className="flex items-center px-4 py-3 rounded-xl border bg-gray-50 border-gray-200 shadow-sm hover:shadow-md transition-shadow duration-200">
+                                        <div className="flex items-center gap-3">
+                                            <div>
+                                                <div className="text-gray-600 font-semibold">
+                                                    You have no notifications
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                )
+                            }
+                        </PopoverContent>
 
-                    <div className='bg-[#f1f1fd] p-2 rounded-full cursor-pointer scale-100 transition-all hover:scale-110 relative'>
-                        <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            width={20}
-                            height={20}
-                            fill="none"
-                            className="injected-svg"
-                            color="#526b7a"
-                            data-src="https://cdn.hugeicons.com/icons/notification-03-stroke-standard.svg"
-                            viewBox="0 0 24 24"
-                        >
-                            <path
-                                stroke="#526b7a"
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                                strokeWidth={1.5}
-                                d="M3.914 13.086a2 2 0 0 0 .586-1.414V9.5a7.5 7.5 0 1 1 15 0v2.172a2 2 0 0 0 .586 1.414L21.5 14.5v1.382a.96.96 0 0 1-.558.883c-1.56.702-4.54 1.735-8.942 1.735-4.401 0-7.382-1.033-8.942-1.735a.96.96 0 0 1-.558-.883V14.5l1.414-1.414ZM9 21c.796.621 1.848.999 3 .999s2.204-.378 3-.999"
-                            />
-                        </svg>
-                        <div className='absolute -top-1 -right-0.5  bg-red-600 text-white text-xs px-1 rounded-full'>0</div>
-                        <span
-                            className="absolute -top-1 -right-0.5 h-4 w-4 animate-ping rounded-full bg-red-400 opacity-75"
-                        ></span>
-                    </div>
-                    <div className='bg-[#f1f1fd] p-2 rounded-full cursor-pointer scale-100 transition-all hover:scale-110'>
-                        <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            width={20}
-                            height={20}
-                            fill="none"
-                            className="injected-svg"
-                            color="#526b7a"
-                            data-src="https://cdn.hugeicons.com/icons/setting-done-01-stroke-standard.svg"
-                            viewBox="0 0 24 24"
-                        >
-                            <path
-                                stroke="#526b7a"
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                                strokeWidth={1.5}
-                                d="M10.5 22v0a.888.888 0 0 1-.853-.64l-.728-2.518-1.478-.829-2.552.632a1 1 0 0 1-1.1-.46L2.425 15.89a1 1 0 0 1 .198-1.261l1.79-1.576v-2.106l-1.79-1.576a1 1 0 0 1-.199-1.261l1.364-2.295a1 1 0 0 1 1.1-.46l2.552.632L9 5l.772-2.316A1 1 0 0 1 10.721 2h2.558a1 1 0 0 1 .949.684L15 5l1.56.987 2.552-.632a1 1 0 0 1 1.1.46l1.39 2.338a1 1 0 0 1-.154 1.22l-.627.624M14.5 9.551a3.5 3.5 0 1 0-4.95 4.95"
-                            />
-                            <path
-                                stroke="#526b7a"
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                                strokeWidth={1.5}
-                                d="M17 21.998a5 5 0 1 0 0-10 5 5 0 0 0 0 10Z"
-                            />
-                            <path
-                                stroke="#526b7a"
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                                strokeWidth={1.5}
-                                d="m15 17 1.5 1.5 2.5-3"
-                            />
-                        </svg>
-                    </div>
-                    <div className='bg-[#f1f1fd] p-2 rounded-full cursor-pointer scale-100 transition-all hover:scale-110'>
+                    </Popover>
+                    <div onClick={() => router.push("/admin/profile")} className='bg-[#f1f1fd] p-2 rounded-full cursor-pointer scale-100 transition-all hover:scale-110'>
                         <svg
                             xmlns="http://www.w3.org/2000/svg"
                             width={20}
@@ -162,7 +240,7 @@ const AdminDashboard = () => {
                             />
                         </svg>
                     </div>
-                    <div className='bg-[#f1f1fd] p-2 rounded-full cursor-pointer scale-100 transition-all hover:scale-110'>
+                    <div onClick={handlelogout} className='bg-[#f1f1fd] p-2 rounded-full cursor-pointer scale-100 transition-all hover:scale-110'>
                         <svg
                             xmlns="http://www.w3.org/2000/svg"
                             width={20}

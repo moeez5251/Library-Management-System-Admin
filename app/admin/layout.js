@@ -12,10 +12,10 @@ export default function RootLayout({ children }) {
             <AdminDashboard />
             <div className="flex flex-row w-full h-[83%]">
 
-                <div className="w-[20%] flex flex-col py-3 gap-3   ">
+                <div className="sidebar fixed -left-full  xl:w-[20%] xl:relative xl:left-0 xl:bg-white transition-all  flex flex-col py-3 gap-3   ">
                     <Sidebar />
                 </div>
-                <div className="w-[80%] bg-[#f1f3f8] p-2 rounded-xl overflow-y-auto">
+                <div className="xl:w-[80%] w-[95%] mx-auto bg-[#f1f3f8] p-2 rounded-xl overflow-y-auto">
 
                     {children}
                 </div>

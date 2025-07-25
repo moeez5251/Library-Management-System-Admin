@@ -22,6 +22,7 @@ const Sidebar = () => {
     notifications: false,
     profile: false,
     info: false,
+    theme: false
 
   })
   const handleswitch = (active_tab) => {
@@ -35,6 +36,7 @@ const Sidebar = () => {
       notifications: false,
       profile: false,
       info: false,
+      theme: false,
       [active_tab]: true
     })
   }
@@ -50,7 +52,9 @@ const Sidebar = () => {
         members: false,
         settings: false,
         notifications: false,
-        logout: false,
+        profile: false,
+        info: false,
+        theme: false,
         [a]: true
       })
     }
@@ -64,13 +68,15 @@ const Sidebar = () => {
         members: false,
         settings: false,
         notifications: false,
-        logout: false,
+        profile: false,
+        info: false,
+        theme: false
       })
     }
   }, [])
 
   const handlelogout = async () => {
-    const data = await fetch("http://localhost:5000/api/auth/logout",
+    const data = await fetch("https://library-management-system-hvhv.onrender.com/api/auth/logout",
       {
         method: "POST",
         credentials: "include",
@@ -361,6 +367,38 @@ const Sidebar = () => {
                 </svg>
               </div>
               <div className='font-semibold text-base'>Account Information</div>
+
+            </Link>
+            <Link href="/admin/theme" prefetch={true} onClick={() => handleswitch("theme")} data-active={active.theme} className='flex items-center gap-2 mx-auto py-2.5 cursor-pointer px-4.5 w-[80%] data-[active=true]:bg-[#6841c4] data-[active=true]:text-white data-[active=true]:rounded-lg transition-all '>
+              <div>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width={20}
+                  height={20}
+                  fill="none"
+                  className="injected-svg"
+                  color="#526b7a"
+                  data-src="https://cdn.hugeicons.com/icons/approximately-equal-circle-stroke-standard.svg?v=2.0"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke="#526b7a"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={1.5}
+                    d="M7 9.285c1.667-2 3.333-1.414 5 .048 1.667 1.463 3.333 2.048 5 .049M7 14.618c1.667-2 3.333-1.414 5 .049 1.667 1.463 3.333 2.048 5 .048"
+                  />
+                  <circle
+                    cx={12}
+                    cy={12}
+                    r={10}
+                    stroke="#9b9b9b"
+                    strokeLinejoin="round"
+                    strokeWidth={1.5}
+                  />
+                </svg>
+              </div>
+              <div className='font-semibold text-base'>Theme</div>
 
             </Link>
             <div onClick={handlelogout} className='flex items-center gap-2 mx-auto py-2.5 cursor-pointer px-4.5 w-[80%] data-[active=true]:bg-[#6841c4] data-[active=true]:text-white data-[active=true]:rounded-lg transition-all '>
