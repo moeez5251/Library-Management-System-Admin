@@ -7,7 +7,7 @@ const PaginationControls = ({ table }) => {
   const visiblePages = Array.from({ length: pageCount }, (_, i) => i);
 
   return (
-    <div className="flex items-center justify-center gap-1 sm:gap-3 pt-4 flex-wrap">
+    <div className="flex items-center justify-center gap-2 sm:gap-3 pt-4 flex-wrap">
       <button
         className="text-black cursor-pointer disabled:opacity-50 disabled:cursor-auto"
         onClick={() => table.setPageIndex(0)}

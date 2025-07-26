@@ -21,7 +21,7 @@ const Lend = () => {
     const [Author, setAuthor] = useState("")
     const [LendingDate, setLendingDate] = useState(new Date)
     const [DueDate, setDueDate] = useState("")
-    const [role, setRole] = useState("Standard User")
+    const [role, setRole] = useState("Standard-User")
     const [disabledbtn, setdisabledbtn] = useState(true)
     const [inputs, setInputs] = useState({
         Lender_name: "",
@@ -181,7 +181,7 @@ const Lend = () => {
                 Phone: "",
                 Copies: "",
                 Fine: "",
-                Role: "Standard User"
+                Role: "Standard-User"
             })
             setBooktitle("")
             setBookCategory("")

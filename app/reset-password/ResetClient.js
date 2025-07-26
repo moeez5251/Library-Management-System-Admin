@@ -131,7 +131,7 @@ const ResetClient = () => {
       <Toaster />
       {tokeninfo.userEmail.length === 0 ? (
         tokeninfo.token.used ? (
-          <div className="flex items-center justify-center flex-col gap-6 h-screen text-4xl text-red-500 font-semibold ">The Link is expired or already used.<span className="text-2xl text-black font-semibold">Go Back to <Link className="text-[#6841c4] font-semibold hover:underline" href="/" prefetch={true}>Home</Link> </span> </div>
+          <div className="flex items-center justify-center flex-col gap-6 h-screen text-4xl text-red-500 font-semibold text-center ">The Link is expired or already used.<span className="text-2xl text-black font-semibold">Go Back to <Link className="text-[#6841c4] font-semibold hover:underline" href="/" prefetch={true}>Home</Link> </span> </div>
         ) : (
           <div className="flex items-center justify-center flex-col gap-6 h-screen text-4xl text-[#6841c4] font-semibold ">Loading info ...</div>
         )

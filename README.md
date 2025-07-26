@@ -1,36 +1,185 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# 📚 Library Management System
 
-## Getting Started
+Welcome to the  **Library Management System** , a full-stack web application designed to streamline library operations with a modern, user-friendly interface. Built with **Next.js** for the frontend and **Node.js/Express** for the backend, this project integrates seamlessly with a **Microsoft SQL Server** database to manage books, users, lending processes, and notifications. 🚀
 
-First, run the development server:
+## ✨ Overview
+
+The Library Management System is a comprehensive solution for libraries, offering a robust set of features to simplify book and user management, lending operations, and notifications. Key features include:
+
+* 🔒  **User Authentication & Authorization** : Secure login with JWT-based authentication.
+* 📖  **Book Management** : Add, update, delete, and search books in the catalog.
+* 👥  **User Management** : Register users and track their borrowing history.
+* 📚  **Lending System** : Manage book lending and returns with due date tracking.
+* 🔔  **Notifications** : Real-time notifications for users and admins.
+* 📧  **Email & OTP Verification** : Secure account recovery with OTP-based emails.
+* 📊  **Admin Dashboard** : Visualize library stats with charts and data tables.
+* 📱  **Responsive Design** : Optimized for both desktop and mobile devices.
+
+## 🛠️ Tech Stack
+
+* **Frontend** :
+* ![Next.js](https://img.shields.io/badge/Next.js-000000?logo=next.js&logoColor=white)  **Next.js** : React-based framework for dynamic UI.
+* ![React](https://img.shields.io/badge/react-%2320232a.svg?style=flat&logo=react&logoColor=%2361DAFB)  **React** : Component-based UI library.
+* ![Tailwind CSS](https://img.shields.io/badge/tailwindcss-%2338B2AC.svg?style=flat&logo=tailwind-css&logoColor=white)  **Tailwind CSS** : Utility-first CSS framework.
+* ![Lucide Icons](https://img.shields.io/badge/Lucide_Icons-000000?logo=iconify&logoColor=white)  **Lucide Icons** : Beautiful icon library.
+* ![Sonner](https://img.shields.io/badge/Sonner-000000?logo=notification&logoColor=white)  **Sonner** : Toast notifications for user feedback. 🎨
+* **Backend** :
+* ![Node.js](https://img.shields.io/badge/node.js-6DA55F?style=flat&logo=node.js&logoColor=white)  **Node.js** : JavaScript runtime for server-side logic.
+* ![Express.js](https://img.shields.io/badge/express.js-%23404d59.svg?style=flat&logo=express&logoColor=%2361DAFB)  **Express.js** : Web framework for API development.
+* ![TypeScript](https://img.shields.io/badge/typescript-%23007ACC.svg?style=flat&logo=typescript&logoColor=white)  **TypeScript** : Typed JavaScript for robust code.
+* ![Socket.IO](https://img.shields.io/badge/Socket.io-black?style=flat&logo=socket.io&badgeColor=010101)  **Socket.IO** : Real-time communication for notifications.
+* ![JWT](https://img.shields.io/badge/JWT-000000?logo=json-web-tokens&logoColor=white)  **JWT** : Secure authentication for APIs. 🔐
+* **Database** :
+* ![Microsoft SQL Server](https://img.shields.io/badge/MSSQL-CC2927?logo=microsoft-sql-server&logoColor=white)  **Microsoft SQL Server** : Relational database for data management. 🗄️
+* **Utilities** :
+* ![Utilities](https://img.shields.io/badge/Utilities-Utilities-blue?logo=gear&logoColor=white)  **Utilities** : Pagination controls, email services, and more. ⚙️
+* **Deployment & Build** :
+* ![Netlify](https://img.shields.io/badge/netlify-%23000000.svg?style=flat&logo=netlify&logoColor=white)  **Netlify** : Hosting and deployment for the frontend.
+* ![Nixpacks](https://img.shields.io/badge/Nixpacks-2088ff?style=flat)  **Nixpacks** : Automated build and deployment tool. ☁️
+
+## 🚀 Getting Started
+
+### Prerequisites
+
+* ![Node.js](https://img.shields.io/badge/node.js-6DA55F?style=flat&logo=node.js&logoColor=white) Node.js (v18 or higher) 🟢
+* npm, yarn, pnpm, or bun 📦
+* ![Microsoft SQL Server](https://img.shields.io/badge/MSSQL-CC2927?logo=microsoft-sql-server&logoColor=white) Microsoft SQL Server instance 🗄️
+* Environment variables for database, JWT, and email services 🔧
+
+### Installation
+
+1. **Clone the Repository** :
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+   git clone https://github.com/moeez5251/Library-Management-System.git
+   cd Library-Management-System
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+1. **Install Dependencies** :
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+* For the frontend (from project root):
+  ```bash
+  npm install
+  # or
+  yarn install
+  # or
+  pnpm install
+  # or
+  bun install
+  ```
+* For the backend (if separate, from `/app/backend`):
+  ```bash
+  npm install
+  ```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+1. **Configure Environment Variables** :
 
-## Learn More
+* Create `.env.local` (for Next.js) in the project root and `.env` (for backend) in `/app/backend`.
+* Add required variables (e.g., database credentials, JWT secret, email service keys):
+  ```env
+  DB_USER=your_db_user
+  DB_SERVER=your_db_server
+  DB_DATABASE=your_db_name
+  JWT_SECRET=your_jwt_secret
+  EMAIL_SERVICE=your_email_service
+  ```
 
-To learn more about Next.js, take a look at the following resources:
+1. **Run the Application** :
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+* **Frontend** (from project root):
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+  ```bash
+  npm run dev
+  # or
+  yarn dev
+  # or
+  pnpm dev
+  # or
+  bun dev
+  ```
 
-## Deploy on Vercel
+  Open [http://localhost:3000](http://localhost:3000/) to view the app. 🌐
+* **Backend** (from `/app/backend`):
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+  ```bash
+  node server.js
+  ```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+  APIs will be available at [http://localhost:5000/api](http://localhost:5000/api). 🔗
+
+## 🗂️ Project Structure
+
+### Frontend
+
+* **Pages & Layouts** (`/app`):
+  * Main entry: `app/page.js` 📄
+  * Layouts: `app/layout.js` 🖼️
+  * Sub-folders: `app/admin`, `app/members`, `app/login`, `app/reset-password` 🗂️
+* **Components** (`/components`):
+  * Reusable UI elements like cards, modals, navigation bars, and pagination controls (`table/pagination.jsx`) 🧩
+  * Global styles in `app/globals.css` 🎨
+* **Admin Dashboard** :
+* Displays library stats (books, users, lending, overdue) with charts and tables 📊
+* Fetches data from `/api/other/getbookdata` 📈
+
+### Backend
+
+* **Server** (`/app/backend/server.js`):
+
+  * Initializes Express with CORS, JSON parsing, and JWT middleware 🔧
+* **Database** (`/app/backend/models/db.js`):
+
+  * MSSQL connection pool using the `mssql` package 🗄️
+* **Controllers & Routes** (`/app/backend/controller`, `/app/backend/routes`):
+
+  * **Auth** : Login/logout (`auth.js`) 🔐
+  * **Users** : Registration, profile updates (`user.js`) 👤
+  * **Books** : CRUD operations (`bookscontroller.js`, `book.js`) 📚
+  * **Lending** : Issue/return books (`lendersControllers.js`, `lenders.js`) 📖
+  * **Notifications** : Real-time alerts (`notificationscontroller.js`) 🔔
+  * **Emails** : OTP and account notifications (`mails.js`, `/api/mail`) 📧
+  * **Resources** : Manage external resources (`resourcecontroller.js`, `/api/resource`) 🌐
+
+## 🎨 Features & Highlights
+
+* **Interactive UI** : Data tables with pagination, modals, and charts for a seamless experience. 📈
+* **Secure APIs** : JWT-based authentication ensures protected endpoints. 🔐
+* **Real-Time Notifications** : Powered by Socket.IO for timely alerts. 🔔
+* **Scalable Design** : Modular frontend and backend for easy maintenance and extension. 🛠️
+
+## ☁️ Deployment & Build
+
+* Deploy the frontend using ![Netlify](https://img.shields.io/badge/netlify-%23000000.svg?style=flat&logo=netlify&logoColor=white) for seamless hosting.
+* Use ![Nixpacks](https://img.shields.io/badge/Nixpacks-2088ff?style=flat) for automated builds and deployments.
+* For manual deployment, follow the [Next.js deployment guide](https://nextjs.org/docs/deployment) or configure your backend server with a platform like Render or Heroku.
+
+## 📖 Learn More
+
+* [Next.js Documentation](https://nextjs.org/docs) 📚
+* [Express.js Documentation](https://expressjs.com/) ⚙️
+* [MSSQL Node.js Package](https://www.npmjs.com/package/mssql) 🗄️
+* [Socket.IO Documentation](https://socket.io/docs/v4/) 🔔
+* [Netlify Documentation](https://docs.netlify.com/) ☁️
+* [Nixpacks Documentation](https://nixpacks.com/docs/) 🛠️
+
+## 🤝 Contributing
+
+We welcome contributions! To get started:
+
+1. Fork the repository. 🍴
+2. Create a feature branch (`git checkout -b feature/your-feature`). 🌟
+3. Commit your changes (`git commit -m 'Add your feature'`). ✅
+4. Push to the branch (`git push origin feature/your-feature`). 🚀
+5. Open a pull request. 📬
+
+## 📜 License
+
+This project is licensed under the MIT License. See the [LICENSE](https://grok.com/chat/LICENSE) file for details. 📄
+
+## 📬 Contact
+
+Have questions or feedback? Open an issue on [GitHub](https://github.com/moeez5251/Library-Management-System/issues) or reach out to the project maintainers. 📧
+
+---
+
+Happy managing your library! 📚✨
