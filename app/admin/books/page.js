@@ -236,9 +236,9 @@ export default function Lenders() {
     <>
       <Toaster />
 
-      <h1 className='font-semibold text-xl mx-3 my-3'>Manage Lenders</h1>
-      <div className='flex justify-between items-center mx-3 my-3 mr-7'>
-        <div className="relative flex items-center w-[200px] h-[40px] px-2 bg-white rounded-xl transition-all duration-200 focus-within:rounded focus-within:before:scale-x-100 before:content-[''] before:absolute before:bg-blue-600 before:transform before:scale-x-0 before:origin-center before:w-full before:h-[2px] before:left-0 before:bottom-0 before:rounded before:transition-transform before:duration-300">
+      <h1 className='font-semibold text-xl sm:mx-3 my-3'>Manage Lenders</h1>
+      <div className='flex justify-between items-center sm:mx-3 my-3 sm:mr-7'>
+        <div className="relative flex items-center w-[150px] sm:w-[200px] h-[40px] px-2 bg-white rounded-xl transition-all duration-200 focus-within:rounded focus-within:before:scale-x-100 before:content-[''] before:absolute before:bg-blue-600 before:transform before:scale-x-0 before:origin-center before:w-full before:h-[2px] before:left-0 before:bottom-0 before:rounded before:transition-transform before:duration-300">
           <button type="button">
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -276,16 +276,16 @@ export default function Lenders() {
         </div>
         <div className='flex items-center gap-5'>
           <Link href="/admin/books/lend" prefetch={true} className='bg-[#6841c4] text-white font-semibold px-3 py-2 rounded-lg cursor-pointer flex items-center gap-1 hover:bg-[#7a4ed0] transition-colors duration-200 text-base'>
-            <PlusIcon size={20} className='inline ' />
+            <PlusIcon size={20} className='sm:inline hidden ' />
             Lend a book</Link>
 
         </div>
       </div>
-      <div className='bg-white  transition-all py-2 mx-3 rounded-lg shadow-md overflow-auto'>
+      <div className='bg-white  transition-all py-2 sm:mx-3 rounded-lg shadow-md overflow-auto'>
         <DataTable data={data} columns={columns} externalFilter={input} pageSize={rowsPerPage} loading={loading} />
       </div>
-      <div className='mt-3 mx-5 flex items-center justify-between'>
-        <div className='text-black text-base font-semibold '>
+      <div className='mt-3 mx-5 flex items-center justify-between gap-6  overflow-y-auto'>
+        <div className='text-black text-base font-semibold text-nowrap '>
           Total Users : {data.length}
         </div>
 
@@ -304,7 +304,7 @@ export default function Lenders() {
                   Lender Details
                 </span>
 
-                <span className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 text-sm">
+                <span className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4  text-sm h-[50vh] overflow-y-auto">
                   <span className="flex flex-col bg-blue-50 dark:bg-blue-900/30 p-3 rounded-md shadow-sm">
                     <span className={`text-blue-600 dark:text-blue-300 font-medium ${dialogdata.Borrower_ID ? "" : "animate-pulse"} `}>Lender ID:</span>
                     <span className={`text-gray-900 dark:text-white font-semibold ${dialogdata.Borrower_ID ? "" : "animate-pulse"}`}>{dialogdata.Borrower_ID ? dialogdata.Borrower_ID : "Loading"}</span>

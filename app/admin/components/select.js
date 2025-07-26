@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import { Check, ChevronsUpDown } from 'lucide-react';
-
+import { useMediaQuery } from 'usehooks-ts'
 import { Button } from '@/components/ui/button';
 import {
   Command,
@@ -18,6 +18,8 @@ import { cn } from '@/lib/utils';
 
 const ComboBox = ({ options = [], value, onChange }) => {
   const [open, setOpen] = useState(false);
+  const isMobile = useMediaQuery("(max-width: 500px)")
+
 
   return (
     <div className="flex items-center space-x-2">
@@ -34,7 +36,10 @@ const ComboBox = ({ options = [], value, onChange }) => {
           </Button>
         </PopoverTrigger>
 
-        <PopoverContent side="left" align="center"  className="w-fit p-2">
+        <PopoverContent
+          side={isMobile ? "bottom" : "left"}
+          align={isMobile ? "center" : "start"}
+          className="w-fit p-2">
           <Command>
             <CommandGroup>
               {options.map((option) => (

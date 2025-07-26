@@ -79,8 +79,9 @@ exports.updatebook = async (req, res) => {
         const old = await pool
             .request()
             .input('Book_ID', Book_ID)
-            .query('SELECT Available FROM Books WHERE Book_ID = @Book_ID');
+            .query('SELECT Available,Total_Copies FROM Books WHERE Book_ID = @Book_ID');
         const oldavailable = old.recordset[0].Available
+        const oldtotal=old.recordset[0].Total_Copies
         const result = await pool
             .request()
             .input('Book_ID', Book_ID)
@@ -92,7 +93,7 @@ exports.updatebook = async (req, res) => {
             .input('Status', Status)
             .input('Pages', Pages)
             .input('Price', Price)
-            .input('Available', (Number(oldavailable) + Number(Total_Copies)).toString())
+            .input('Available', (Number(oldavailable) + Number(Total_Copies)-Number(oldtotal)).toString())
             .query('UPDATE Books SET Book_Title = @Book_Title, Author = @Author, Category = @Category, Language = @Language, Total_Copies = @Total_Copies, Status = @Status, Pages = @Pages, Price = @Price , Available = @Available WHERE Book_ID = @Book_ID');
         res.json({ message: 'Book updated successfully' });
     } catch (err) {

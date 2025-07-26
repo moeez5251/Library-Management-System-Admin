@@ -22,6 +22,7 @@ app.use(express.json());
 app.use(cookieParser());
 const unprotectedRoutes = [
   '/api/auth/login',
+  '/api/auth/logout',
   '/',
   '/api/token/verify',
   '/api/token/update'

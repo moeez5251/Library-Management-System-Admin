@@ -145,7 +145,7 @@ const Edit = ({ params }) => {
     <>
       <Toaster />
 
-      <div className='mx-4 my-2'>
+      <div className='mx-0 sm:mx-4 my-2'>
         <Breadcrumb>
           <BreadcrumbList>
             <BreadcrumbItem>
@@ -160,7 +160,7 @@ const Edit = ({ params }) => {
           </BreadcrumbList>
         </Breadcrumb>
       </div>
-      <div className='bg-white mx-4 my-3 py-3 px-8 pb-12 rounded-md flex flex-col gap-2'>
+      <div className='bg-white mx-0 sm:mx-4 my-3 py-3 px-8 pb-12 rounded-md flex flex-col gap-2'>
         <div className='flex items-center justify-between border-b-2 pb-1.5'>
           <h2 className='font-semibold '>Book information</h2>
           {
@@ -169,7 +169,7 @@ const Edit = ({ params }) => {
           }
         </div>
 
-        <div className='my-3 flex items-center justify-between'>
+        <div className='my-3 lg:flex md:items-center md:justify-between grid  grid-cols-[repeat(auto-fit,_minmax(250px,_1fr))] gap-4'>
           <div className='flex flex-col gap-3 items-start'>
             <div className='font-semibold text-sm flex items-start gap-1'>
               Book id <Asterisk size={13} color='red' />
@@ -182,16 +182,16 @@ const Edit = ({ params }) => {
             <div className='font-semibold text-sm flex items-start gap-1'>
               Book Title <Asterisk size={13} color='red' />
             </div>
-            <div>
-              <input disabled={!edit} value={inputs.Book_Title} onChange={oninputchange} className='border px-2 py-1 rounded-sm placeholder:text-base text-base disabled:bg-none disabled:border-none disabled:py-0 disabled:px-0 disabled:text-sm' type="text" name="Book_Title" id="Book_Title" placeholder='Loading...' />
+            <div className='w-full'>
+              <input disabled={!edit} value={inputs.Book_Title} onChange={oninputchange} className='border px-2 py-1 rounded-sm placeholder:text-base text-base disabled:bg-none disabled:border-none disabled:py-0 disabled:px-0 disabled:text-sm w-full' type="text" name="Book_Title" id="Book_Title" placeholder='Loading...' />
             </div>
           </div>
           <div className='flex flex-col gap-3 items-start'>
             <div className='font-semibold text-sm flex items-start gap-1'>
               Author(s) <Asterisk size={13} color='red' />
             </div>
-            <div>
-              <input disabled={!edit} value={inputs.Author} onChange={oninputchange} className='border px-2 py-1 rounded-sm placeholder:text-base text-base disabled:bg-none disabled:border-none disabled:py-0 disabled:px-0 disabled:text-sm' type="text" name="Author" id="Author" placeholder='Loading...' />
+            <div className='w-full'>
+              <input disabled={!edit} value={inputs.Author} onChange={oninputchange} className='border px-2 py-1 rounded-sm placeholder:text-base text-base disabled:bg-none disabled:border-none disabled:py-0 disabled:px-0 disabled:text-sm w-full' type="text" name="Author" id="Author" placeholder='Loading...' />
             </div>
           </div>
           <div className='flex flex-col gap-3 items-start w-fit'>
@@ -203,13 +203,13 @@ const Edit = ({ params }) => {
             </div>
           </div>
         </div>
-        <div className='my-3 flex items-center justify-between'>
+        <div className='md:my-3 md:flex md:items-center md:justify-between grid  grid-cols-[repeat(auto-fit,_minmax(250px,_1fr))] gap-4'>
           <div className='flex flex-col gap-3 items-start'>
             <div className='font-semibold text-sm flex items-start gap-1'>
               Total Copies <Asterisk size={13} color='red' />
             </div>
-            <div>
-              <input disabled={!edit} value={inputs.Copies} onChange={oninputchange} className='border px-2 py-1 rounded-sm placeholder:text-base  text-base disabled:bg-none disabled:border-none disabled:py-0 disabled:px-0 disabled:text-sm ' type="number" name="Copies" id="copies" placeholder='Loading...' />
+            <div className='w-full'>
+              <input disabled={!edit} value={inputs.Copies} onChange={oninputchange} className='border px-2 py-1 rounded-sm placeholder:text-base  text-base disabled:bg-none disabled:border-none disabled:py-0 disabled:px-0 disabled:text-sm w-full' type="number" name="Copies" id="copies" placeholder='Loading...' />
 
             </div>
           </div>
@@ -222,24 +222,24 @@ const Edit = ({ params }) => {
 
             </div>
           </div>
-          <div className='flex flex-col gap-3 items-start w-fit'>
+          <div className='flex flex-col gap-3 items-start w-full  md:w-fit'>
             <div className='font-semibold text-sm flex items-start gap-1'>
               Price <span className='text-green-600'>( PKR )</span> <Asterisk size={13} color='red' />
             </div>
-            <div>
-              <input disabled={!edit} value={inputs.Price} onChange={oninputchange} className='border px-2 py-1 rounded-sm placeholder:text-base  text-base disabled:bg-none disabled:border-none disabled:py-0 disabled:px-0 disabled:text-sm ' type="number" name="Price" id="price" placeholder='Loading...' />
+            <div className='w-full'>
+              <input disabled={!edit} value={inputs.Price} onChange={oninputchange} className='border px-2 py-1 rounded-sm placeholder:text-base  text-base disabled:bg-none disabled:border-none disabled:py-0 disabled:px-0 disabled:text-sm w-full' type="number" name="Price" id="price" placeholder='Loading...' />
 
             </div>
           </div>
         </div>
-        <div className='my-3 flex items-center justify-between'>
+        <div className='md:my-3 md:flex md:items-center md:justify-between grid  grid-cols-[repeat(auto-fit,_minmax(250px,_1fr))] gap-4'>
 
           <div className='flex flex-col gap-3 items-start'>
             <div className='font-semibold text-sm flex items-start gap-1'>
               Stock <Asterisk size={13} color='red' />
             </div>
-            <div>
-              <RadioGroup className="flex items-center" onValueChange={setstock} value={stock}>
+            <div className='w-full'>
+              <RadioGroup className="flex items-center w-full justify-between" onValueChange={setstock} value={stock}>
                 <div className="flex items-center space-x-2">
                   <RadioGroupItem value="Available" id="Available" disabled={!edit} />
                   <Label htmlFor="Available">Available</Label>
@@ -259,8 +259,8 @@ const Edit = ({ params }) => {
             <div className='font-semibold text-sm flex items-start gap-1'>
               Total number of Pages <Asterisk size={13} color='red' />
             </div>
-            <div>
-              <input disabled={!edit} value={inputs.Pages} onChange={oninputchange} className='border px-2 py-1 rounded-sm placeholder:text-base  text-base disabled:bg-none disabled:border-none disabled:py-0 disabled:px-0 disabled:text-sm ' type="number" name="Pages" id="pages" placeholder='Loading...' />
+            <div className='w-full'>
+              <input disabled={!edit} value={inputs.Pages} onChange={oninputchange} className='border px-2 py-1 rounded-sm placeholder:text-base  text-base disabled:bg-none disabled:border-none disabled:py-0 disabled:px-0 disabled:text-sm w-full' type="number" name="Pages" id="pages" placeholder='Loading...' />
 
             </div>
           </div>

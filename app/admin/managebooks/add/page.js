@@ -122,7 +122,7 @@ const AddBook = () => {
         <>
             <Toaster />
 
-            <div className='mx-4 my-2'>
+            <div className='mx-0 md:mx-4 my-2'>
                 <Breadcrumb>
                     <BreadcrumbList>
                         <BreadcrumbItem>
@@ -137,23 +137,23 @@ const AddBook = () => {
                     </BreadcrumbList>
                 </Breadcrumb>
             </div>
-            <div className='bg-white mx-4 my-3 py-3 px-8 pb-12 rounded-md flex flex-col gap-2'>
+            <div className='bg-white mx-0 md:mx-4 my-3 py-3 px-3 md:px-8 pb-12 rounded-md flex flex-col gap-2'>
                 <h2 className='font-semibold border-b-2 pb-1.5'>Book information</h2>
-                <div className='my-3 flex items-center justify-between'>
+                <div className='sm:my-3 sm:flex sm:items-center sm:justify-between grid grid-cols-[repeat(auto-fit,_minmax(250px,_1fr))] gap-4'>
                     <div className='flex flex-col gap-3 items-start'>
                         <div className='font-semibold text-sm flex items-start gap-1'>
                             Book Title <Asterisk size={13} color='red' />
                         </div>
-                        <div>
-                            <input value={inputs.Book_Title} onChange={oninputchange} className='border px-2 py-1 rounded-sm placeholder:text-sm text-base' type="text" name="Book_Title" id="Book_Title" placeholder='Book name here' />
+                        <div className='w-full'>
+                            <input value={inputs.Book_Title} onChange={oninputchange} className='border px-2 py-1 rounded-sm placeholder:text-sm text-base w-full' type="text" name="Book_Title" id="Book_Title" placeholder='Book name here' />
                         </div>
                     </div>
                     <div className='flex flex-col gap-3 items-start'>
                         <div className='font-semibold text-sm flex items-start gap-1'>
                             Author(s) <Asterisk size={13} color='red' />
                         </div>
-                        <div>
-                            <input value={inputs.Author} onChange={oninputchange} className='border px-2 py-1 rounded-sm placeholder:text-sm text-base' type="text" name="Author" id="Author" placeholder='Author name here' />
+                        <div className='w-full'>
+                            <input value={inputs.Author} onChange={oninputchange} className='border px-2 py-1 rounded-sm placeholder:text-sm text-base w-full' type="text" name="Author" id="Author" placeholder='Author name here' />
                         </div>
                     </div>
                     <div className='flex flex-col gap-3 items-start w-fit'>
@@ -165,13 +165,13 @@ const AddBook = () => {
                         </div>
                     </div>
                 </div>
-                <div className='my-3 flex items-center justify-between'>
+                <div className='sm:my-3 sm:flex sm:items-center sm:justify-between grid grid-cols-[repeat(auto-fit,_minmax(250px,_1fr))] gap-4'>
                     <div className='flex flex-col gap-3 items-start'>
                         <div className='font-semibold text-sm flex items-start gap-1'>
                             Total Copies <Asterisk size={13} color='red' />
                         </div>
-                        <div>
-                            <input value={inputs.Copies} onChange={oninputchange} className='border px-2 py-1 rounded-sm placeholder:text-sm  text-base' type="number" name="Copies" id="copies" placeholder='Total number of copies' />
+                        <div className='w-full'>
+                            <input value={inputs.Copies} onChange={oninputchange} className='border px-2 py-1 rounded-sm placeholder:text-sm w-full  text-base' type="number" name="Copies" id="copies" placeholder='Total number of copies' />
 
                         </div>
                     </div>
@@ -184,24 +184,24 @@ const AddBook = () => {
 
                         </div>
                     </div>
-                    <div className='flex flex-col gap-3 items-start w-fit'>
+                    <div className='flex flex-col gap-3 items-start w-full sm:w-fit'>
                         <div className='font-semibold text-sm flex items-start gap-1'>
                             Price <span className='text-green-600'>( PKR )</span> <Asterisk size={13} color='red' />
                         </div>
-                        <div>
-                            <input value={inputs.Price} onChange={oninputchange} className='border px-2 py-1 rounded-sm placeholder:text-sm  text-base' type="number" name="Price" id="price" placeholder='Price of book' />
+                        <div className='w-full'>
+                            <input value={inputs.Price} onChange={oninputchange} className='border px-2 py-1 rounded-sm placeholder:text-sm w-full text-base' type="number" name="Price" id="price" placeholder='Price of book' />
 
                         </div>
                     </div>
                 </div>
-                <div className='my-3 flex items-center justify-between'>
+                <div className='sm:my-3 sm:flex sm:items-center sm:justify-between grid grid-cols-[repeat(auto-fit,_minmax(250px,_1fr))] gap-4'>
 
                     <div className='flex flex-col gap-3 items-start'>
                         <div className='font-semibold text-sm flex items-start gap-1'>
                             Stock <Asterisk size={13} color='red' />
                         </div>
-                        <div>
-                            <RadioGroup className="flex items-center" onValueChange={setstock} value={stock}>
+                        <div className='w-full'>
+                            <RadioGroup className="flex items-center w-full justify-between" onValueChange={setstock} value={stock}>
                                 <div className="flex items-center space-x-2">
                                     <RadioGroupItem value="Available" id="Available" />
                                     <Label htmlFor="Available">Available</Label>
@@ -221,8 +221,8 @@ const AddBook = () => {
                         <div className='font-semibold text-sm flex items-start gap-1'>
                             Total number of Pages <Asterisk size={13} color='red' />
                         </div>
-                        <div>
-                            <input value={inputs.Pages} onChange={oninputchange} className='border px-2 py-1 rounded-sm placeholder:text-sm  text-base' type="number" name="Pages" id="pages" placeholder='Total number of pages' />
+                        <div className='w-full'>
+                            <input value={inputs.Pages} onChange={oninputchange} className='border px-2 py-1 rounded-sm placeholder:text-sm w-full text-base' type="number" name="Pages" id="pages" placeholder='Total number of pages' />
 
                         </div>
                     </div>

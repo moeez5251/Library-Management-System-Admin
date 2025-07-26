@@ -70,8 +70,8 @@ const Notifications = () => {
   return (
     <>
       <Toaster />
-      <h1 className='font-semibold text-xl mx-4 my-2 '>Notifications</h1>
-      <div className='bg-white px-4 rounded-lg shadow-md mx-4 pt-4 pb-8 h-full overflow-y-auto'>
+      <h1 className='font-semibold text-xl sm:mx-4 my-2 '>Notifications</h1>
+      <div className='bg-white sm:px-4 rounded-lg shadow-md sm:mx-4 pt-4 pb-8 h-full overflow-y-auto'>
         <div className="flex flex-col gap-4 p-4">
           {
             Notifications.length === 0 && (

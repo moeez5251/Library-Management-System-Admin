@@ -237,8 +237,8 @@ export default function Books() {
       <Toaster />
 
       <h1 className='font-semibold text-xl mx-3 my-3'>Manage Books</h1>
-      <div className='flex justify-between items-center mx-3 my-3 mr-7'>
-        <div className="relative flex items-center w-[200px] h-[40px] px-2 bg-white rounded-xl transition-all duration-200 focus-within:rounded focus-within:before:scale-x-100 before:content-[''] before:absolute before:bg-blue-600 before:transform before:scale-x-0 before:origin-center before:w-full before:h-[2px] before:left-0 before:bottom-0 before:rounded before:transition-transform before:duration-300">
+      <div className='flex justify-between items-center mx-1 sm:mx-3 my-3 sm:mr-7'>
+        <div className="relative flex items-center w-[150px] sm:w-[200px] h-[40px] px-2 bg-white rounded-xl transition-all duration-200 focus-within:rounded focus-within:before:scale-x-100 before:content-[''] before:absolute before:bg-blue-600 before:transform before:scale-x-0 before:origin-center before:w-full before:h-[2px] before:left-0 before:bottom-0 before:rounded before:transition-transform before:duration-300">
           <button type="button">
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -274,9 +274,9 @@ export default function Books() {
             </svg>
           </button>
         </div>
-        <div className='flex items-center gap-5'>
+        <div className='flex items-center gap-5 flex-col sm:flex-row'>
           <Link href="/admin/managebooks/add" prefetch={true} className='bg-[#6841c4] text-white font-semibold px-3 py-2 rounded-lg cursor-pointer flex items-center gap-1 hover:bg-[#7a4ed0] transition-colors duration-200 text-base'>
-            <PlusIcon size={20} className='inline ' />
+            <PlusIcon size={20} className='hidden sm:inline ' />
             Add Book</Link>
           <DropdownMenu>
             <DropdownMenuTrigger className="bg-[#6841c4] text-white font-semibold px-3 py-2 rounded-lg cursor-pointer flex items-center gap-1 hover:bg-[#7a4ed0] transition-colors duration-200 text-base"> <ChevronDown size={20} className='inline' /> Actions</DropdownMenuTrigger>
@@ -287,12 +287,12 @@ export default function Books() {
           </DropdownMenu>
         </div>
       </div>
-      <div className='bg-white  transition-all py-2 mx-3 rounded-lg shadow-md'>
+      <div className='bg-white w-full overflow-x-scroll transition-all py-2 mx-0  rounded-lg shadow-md'>
 
         <DataTable data={data} columns={columns} externalFilter={input} pageSize={rowsPerPage} loading={loading} />
       </div>
-      <div className='mt-3 mx-5 flex items-center justify-between'>
-        <div className='text-black text-base font-semibold '>
+      <div className='mt-3 mx-1 sm:mx-5 flex items-center gap-6 sm:gap-0 justify-between overflow-x-auto'>
+        <div className='text-black text-base font-semibold text-nowrap'>
           Total Books: {data.length}
         </div>
 

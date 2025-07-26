@@ -240,7 +240,7 @@ const DynamicPage = ({ params }) => {
   return (
     <>
       <Toaster />
-      <div className='mx-4 my-2'>
+      <div className='sm:mx-4 my-2'>
         <Breadcrumb>
           <BreadcrumbList>
             <BreadcrumbItem>
@@ -255,7 +255,7 @@ const DynamicPage = ({ params }) => {
           </BreadcrumbList>
         </Breadcrumb>
       </div>
-      <div className='bg-white mx-4 my-3 py-3 px-8 pb-12 rounded-md'>
+      <div className='bg-white sm:mx-4 my-3 py-3 px-8 pb-12 rounded-md'>
         <div className='flex items-center justify-between border-b-2 pb-1.5'>
           <h2 className='font-semibold '>User information</h2>
           {
@@ -266,7 +266,7 @@ const DynamicPage = ({ params }) => {
 
         <div className='flex flex-col gap-3 items-start'>
           <div className='my-3 w-full flex flex-col gap-5'>
-            <div className='flex items-center justify-between'>
+            <div className='flex items-start gap-5 sm:items-center justify-between flex-col sm:flex-row'>
 
               <div className='flex flex-col gap-2 items-start'>
 
@@ -287,7 +287,7 @@ const DynamicPage = ({ params }) => {
                 </div>
               </div>
             </div>
-            <div className='flex items-center justify-between'>
+            <div className='flex items-start gap-5 sm:items-center justify-between flex-col sm:flex-row'>
               <div className='flex flex-col gap-2 items-start'>
 
                 <div className='font-semibold text-sm flex items-start gap-1'>

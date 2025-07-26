@@ -73,10 +73,10 @@ const AdminDashboard = () => {
                     'Content-Type': 'application/json',
                     "Authorization": `Bearer ${sessionStorage.getItem("token")}`
                 },
+
             })
         if (!data.ok) {
-            const errorData = await data.json();
-            toast.error(errorData.error);
+           
             return;
         }
         sessionStorage.removeItem("token");
@@ -175,7 +175,7 @@ const AdminDashboard = () => {
                             {notifications.length > 0 && notifications.map((item, index) => (
                                 <div
                                     key={index}
-                                    className={`flex items-center px-4 py-3 rounded-xl border ${item.read
+                                    className={`flex items-center sm:px-4 px-2 sm:py-3 py-1 rounded-xl border ${item.read
                                         ? "bg-gray-50 border-gray-200"
                                         : "bg-white border-blue-200 ring-1 ring-blue-100"
                                         } shadow-sm hover:shadow-md transition-shadow duration-200`}

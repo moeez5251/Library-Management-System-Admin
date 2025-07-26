@@ -246,19 +246,19 @@ const Lend = () => {
     return (
         <>
             <Toaster />
-            <h1 className='font-semibold text-xl mx-4 my-3'>Lend a Book</h1>
-            <div className='bg-white mx-4 my-3 py-5 px-8 pb-12 rounded-md '>
+            <h1 className='font-semibold text-xl mx-0 md:mx-4 my-3'>Lend a Book</h1>
+            <div className='bg-white mx-0 md:mx-4 my-3 py-5 px-3 md:px-8 pb-12 rounded-md '>
                 <div className='border-b-2 pb-1'>
                     <h2 className='font-semibold text-xl'>User Information</h2>
                 </div>
-                <div className='my-3 flex items-center justify-between'>
+                <div className='my-3 md:flex md:items-center md:justify-between grid grid-cols-[repeat(auto-fit,_minmax(250px,_1fr))] gap-4'>
                     <div className='flex flex-col gap-2 items-start'>
 
                         <div className='font-semibold  flex items-center gap-1 text-sm'>
                             Lender Name <Asterisk size={13} color='red' />
                         </div>
-                        <div>
-                            <input onChange={handleinput} value={inputs.Lender_name} className='border px-2 py-1 rounded-sm placeholder:text-sm text-base' type="text" name="Lender_name" id="User_Name" />
+                        <div className='w-full '>
+                            <input onChange={handleinput} value={inputs.Lender_name} className='border px-2 py-1 rounded-sm placeholder:text-sm text-base w-full ' type="text" name="Lender_name" id="User_Name" />
                         </div>
                     </div>
                     <div className='flex flex-col gap-2 items-start'>
@@ -266,8 +266,8 @@ const Lend = () => {
                         <div className='font-semibold  flex items-center gap-1 text-sm'>
                             Email <Asterisk size={13} color='red' />
                         </div>
-                        <div>
-                            <input onChange={handleinput} value={inputs.Email} className='border px-2 py-1 rounded-sm placeholder:text-sm text-base' type="text" name="Email" id="Email" />
+                        <div className='w-full '>
+                            <input onChange={handleinput} value={inputs.Email} className='border px-2 py-1 rounded-sm placeholder:text-sm text-base w-full ' type="text" name="Email" id="Email" />
                         </div>
                     </div>
                     <div className='flex flex-col gap-2 items-start'>
@@ -275,15 +275,15 @@ const Lend = () => {
                         <div className='font-semibold  flex items-center gap-1 text-sm'>
                             Phone Number <Asterisk size={13} color='red' />
                         </div>
-                        <div>
-                            <input onChange={handleinput} value={inputs.Phone} className='border px-2 py-1 rounded-sm placeholder:text-sm text-base' type="text" name="Phone" id="Phone" />
+                        <div className='w-full '>
+                            <input onChange={handleinput} value={inputs.Phone} className='border px-2 py-1 rounded-sm placeholder:text-sm text-base w-full ' type="text" name="Phone" id="Phone" />
                         </div>
                     </div>
                 </div>
                 <div className='border-b-2 pb-1 mt-8'>
                     <h2 className='font-semibold text-xl'>Book Information</h2>
                 </div>
-                <div className='my-3 flex items-center justify-between'>
+                <div className='my-3 md:flex md:items-center md:justify-between grid grid-cols-[repeat(auto-fit,_minmax(250px,_1fr))] gap-4'>
                     <div className='flex flex-col gap-2 items-start'>
 
                         <div className='font-semibold  flex items-center gap-1 text-sm'>
@@ -331,8 +331,8 @@ const Lend = () => {
                 <div className='border-b-2 pb-1 mt-8'>
                     <h2 className='font-semibold text-xl'>Lending Details</h2>
                 </div>
-                <div className='my-3 flex items-center justify-between'>
-                    <div className='flex flex-col  items-center'>
+                <div className='my-3 md:flex md:items-center md:justify-between grid grid-cols-[repeat(auto-fit,_minmax(250px,_1fr))] gap-4'>
+                    <div className='flex flex-col  items-start'>
                         <DatePicker label="Lending Date"
                             date={LendingDate} onChange={setLendingDate} disabled={{ after: new Date(DueDate) - 1 }} />
                     </div>
@@ -347,22 +347,22 @@ const Lend = () => {
                         <div className='font-semibold  flex items-center gap-1 text-sm'>
                             Copies Lent <Asterisk size={13} color='red' />
                         </div>
-                        <div>
-                            <input min={1} onChange={handleinput} value={inputs.Copies} className='border px-2 py-1 rounded-sm placeholder:text-sm text-base' type="number" name="Copies" id="Copies" />
+                        <div className='w-full '>
+                            <input min={1} onChange={handleinput} value={inputs.Copies} className='border px-2 py-1 rounded-sm placeholder:text-sm text-base w-full' type="number" name="Copies" id="Copies" />
                         </div>
                     </div>
                 </div>
                 <div className='border-b-2 pb-1 mt-8'>
                     <h2 className='font-semibold text-xl'>Additional Information</h2>
                 </div>
-                <div className='my-3 flex items-center justify-between'>
+                <div className='my-3 md:flex md:items-center md:justify-between grid grid-cols-[repeat(auto-fit,_minmax(250px,_1fr))] gap-4'>
                     <div className='flex flex-col gap-2 items-start'>
 
                         <div className='font-semibold  flex items-center gap-1 text-sm'>
                             Per Day Fine <Asterisk size={13} color='red' />
                         </div>
-                        <div>
-                            <input min={0} onChange={handleinput} value={inputs.Fine} className='border px-2 py-1 rounded-sm placeholder:text-sm text-base' type="number" name="Fine" id="Fine" />
+                        <div className='w-full'>
+                            <input min={0} onChange={handleinput} value={inputs.Fine} className='border px-2 py-1 rounded-sm w-full  placeholder:text-sm text-base' type="number" name="Fine" id="Fine" />
                         </div>
                     </div>
                     <div className='flex flex-col gap-2 items-start'>
@@ -371,7 +371,7 @@ const Lend = () => {
                             User Role
                         </div>
                         <div>
-                            <ComboBox value={role} onChange={setRole} options={['Admin', 'Standard User']} />
+                            <ComboBox value={role} onChange={setRole} options={['Admin', 'Standard-User']} />
                         </div>
                     </div>
                 </div>

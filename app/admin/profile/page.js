@@ -325,7 +325,7 @@ const Settings = () => {
         <div className='font-semibold border-b-2 pb-1 text-lg'>
           Account Information
         </div>
-        <div className='my-3 flex items-center justify-between'>
+        <div className='my-3 flex flex-col gap-4 sm:flex-row items-start sm:items-center justify-between'>
           <div className='flex flex-col gap-2 items-start'>
 
             <div className='font-semibold text-sm flex items-start gap-1'>
@@ -340,8 +340,8 @@ const Settings = () => {
             <div className='font-semibold text-sm flex items-start gap-1'>
               User Name
             </div>
-            <div>
-              <input disabled value={inputs.UserName} onChange={handlechange} className='border px-2 py-1 rounded-sm placeholder:text-sm text-base' type="text" name="UserName" id="UserName" placeholder='Loading...' />
+            <div className='w-full'>
+              <input disabled value={inputs.UserName} onChange={handlechange} className='border px-2 py-1 rounded-sm placeholder:text-sm text-base w-full' type="text" name="UserName" id="UserName" placeholder='Loading...' />
             </div>
           </div>
         </div>
@@ -362,7 +362,7 @@ const Settings = () => {
           Change Password
           <div onClick={handledialog} className='text-sm font-semibold text-[#6841c4] cursor-pointer hover:underline '>Forget Password ?</div>
         </div>
-        <div className='my-3 flex items-center justify-between'>
+        <div className='my-3 md:flex md:items-center md:justify-between gap-4 grid grid-cols-[repeat(auto-fit,_minmax(250px,_1fr))]'>
           <div className='flex flex-col gap-2 items-start'>
 
             <div className='font-semibold text-sm flex items-start gap-1'>

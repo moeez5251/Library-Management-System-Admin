@@ -264,9 +264,9 @@ export default function Members() {
     <>
       <Toaster />
 
-      <h1 className='font-semibold text-xl mx-3 my-3'>Manage Users</h1>
-      <div className='flex justify-between items-center mx-3 my-3 mr-7'>
-        <div className="relative flex items-center w-[200px] h-[40px] px-2 bg-white rounded-xl transition-all duration-200 focus-within:rounded focus-within:before:scale-x-100 before:content-[''] before:absolute before:bg-blue-600 before:transform before:scale-x-0 before:origin-center before:w-full before:h-[2px] before:left-0 before:bottom-0 before:rounded before:transition-transform before:duration-300">
+      <h1 className='font-semibold text-xl sm:mx-3 my-3'>Manage Users</h1>
+      <div className='flex justify-between items-center sm:mx-3 my-3 sm:mr-7'>
+        <div className="relative flex items-center w-[150px] sm:w-[200px] h-[40px] px-2 bg-white rounded-xl transition-all duration-200 focus-within:rounded focus-within:before:scale-x-100 before:content-[''] before:absolute before:bg-blue-600 before:transform before:scale-x-0 before:origin-center before:w-full before:h-[2px] before:left-0 before:bottom-0 before:rounded before:transition-transform before:duration-300">
           <button type="button">
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -302,9 +302,9 @@ export default function Members() {
             </svg>
           </button>
         </div>
-        <div className='flex items-center gap-5'>
-          <Link href="/admin/members/add" prefetch={true} className='bg-[#6841c4] text-white font-semibold px-3 py-2 rounded-lg cursor-pointer flex items-center gap-1 hover:bg-[#7a4ed0] transition-colors duration-200 text-base'>
-            <PlusIcon size={20} className='inline ' />
+        <div className='flex items-center gap-5 flex-col sm:flex-row'>
+          <Link href="/admin/members/add" prefetch={true} className='bg-[#6841c4] text-white font-semibold px-3 py-2 rounded-lg cursor-pointer flex items-center gap-1 hover:bg-[#7a4ed0] transition-colors duration-200 text-sm sm:text-base'>
+            <PlusIcon size={20} className='sm:inline  hidden' />
             Add Member</Link>
           <DropdownMenu>
             <DropdownMenuTrigger className="bg-[#6841c4] text-white font-semibold px-3 py-2 rounded-lg cursor-pointer flex items-center gap-1 hover:bg-[#7a4ed0] transition-colors duration-200 text-base"> <ChevronDown size={20} className='inline' /> Actions</DropdownMenuTrigger>
@@ -315,7 +315,7 @@ export default function Members() {
           </DropdownMenu>
         </div>
       </div>
-      <div className='bg-white  transition-all py-2 mx-3 rounded-lg shadow-md'>
+      <div className='bg-white  transition-all py-2 mx-0 rounded-lg shadow-md w-full overflow-x-auto'>
         <Tabs defaultValue="All">
           <TabsList className="mx-3 bg-white mt-2">
             <TabsTrigger className="mx-2 px-3 py-4.5 bg-gray-100 data-[state=active]:bg-[#6841c4] data-[state=active]:text-white data-[state=active]:shadow-md cursor-pointer" value="All">All Users</TabsTrigger>
@@ -336,8 +336,8 @@ export default function Members() {
           </TabsContent>
         </Tabs>
       </div>
-      <div className='mt-3 mx-5 flex items-center justify-between'>
-        <div className='text-black text-base font-semibold '>
+      <div className='mt-3 mx-5 flex items-center justify-between gap-6 overflow-x-auto'>
+        <div className='text-black text-base font-semibold text-nowrap '>
           Total Users : {data.length}
         </div>
 

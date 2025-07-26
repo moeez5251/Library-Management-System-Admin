@@ -95,7 +95,6 @@ const AddUser = () => {
             })
             if (!data.ok) {
                 const errorData = await data.json();
-                console.error("Error response:", errorData);
                 toast.error(errorData.error);
                 setuser(true);
                 return;
@@ -133,7 +132,7 @@ const AddUser = () => {
     return (
         <>
             <Toaster />
-            <div className='mx-4 my-2'>
+            <div className='sm:mx-4 my-2'>
                 <Breadcrumb>
                     <BreadcrumbList>
                         <BreadcrumbItem>
@@ -148,41 +147,41 @@ const AddUser = () => {
                     </BreadcrumbList>
                 </Breadcrumb>
             </div>
-            <div className='bg-white mx-4 my-3 py-3 px-8 pb-12 rounded-md'>
+            <div className='bg-white sm:mx-4 my-3 py-3 px-8 pb-12 rounded-md'>
                 <h2 className='font-semibold border-b-2 pb-1'>User Information</h2>
                 <div>
                     <div className='flex flex-col gap-3 items-start'>
                         <div className='my-3 w-full flex flex-col gap-5'>
-                            <div className='flex items-center justify-between'>
+                            <div className='flex items-start sm:items-center justify-between flex-col sm:flex-row gap-4'>
 
-                                <div className='flex flex-col gap-2 items-start'>
+                                <div className='flex flex-col gap-2 items-start '>
 
                                     <div className='font-semibold text-sm flex items-start gap-1'>
                                         User Name<Asterisk size={13} color='red' />
                                     </div>
-                                    <div>
-                                        <input value={inputs.User_Name} onChange={handleInputChange} className='border px-2 py-1 rounded-sm placeholder:text-sm text-base' type="text" name="User_Name" id="User_Name" placeholder='User name here' />
+                                    <div className='w-full'>
+                                        <input value={inputs.User_Name} onChange={handleInputChange} className='border px-2 py-1 rounded-sm placeholder:text-sm text-base w-full' type="text" name="User_Name" id="User_Name" placeholder='User name here' />
                                     </div>
                                 </div>
-                                <div className='flex flex-col gap-2 items-start'>
+                                <div className='flex flex-col gap-2 items-start '>
 
                                     <div className='font-semibold text-sm flex items-start gap-1'>
                                         Email<Asterisk size={13} color='red' />
                                     </div>
-                                    <div>
-                                        <input value={inputs.Email} onChange={handleInputChange} className='border px-2 py-1 rounded-sm placeholder:text-sm text-base' type="text" name="Email" id="Email" placeholder='Enter email address' />
+                                    <div className='w-full'>
+                                        <input value={inputs.Email} onChange={handleInputChange} className='border px-2 py-1 rounded-sm placeholder:text-sm text-base w-full' type="text" name="Email" id="Email" placeholder='Enter email address' />
                                     </div>
                                 </div>
                             </div>
-                            <div className='flex items-center justify-between'>
+                            <div className='flex items-start sm:items-center justify-between flex-col sm:flex-row gap-4'>
 
-                                <div className='flex flex-col gap-2 items-start'>
+                                <div className='flex flex-col gap-2 items-start '>
 
                                     <div className='font-semibold text-sm flex items-start gap-1'>
                                         Password<Asterisk size={13} color='red' />
                                     </div>
-                                    <div className='flex items-center gap-2 relative'>
-                                        <input value={inputs.Password} onChange={handleInputChange} className='border px-2 py-1 rounded-sm placeholder:text-sm text-base' type={togglepassword ? "text" : "password"} name="Password" id="Password" placeholder='Enter Password' />
+                                    <div className='flex items-center gap-2 relative w-full'>
+                                        <input value={inputs.Password} onChange={handleInputChange} className='border px-2 py-1 rounded-sm placeholder:text-sm text-base w-full' type={togglepassword ? "text" : "password"} name="Password" id="Password" placeholder='Enter Password' />
                                         <button onClick={() => settogglepassword(!togglepassword)} className='absolute  right-2 cursor-pointer'>
                                             {
                                                 togglepassword ?
@@ -212,13 +211,13 @@ const AddUser = () => {
                                     </div>
                                 </div>
                             </div>
-                            <div className='flex flex-col gap-2 items-start'>
+                            <div className='flex flex-col gap-2 items-start w-full'>
 
                                 <div className='font-semibold text-sm flex items-start gap-1'>
                                     Role<Asterisk size={13} color='red' />
                                 </div>
-                                <div>
-                                    <RadioGroup value={role} onValueChange={setrole} className="flex items-center" defaultValue="Standard-User">
+                                <div className='w-full'>
+                                    <RadioGroup value={role} onValueChange={setrole} className="flex items-center w-full " defaultValue="Standard-User">
                                         <div className="flex items-center space-x-2">
                                             <RadioGroupItem value="Standard-User" id="Standard-User" />
                                             <Label htmlFor="Standard-User">Standard User</Label>

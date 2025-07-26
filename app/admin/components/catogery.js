@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import { Check, ChevronsUpDown } from 'lucide-react';
+import { useMediaQuery } from 'usehooks-ts'
 
 import { Button } from '@/components/ui/button';
 import {
@@ -33,6 +34,7 @@ const CategorySelect = ({
   disabled = false,
 }) => {
   const [open, setOpen] = useState(false);
+  const isMobile = useMediaQuery("(max-width: 500px)")
 
   return (
     <Popover open={open} onOpenChange={setOpen}>
@@ -50,7 +52,10 @@ const CategorySelect = ({
       </PopoverTrigger>
 
       {!disabled && (
-        <PopoverContent  side="left" align="center" className="w-2xs p-0">
+        <PopoverContent
+          side={isMobile ? "bottom" : "left"}
+          align={isMobile ? "center" : "start"}
+          className="w-2xs p-0">
           <Command>
             <CommandInput placeholder="Search category..." />
             <CommandEmpty>No category found.</CommandEmpty>

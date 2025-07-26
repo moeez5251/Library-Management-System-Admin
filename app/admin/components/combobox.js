@@ -22,7 +22,7 @@ const ComboBox = ({ options = ['5', '10', '15', '20', '25','30'], value, onChang
 
   return (
     <div className="flex items-center space-x-2">
-      <span className="text-sm text-muted-foreground font-semibold">Rows per page:</span>
+      <span className="text-xs sm:text-sm text-muted-foreground font-semibold text-nowrap">Rows per page:</span>
 
       <Popover open={open} onOpenChange={setOpen}>
         <PopoverTrigger asChild>
