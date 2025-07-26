@@ -77,11 +77,15 @@ The Library Management System is a comprehensive solution for libraries, offerin
 * Create `.env.local` (for Next.js) in the project root and `.env` (for backend) in `/app/backend`.
 * Add required variables (e.g., database credentials, JWT secret, email service keys):
   ```env
-  DB_USER=your_db_user
-  DB_SERVER=your_db_server
-  DB_DATABASE=your_db_name
-  JWT_SECRET=your_jwt_secret
-  EMAIL_SERVICE=your_email_service
+  Email=your_email
+  Password=your_email_app_password
+  user=your_db_user
+  DB_PASS=your_db_pass
+  server=your_db_server
+  database=your_db_name
+  URL=http://localhost:3000
+  JWT=secret_token
+
   ```
 
 1. **Run the Application** :
