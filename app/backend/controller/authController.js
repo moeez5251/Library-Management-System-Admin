@@ -4,7 +4,7 @@ const jwt = require('jsonwebtoken');
 const { v4: uuidv4 } = require('uuid');
 function generateToken(user) {
   return jwt.sign(
-    { id: user.User_id, email: user.Email },
+    { id: user.User_id, email: user.Email },  // payload
     process.env.JWT,
     { expiresIn: '1h' }
   );
@@ -52,14 +52,7 @@ exports.login = async (req, res) => {
     INSERT INTO sessions (session_id, user_id, session_token, created_at, expires_at)
     VALUES (NEWID(), @user_id, @session_token, @created_at, @expires_at)
   `);
-    res.cookie('authToken', token, {
-      path: '/',          // make cookie available on all paths (including APIs)
-      httpOnly: true,
-      secure: true,
-      sameSite: 'None',
-      maxAge: 24 * 60 * 60 * 1000
-    });
-
+    
 
     res.json({ message: 'Login successful', token, userid: user.User_id });
 
@@ -79,7 +72,7 @@ exports.logout = async (req, res) => {
         DELETE FROM sessions
         WHERE session_token = @token
       `);
-
+    
     res.json({ message: 'Logout successful' });
   } catch (error) {
     console.error('Logout error:', error.message, error.stack);

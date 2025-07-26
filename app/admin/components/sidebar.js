@@ -9,6 +9,7 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion"
 import React from 'react'
+import { X } from "lucide-react"
 const Sidebar = () => {
   const params = usePathname()
   const router = useRouter()
@@ -115,7 +116,14 @@ const Sidebar = () => {
 
   return (
     <>
-      <Link href="/admin" prefetch={true} onClick={() => handleswitch("dashboard")} data-active={active.dashboard} className='flex items-center gap-2 mx-auto py-2.5  cursor-pointer px-4  w-[80%] data-[active=true]:bg-[#6841c4] data-[active=true]:text-white data-[active=true]:rounded-lg transition-all'>
+      <div onClick={() => {
+        if (document.querySelector(".sidebar").classList.contains("left-0")) {
+          document.querySelector(".sidebar").classList.remove("left-0")
+        }
+      }} className="flex items-center justify-end xl:hidden w-[90%] sm:w-[80%] cursor-pointer">
+        <X color="#6841c4" size={30} />
+      </div>
+      <Link href="/admin" prefetch={true} onClick={() => handleswitch("dashboard")} data-active={active.dashboard} className='flex items-center gap-2 mx-auto py-2.5  cursor-pointer px-4  w-[90%] sm:w-[80%] data-[active=true]:bg-[#6841c4] data-[active=true]:text-white data-[active=true]:rounded-lg transition-all'>
         <div>
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -143,7 +151,7 @@ const Sidebar = () => {
         </div>
         <div className='font-semibold text-base'>Dashboard</div>
       </Link>
-      <Link href="/admin/resources" prefetch={true} onClick={() => handleswitch("resources")} data-active={active.resources} className='flex items-center gap-2 mx-auto py-2.5 cursor-pointer px-4 w-[80%] relative data-[active=true]:bg-[#6841c4] data-[active=true]:text-white data-[active=true]:rounded-lg transition-all'>
+      <Link href="/admin/resources" prefetch={true} onClick={() => handleswitch("resources")} data-active={active.resources} className='flex items-center gap-2 mx-auto py-2.5 cursor-pointer px-4 w-[90%] sm:w-[80%] relative data-[active=true]:bg-[#6841c4] data-[active=true]:text-white data-[active=true]:rounded-lg transition-all'>
         <div>
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -193,7 +201,7 @@ const Sidebar = () => {
 
         </div>
       </Link>
-      <Link href="/admin/managebooks" prefetch={true} onClick={() => handleswitch("managebooks")} data-active={active.managebooks} className='flex items-center gap-2 mx-auto py-2.5 cursor-pointer px-4 w-[80%] data-[active=true]:bg-[#6841c4] data-[active=true]:text-white data-[active=true]:rounded-lg transition-all '>
+      <Link href="/admin/managebooks" prefetch={true} onClick={() => handleswitch("managebooks")} data-active={active.managebooks} className='flex items-center gap-2 mx-auto py-2.5 cursor-pointer px-4 w-[90%] sm:w-[80%] data-[active=true]:bg-[#6841c4] data-[active=true]:text-white data-[active=true]:rounded-lg transition-all '>
         <div>
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -223,7 +231,7 @@ const Sidebar = () => {
 
       </Link>
 
-      <Link href="/admin/books" prefetch={true} onClick={() => handleswitch("books")} data-active={active.books} className='flex items-center gap-2 mx-auto py-2.5 cursor-pointer px-4 w-[80%] data-[active=true]:bg-[#6841c4] data-[active=true]:text-white data-[active=true]:rounded-lg transition-all '>
+      <Link href="/admin/books" prefetch={true} onClick={() => handleswitch("books")} data-active={active.books} className='flex items-center gap-2 mx-auto py-2.5 cursor-pointer px-4 w-[90%] sm:w-[80%] data-[active=true]:bg-[#6841c4] data-[active=true]:text-white data-[active=true]:rounded-lg transition-all '>
         <div>
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -250,7 +258,7 @@ const Sidebar = () => {
         <div className='font-semibold text-base'>Lended Books</div>
 
       </Link>
-      <Link href="/admin/members" prefetch={true} onClick={() => handleswitch("members")} data-active={active.members} className='flex items-center gap-2 mx-auto py-2.5 cursor-pointer px-4.5 w-[80%] data-[active=true]:bg-[#6841c4] data-[active=true]:text-white data-[active=true]:rounded-lg transition-all'>
+      <Link href="/admin/members" prefetch={true} onClick={() => handleswitch("members")} data-active={active.members} className='flex items-center gap-2 mx-auto py-2.5 cursor-pointer px-4.5 w-[90%] sm:w-[80%] data-[active=true]:bg-[#6841c4] data-[active=true]:text-white data-[active=true]:rounded-lg transition-all'>
         <div>
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -288,7 +296,7 @@ const Sidebar = () => {
 
       </Link>
 
-      <Link href="/admin/notifications" prefetch={true} onClick={() => handleswitch("notifications")} data-active={active.notifications} className='flex items-center gap-2 mx-auto py-2.5 cursor-pointer px-4.5 w-[80%] data-[active=true]:bg-[#6841c4] data-[active=true]:text-white data-[active=true]:rounded-lg transition-all '>
+      <Link href="/admin/notifications" prefetch={true} onClick={() => handleswitch("notifications")} data-active={active.notifications} className='flex items-center gap-2 mx-auto py-2.5 cursor-pointer px-4.5 w-[90%] sm:w-[80%] data-[active=true]:bg-[#6841c4] data-[active=true]:text-white data-[active=true]:rounded-lg transition-all '>
         <div>
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -314,7 +322,7 @@ const Sidebar = () => {
       </Link>
       <Accordion type="single" collapsible>
         <AccordionItem value="item-1">
-          <AccordionTrigger onClick={() => handleswitch("profile")} data-active={active.profile} className='flex items-center justify-normal gap-2 flex-none mx-auto py-2.5 cursor-pointer px-4.5 w-[80%] data-[active=true]:bg-[#6841c4] data-[active=true]:text-white data-[active=true]:rounded-lg transition-all duration-150'>
+          <AccordionTrigger onClick={() => handleswitch("profile")} data-active={active.profile} className='flex items-center justify-normal gap-2 flex-none mx-auto py-2.5 cursor-pointer px-4.5 w-[90%] sm:w-[80%] data-[active=true]:bg-[#6841c4] data-[active=true]:text-white data-[active=true]:rounded-lg transition-all duration-150'>
             <div>
               <svg
                 xmlns="http://www.w3.org/2000/svg"

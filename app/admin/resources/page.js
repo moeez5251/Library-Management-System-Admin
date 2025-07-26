@@ -72,14 +72,14 @@ const Resources = () => {
 
           <h2 className='font-semibold'>Library Details</h2>
         </div>
-        <div className='flex items-center justify-between my-3'>
+        <div className='md:flex md:items-center grid grid-cols-1 items-center sm:grid-cols-2 md:justify-between my-3'>
           <div className='flex flex-col gap-2 items-start'>
 
             <div className='font-semibold text-sm flex items-start gap-1'>
               Library Name
             </div>
-            <div>
-              <input value={inputs.Name} onChange={handlechange} className='border px-2 py-1 rounded-sm placeholder:text-sm text-base' type="text" name="Name" id="Library_Name" />
+            <div className='w-full sm:w-[90%]'>
+              <input value={inputs.Name} onChange={handlechange} className='border px-2 py-1 rounded-sm placeholder:text-sm text-base w-full sm:w-[90%]' type="text" name="Name" id="Library_Name" />
             </div>
           </div>
           <div className='flex flex-col gap-2 items-start'>
@@ -87,8 +87,8 @@ const Resources = () => {
             <div className='font-semibold text-sm flex items-start gap-1'>
               Email
             </div>
-            <div>
-              <input value={inputs.Email} onChange={handlechange} className='border px-2 py-1 rounded-sm placeholder:text-sm text-base' type="text" name="Email" id="Email" />
+            <div className='w-full sm:w-[90%]'>
+              <input value={inputs.Email} onChange={handlechange} className='border px-2 py-1 rounded-sm placeholder:text-sm text-base w-full sm:w-[90%]' type="text" name="Email" id="Email" />
             </div>
           </div>
           <div className='flex flex-col gap-2 items-start'>
@@ -96,12 +96,12 @@ const Resources = () => {
             <div className='font-semibold text-sm flex items-start gap-1'>
               Website
             </div>
-            <div>
-              <input value={inputs.Website} onChange={handlechange} className='border px-2 py-1 rounded-sm placeholder:text-sm text-base placeholder:font-semibold' type="text" name="Website" id="Website" placeholder='www.example.com' />
+            <div className='w-full sm:w-[90%]'>
+              <input value={inputs.Website} onChange={handlechange} className='border px-2 py-1 rounded-sm placeholder:text-sm text-base placeholder:font-semibold w-full sm:w-[90%]' type="text" name="Website" id="Website" placeholder='www.example.com' />
             </div>
           </div>
         </div>
-        <div className='w-fit mx-auto mt-4'>
+        <div className='w-fit mx-auto mt-8 md:mt-4'>
           <button disabled={issubmitting} onClick={handlesubmit} className='bg-[#6841c4] text-white px-4 w-fit py-2 rounded-md scale-95 hover:scale-100 transition-all duration-200 font-semibold  cursor-pointer disabled:bg-gray-500 disabled:pointer-events-none'>
             Add Resource
           </button>

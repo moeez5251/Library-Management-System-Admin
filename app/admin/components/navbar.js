@@ -87,7 +87,7 @@ const AdminDashboard = () => {
     return (
         <>
             <header className="flex  items-center justify-between px-4 py-2 mx-0 sm:mx-10 my-2">
-                <Link href="/" prefetch={true} className="lg:flex items-center hidden  text-[#6841c4] text-xl font-bold gap-2 border border-[#e3e7ea] px-5 lg:px-0 lg:w-[17%] justify-center py-1 text-nowrap ">
+                <Link href="/" prefetch={true} className="xl:flex items-center hidden  text-[#6841c4] text-xl font-bold gap-2 border border-[#e3e7ea] px-5 lg:px-0 lg:w-[17%] justify-center py-1 text-nowrap ">
                     <div>
 
                         <svg
@@ -117,23 +117,28 @@ const AdminDashboard = () => {
 
                     ASPIRE LMS
                 </Link>
-                <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width={30}
-                    height={30}
-                    fill="none"
-                    className="injected-svg"
-                    color="#6841c4"
-                    data-src="https://cdn.hugeicons.com/icons/menu-01-solid-rounded.svg?v=2.0"
-                    viewBox="0 0 24 24"
-                >
-                    <path
-                        fill="#6841c4"
-                        fillRule="evenodd"
-                        d="M3 5a1 1 0 0 1 1-1h16a1 1 0 1 1 0 2H4a1 1 0 0 1-1-1ZM3 12a1 1 0 0 1 1-1h16a1 1 0 1 1 0 2H4a1 1 0 0 1-1-1ZM3 19a1 1 0 0 1 1-1h16a1 1 0 1 1 0 2H4a1 1 0 0 1-1-1Z"
-                        clipRule="evenodd"
-                    />
-                </svg>
+                <div onClick={() => {
+                    document.querySelector(".sidebar").classList.add("left-0")
+                }} className='xl:hidden block'>
+
+                    <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width={30}
+                        height={30}
+                        fill="none"
+                        className="injected-svg"
+                        color="#6841c4"
+                        data-src="https://cdn.hugeicons.com/icons/menu-01-solid-rounded.svg?v=2.0"
+                        viewBox="0 0 24 24"
+                    >
+                        <path
+                            fill="#6841c4"
+                            fillRule="evenodd"
+                            d="M3 5a1 1 0 0 1 1-1h16a1 1 0 1 1 0 2H4a1 1 0 0 1-1-1ZM3 12a1 1 0 0 1 1-1h16a1 1 0 1 1 0 2H4a1 1 0 0 1-1-1ZM3 19a1 1 0 0 1 1-1h16a1 1 0 1 1 0 2H4a1 1 0 0 1-1-1Z"
+                            clipRule="evenodd"
+                        />
+                    </svg>
+                </div>
 
                 <div className='flex items-center justify-center gap-4'>
                     <Popover>

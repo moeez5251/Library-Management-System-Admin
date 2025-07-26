@@ -11,10 +11,10 @@ const authenticate = async (req, res, next) => {
   const token = authHeader.split(' ')[1];
 
   try {
-   
+
     const decoded = jwt.verify(token, process.env.JWT);
 
-    
+
     const pool = await poolPromise;
     const result = await pool.request()
       .input('token', token)
@@ -22,7 +22,8 @@ const authenticate = async (req, res, next) => {
         SELECT * FROM sessions
         WHERE session_token = @token AND expires_at > GETUTCDATE()
       `);
-      
+    await pool.request()
+      .query('Delete FROM sessions WHERE expires_at < GETUTCDATE() ');
     if (!result.recordset.length) {
       return res.status(401).json({ message: 'Session expired or invalid' });
     }
