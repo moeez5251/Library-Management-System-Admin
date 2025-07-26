@@ -4,7 +4,7 @@ const jwt = require('jsonwebtoken');
 const { v4: uuidv4 } = require('uuid');
 function generateToken(user) {
   return jwt.sign(
-    { id: user.User_id, email: user.Email },  // payload
+    { id: user.User_id, email: user.Email },  
     process.env.JWT,
     { expiresIn: '1h' }
   );
@@ -26,10 +26,8 @@ exports.login = async (req, res) => {
     }
 
     const user = result.recordset[0];
-    console.log("User from DB:", user);
 
     const isMatch = await bcrypt.compare(password, user.password);
-    console.log("isMatch:", isMatch);
     if (!isMatch) {
       return res.status(401).json({ message: 'Invalid email or password' });
     }
@@ -54,7 +52,12 @@ exports.login = async (req, res) => {
     INSERT INTO sessions (session_id, user_id, session_token, created_at, expires_at)
     VALUES (NEWID(), @user_id, @session_token, @created_at, @expires_at)
   `);
-
+    res.cookie('authToken', token, {
+      httpOnly: true,
+      secure: true,             
+      sameSite: 'None',         
+      maxAge: 24 * 60 * 60 * 1000
+    });
 
     res.json({ message: 'Login successful', token, userid: user.User_id });
 
@@ -74,7 +77,7 @@ exports.logout = async (req, res) => {
         DELETE FROM sessions
         WHERE session_token = @token
       `);
-    
+
     res.json({ message: 'Logout successful' });
   } catch (error) {
     console.error('Logout error:', error.message, error.stack);
