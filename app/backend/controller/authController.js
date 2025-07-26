@@ -4,7 +4,7 @@ const jwt = require('jsonwebtoken');
 const { v4: uuidv4 } = require('uuid');
 function generateToken(user) {
   return jwt.sign(
-    { id: user.User_id, email: user.Email },  
+    { id: user.User_id, email: user.Email },
     process.env.JWT,
     { expiresIn: '1h' }
   );
@@ -53,11 +53,13 @@ exports.login = async (req, res) => {
     VALUES (NEWID(), @user_id, @session_token, @created_at, @expires_at)
   `);
     res.cookie('authToken', token, {
+      path: '/',          // make cookie available on all paths (including APIs)
       httpOnly: true,
-      secure: true,             
-      sameSite: 'None',         
+      secure: true,
+      sameSite: 'None',
       maxAge: 24 * 60 * 60 * 1000
     });
+
 
     res.json({ message: 'Login successful', token, userid: user.User_id });
 
