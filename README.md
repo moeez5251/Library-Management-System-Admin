@@ -82,10 +82,6 @@ The Library Management System is a comprehensive solution for libraries, offerin
   database=your_db_name
   URL=http://localhost:3000
   JWT=secret_token
-<<<<<<< HEAD
-=======
-
->>>>>>> 3c00a60539d82a44bfc57f631c3a9625abc9a3e5
   ```
 
 1. **Run the Application** :
