@@ -12,6 +12,7 @@ import customParseFormat from 'dayjs/plugin/customParseFormat';
 import { useRouter } from 'next/navigation';
 const AdminDashboard = () => {
     const [notifications, setnotifications] = useState([])
+    const [themetoggler, setThemetoggler] = useState("Light")
     const router = useRouter()
     useEffect(() => {
         (async () => {
@@ -64,6 +65,34 @@ const AdminDashboard = () => {
 
         }
     }, [])
+    useEffect(() => {
+        if (!localStorage.getItem("XLMS-Theme")) {
+            localStorage.setItem("XLMS-Theme", "Light")
+        }
+        else {
+            setThemetoggler(localStorage.getItem("XLMS-Theme"))
+            if (localStorage.getItem("XLMS-Theme") === "Dark") {
+                document.querySelector("html").classList.add("dark")
+            }
+        }
+        return () => {
+
+        }
+    }, [themetoggler])
+    const handletheme = () => {
+        if (themetoggler === "Light") {
+            localStorage.setItem("XLMS-Theme", "Dark")
+            setThemetoggler("Dark")
+            document.querySelector("html").classList.toggle("dark")
+        }
+        else {
+            localStorage.setItem("XLMS-Theme", "Light")
+            setThemetoggler("Light")
+            if (document.querySelector("html").classList.contains("dark")) {
+                document.querySelector("html").classList.remove("dark")
+            }
+        }
+    }
     const handlelogout = async () => {
         const data = await fetch("https://library-management-system-hvhv.onrender.com/api/auth/logout",
             {
@@ -76,7 +105,7 @@ const AdminDashboard = () => {
 
             })
         if (!data.ok) {
-           
+
             return;
         }
         sessionStorage.removeItem("token");
@@ -87,7 +116,7 @@ const AdminDashboard = () => {
     return (
         <>
             <header className="flex  items-center justify-between px-4 py-2 mx-0 sm:mx-10 my-2">
-                <Link href="/" prefetch={true} className="xl:flex items-center hidden  text-[#6841c4] text-xl font-bold gap-2 border border-[#e3e7ea] px-5 lg:px-0 lg:w-[17%] justify-center py-1 text-nowrap ">
+                <Link href="/" prefetch={true} className="xl:flex items-center hidden  text-[#6841c4] text-xl font-bold gap-2 border border-[#e3e7ea] dark:border-[#0b2342] px-5 lg:px-0 lg:w-[17%] justify-center py-1 text-nowrap dark:bg-[#0a2641] dark:text-white ">
                     <div>
 
                         <svg
@@ -95,7 +124,7 @@ const AdminDashboard = () => {
                             width={24}
                             height={24}
                             fill="none"
-                            className="injected-svg"
+                            className="injected-svg dark:brightness-[7.5]"
                             color="#6841c4"
                             data-src="https://cdn.hugeicons.com/icons/book-edit-stroke-standard.svg"
                         >
@@ -141,16 +170,22 @@ const AdminDashboard = () => {
                 </div>
 
                 <div className='flex items-center justify-center gap-4'>
+                    {/* <div>
+                        <label className="switch">
+                            <input onChange={handletheme} checked={themetoggler === "Dark"} type="checkbox" />
+                            <span className="slider"></span>
+                        </label>
+                    </div> */}
                     <Popover>
                         <PopoverTrigger>
-                            <div className='bg-[#f1f1fd] p-2 rounded-full cursor-pointer scale-100 transition-all hover:scale-110 relative'>
+                            <div className='bg-[#f1f1fd] p-2 rounded-full cursor-pointer scale-100 transition-all hover:scale-110 relative dark:bg-transparent'>
                                 <svg
                                     xmlns="http://www.w3.org/2000/svg"
                                     width={20}
                                     height={20}
                                     fill="none"
                                     className="injected-svg"
-                                    color="#526b7a"
+                                    color="#526b7a dark:#475175"
                                     data-src="https://cdn.hugeicons.com/icons/notification-03-stroke-standard.svg"
                                     viewBox="0 0 24 24"
                                 >

@@ -40,6 +40,9 @@ const Sidebar = () => {
       theme: false,
       [active_tab]: true
     })
+    if (document.querySelector(".sidebar").classList.contains("left-0")) {
+      document.querySelector(".sidebar").classList.remove("left-0")
+    }
   }
   useEffect(() => {
     const a = params.split("/admin/")[1];
@@ -322,7 +325,7 @@ const Sidebar = () => {
       </Link>
       <Accordion type="single" collapsible>
         <AccordionItem value="item-1">
-          <AccordionTrigger onClick={() => handleswitch("profile")} data-active={active.profile} className='flex items-center justify-normal gap-2 flex-none mx-auto py-2.5 cursor-pointer px-4.5 w-[90%] sm:w-[80%] data-[active=true]:bg-[#6841c4] data-[active=true]:text-white data-[active=true]:rounded-lg transition-all duration-150'>
+          <AccordionTrigger data-active={active.profile} className='flex items-center justify-normal gap-2 flex-none mx-auto py-2.5 cursor-pointer px-4.5 w-[90%] sm:w-[80%] data-[active=true]:bg-[#6841c4] data-[active=true]:text-white data-[active=true]:rounded-lg transition-all duration-150'>
             <div>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -377,38 +380,7 @@ const Sidebar = () => {
               <div className='font-semibold text-base'>Account Information</div>
 
             </Link>
-            <Link href="/admin/theme" prefetch={true} onClick={() => handleswitch("theme")} data-active={active.theme} className='flex items-center gap-2 mx-auto py-2.5 cursor-pointer px-4.5 w-[80%] data-[active=true]:bg-[#6841c4] data-[active=true]:text-white data-[active=true]:rounded-lg transition-all '>
-              <div>
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width={20}
-                  height={20}
-                  fill="none"
-                  className="injected-svg"
-                  color="#526b7a"
-                  data-src="https://cdn.hugeicons.com/icons/approximately-equal-circle-stroke-standard.svg?v=2.0"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    stroke="#526b7a"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={1.5}
-                    d="M7 9.285c1.667-2 3.333-1.414 5 .048 1.667 1.463 3.333 2.048 5 .049M7 14.618c1.667-2 3.333-1.414 5 .049 1.667 1.463 3.333 2.048 5 .048"
-                  />
-                  <circle
-                    cx={12}
-                    cy={12}
-                    r={10}
-                    stroke="#9b9b9b"
-                    strokeLinejoin="round"
-                    strokeWidth={1.5}
-                  />
-                </svg>
-              </div>
-              <div className='font-semibold text-base'>Theme</div>
-
-            </Link>
+          
             <div onClick={handlelogout} className='flex items-center gap-2 mx-auto py-2.5 cursor-pointer px-4.5 w-[80%] data-[active=true]:bg-[#6841c4] data-[active=true]:text-white data-[active=true]:rounded-lg transition-all '>
               <div>
                 <svg

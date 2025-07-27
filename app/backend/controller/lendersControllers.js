@@ -35,10 +35,14 @@ exports.getlenderbyid = async (req, res) => {
             return res.status(404).json({ message: 'Lender not found' });
         }
         const userid = await result.recordset[0].user_id
+
         const useremail = await pool
             .request()
             .input('ID', userid)
             .query('SELECT Email FROM users WHERE User_id = @ID');
+        if (useremail.recordset.length <= 0) {
+            return res.status(404).json({ message: 'User was Deleted' });
+        }
         lender.Email = useremail.recordset[0].Email;
         res.status(200).json(lender);
     } catch (error) {

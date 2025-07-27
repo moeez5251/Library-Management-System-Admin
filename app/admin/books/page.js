@@ -180,6 +180,12 @@ export default function Lenders() {
         })
       })
       if (!data.ok) {
+        const errorData = await data.json();
+        if (errorData.message) {
+          toast.error(errorData.message)
+          settrigger(false)
+          return
+        }
         toast.error("Unable to fetch data")
         settrigger(false)
         return
@@ -196,7 +202,7 @@ export default function Lenders() {
       method: "POST",
       headers: {
         "Content-type": "application/json; charset=UTF-8",
-          "Authorization": `Bearer ${sessionStorage.getItem("token")}`,
+        "Authorization": `Bearer ${sessionStorage.getItem("token")}`,
       },
       credentials: "include",
       body: JSON.stringify({ API: process.env.NEXT_PUBLIC_XLMS_API })
@@ -304,7 +310,7 @@ export default function Lenders() {
                   Lender Details
                 </span>
 
-                <span className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4  text-sm h-[50vh] overflow-y-auto">
+                <span className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4  text-sm h-[50vh] md:h-auto overflow-y-auto">
                   <span className="flex flex-col bg-blue-50 dark:bg-blue-900/30 p-3 rounded-md shadow-sm">
                     <span className={`text-blue-600 dark:text-blue-300 font-medium ${dialogdata.Borrower_ID ? "" : "animate-pulse"} `}>Lender ID:</span>
                     <span className={`text-gray-900 dark:text-white font-semibold ${dialogdata.Borrower_ID ? "" : "animate-pulse"}`}>{dialogdata.Borrower_ID ? dialogdata.Borrower_ID : "Loading"}</span>

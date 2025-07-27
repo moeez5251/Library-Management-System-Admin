@@ -22,17 +22,14 @@ The Library Management System is a comprehensive solution for libraries, offerin
 * ![React](https://img.shields.io/badge/react-%2320232a.svg?style=flat&logo=react&logoColor=%2361DAFB)  **React** : Component-based UI library.
 * ![Tailwind CSS](https://img.shields.io/badge/tailwindcss-%2338B2AC.svg?style=flat&logo=tailwind-css&logoColor=white)  **Tailwind CSS** : Utility-first CSS framework.
 * ![Lucide Icons](https://img.shields.io/badge/Lucide_Icons-000000?logo=iconify&logoColor=white)  **Lucide Icons** : Beautiful icon library.
-* ![Sonner](https://img.shields.io/badge/Sonner-000000?logo=notification&logoColor=white)  **Sonner** : Toast notifications for user feedback. 🎨
 * **Backend** :
 * ![Node.js](https://img.shields.io/badge/node.js-6DA55F?style=flat&logo=node.js&logoColor=white)  **Node.js** : JavaScript runtime for server-side logic.
 * ![Express.js](https://img.shields.io/badge/express.js-%23404d59.svg?style=flat&logo=express&logoColor=%2361DAFB)  **Express.js** : Web framework for API development.
-* ![TypeScript](https://img.shields.io/badge/typescript-%23007ACC.svg?style=flat&logo=typescript&logoColor=white)  **TypeScript** : Typed JavaScript for robust code.
-* ![Socket.IO](https://img.shields.io/badge/Socket.io-black?style=flat&logo=socket.io&badgeColor=010101)  **Socket.IO** : Real-time communication for notifications.
 * ![JWT](https://img.shields.io/badge/JWT-000000?logo=json-web-tokens&logoColor=white)  **JWT** : Secure authentication for APIs. 🔐
-* **Database** :
-* ![Microsoft SQL Server](https://img.shields.io/badge/MSSQL-CC2927?logo=microsoft-sql-server&logoColor=white)  **Microsoft SQL Server** : Relational database for data management. 🗄️
+* **Database** : MS SQL 🗄️
+* ![Microsoft SQL Server](https://img.shields.io/badge/MSSQL-CC2927?logo=microsoft-sql-server&logoColor=white)**Microsoft SQL Server** : Relational database for data management. 🗄️
 * **Utilities** :
-* ![Utilities](https://img.shields.io/badge/Utilities-Utilities-blue?logo=gear&logoColor=white)  **Utilities** : Pagination controls, email services, and more. ⚙️
+* ![Utilities](https://img.shields.io/badge/Utilities-Utilities-blue?logo=gear&logoColor=white)  **Utilities** : Pag ination controls, email services, and more. ⚙️
 * **Deployment & Build** :
 * ![Netlify](https://img.shields.io/badge/netlify-%23000000.svg?style=flat&logo=netlify&logoColor=white)  **Netlify** : Hosting and deployment for the frontend.
 * ![Nixpacks](https://img.shields.io/badge/Nixpacks-2088ff?style=flat)  **Nixpacks** : Automated build and deployment tool. ☁️
@@ -77,11 +74,14 @@ The Library Management System is a comprehensive solution for libraries, offerin
 * Create `.env.local` (for Next.js) in the project root and `.env` (for backend) in `/app/backend`.
 * Add required variables (e.g., database credentials, JWT secret, email service keys):
   ```env
-  DB_USER=your_db_user
-  DB_SERVER=your_db_server
-  DB_DATABASE=your_db_name
-  JWT_SECRET=your_jwt_secret
-  EMAIL_SERVICE=your_email_service
+  Email=your_email
+  Password=your_email_app_password
+  user=your_db_user
+  DB_PASS=your_db_pass
+  server=your_db_server
+  database=your_db_name
+  URL=http://localhost:3000
+  JWT=secret_token
   ```
 
 1. **Run the Application** :
