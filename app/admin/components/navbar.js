@@ -115,8 +115,8 @@ const AdminDashboard = () => {
     }
     return (
         <>
-            <header className="flex  items-center justify-between px-4 py-2 mx-0 sm:mx-10 my-2">
-                <Link href="/" prefetch={true} className="xl:flex items-center hidden  text-[#6841c4] text-xl font-bold gap-2 border border-[#e3e7ea] dark:border-[#0b2342] px-5 lg:px-0 lg:w-[17%] justify-center py-1 text-nowrap dark:bg-[#0a2641] dark:text-white ">
+                <header className="flex  items-center justify-between px-4 py-2 mx-0 sm:mx-10 my-2 dark:bg-[#1b2536]">
+                <Link href="/" prefetch={true} className="xl:flex items-center hidden  text-[#6841c4] text-xl font-bold gap-2 border border-[#e3e7ea]  px-5 lg:px-0 lg:w-[17%] justify-center py-1 text-nowrap dark:bg-[#0a2641] dark:text-white dark:border-[#1f2c47]">
                     <div>
 
                         <svg
@@ -155,7 +155,7 @@ const AdminDashboard = () => {
                         width={30}
                         height={30}
                         fill="none"
-                        className="injected-svg"
+                        className="injected-svg dark:saturate-[3.5]"
                         color="#6841c4"
                         data-src="https://cdn.hugeicons.com/icons/menu-01-solid-rounded.svg?v=2.0"
                         viewBox="0 0 24 24"
@@ -170,22 +170,22 @@ const AdminDashboard = () => {
                 </div>
 
                 <div className='flex items-center justify-center gap-4'>
-                    {/* <div>
+                    <div>
                         <label className="switch">
                             <input onChange={handletheme} checked={themetoggler === "Dark"} type="checkbox" />
                             <span className="slider"></span>
                         </label>
-                    </div> */}
+                    </div>
                     <Popover>
                         <PopoverTrigger>
-                            <div className='bg-[#f1f1fd] p-2 rounded-full cursor-pointer scale-100 transition-all hover:scale-110 relative dark:bg-transparent'>
+                            <div className='bg-[#f1f1fd] p-2 rounded-full cursor-pointer scale-100 transition-all hover:scale-110 relative dark:bg-[#293750]'>
                                 <svg
                                     xmlns="http://www.w3.org/2000/svg"
                                     width={20}
                                     height={20}
                                     fill="none"
-                                    className="injected-svg"
-                                    color="#526b7a dark:#475175"
+                                    className="injected-svg dark:brightness-[1.5]"
+                                    color="#526b7a"
                                     data-src="https://cdn.hugeicons.com/icons/notification-03-stroke-standard.svg"
                                     viewBox="0 0 24 24"
                                 >
@@ -206,14 +206,14 @@ const AdminDashboard = () => {
                                 }
                             </div>
                         </PopoverTrigger>
-                        <PopoverContent className="w-80 max-h-96 overflow-y-auto p-2 space-y-2">
+                        <PopoverContent className="w-80 max-h-96 overflow-y-auto p-2 space-y-2 dark:bg-[#1b2536]">
                             {notifications.length > 0 && notifications.map((item, index) => (
                                 <div
                                     key={index}
                                     className={`flex items-center sm:px-4 px-2 sm:py-3 py-1 rounded-xl border ${item.read
                                         ? "bg-gray-50 border-gray-200"
-                                        : "bg-white border-blue-200 ring-1 ring-blue-100"
-                                        } shadow-sm hover:shadow-md transition-shadow duration-200`}
+                                        : "bg-white border-blue-200 ring-1 ring-blue-100 "
+                                        } shadow-sm hover:shadow-md transition-shadow duration-200  dark:bg-[#232d3b] dark:border-[#2a3547]`}
                                 >
                                     <div className="flex items-center gap-3">
                                         <div>
@@ -221,7 +221,7 @@ const AdminDashboard = () => {
                                                 className={`${item.read
                                                     ? "text-gray-600 font-normal"
                                                     : "text-gray-900 font-semibold"
-                                                    }`}
+                                                    } dark:text-white`}
                                             >
                                                 {item.message}
                                             </div>
@@ -232,10 +232,10 @@ const AdminDashboard = () => {
                             ))}
                             {
                                 notifications.length === 0 && (
-                                    <div className="flex items-center px-4 py-3 rounded-xl border bg-gray-50 border-gray-200 shadow-sm hover:shadow-md transition-shadow duration-200">
+                                    <div className="flex items-center px-4 py-3 rounded-xl border bg-gray-50 border-gray-200 shadow-sm hover:shadow-md transition-shadow duration-200 dark:bg-[#232d3b] dark:border-[#2a3547]">
                                         <div className="flex items-center gap-3">
                                             <div>
-                                                <div className="text-gray-600 font-semibold">
+                                                <div className="text-gray-600 font-semibold dark:text-white">
                                                     You have no notifications
                                                 </div>
                                             </div>
@@ -246,13 +246,13 @@ const AdminDashboard = () => {
                         </PopoverContent>
 
                     </Popover>
-                    <div onClick={() => router.push("/admin/profile")} className='bg-[#f1f1fd] p-2 rounded-full cursor-pointer scale-100 transition-all hover:scale-110'>
+                    <div onClick={() => router.push("/admin/profile")} className='bg-[#f1f1fd] p-2 rounded-full cursor-pointer scale-100 transition-all hover:scale-110 dark:bg-[#293750]'>
                         <svg
                             xmlns="http://www.w3.org/2000/svg"
                             width={20}
                             height={20}
                             fill="none"
-                            className="injected-svg"
+                            className="injected-svg dark:brightness-[1.5]"
                             color="#526b7a"
                             data-src="https://cdn.hugeicons.com/icons/user-story-stroke-standard.svg"
                             viewBox="0 0 24 24"
@@ -280,13 +280,13 @@ const AdminDashboard = () => {
                             />
                         </svg>
                     </div>
-                    <div onClick={handlelogout} className='bg-[#f1f1fd] p-2 rounded-full cursor-pointer scale-100 transition-all hover:scale-110'>
+                        <div onClick={handlelogout} className='bg-[#f1f1fd] p-2 rounded-full cursor-pointer scale-100 transition-all hover:scale-110 dark:bg-[#293750]'>
                         <svg
                             xmlns="http://www.w3.org/2000/svg"
                             width={20}
                             height={20}
                             fill="none"
-                            className="injected-svg"
+                            className="injected-svg dark:brightness-[1.5]"
                             color="#526b7a"
                             data-src="https://cdn.hugeicons.com/icons/logout-04-stroke-rounded.svg"
                             viewBox="0 0 24 24"

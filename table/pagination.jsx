@@ -9,14 +9,14 @@ const PaginationControls = ({ table }) => {
   return (
     <div className="flex items-center justify-center gap-2 sm:gap-3 pt-4 flex-wrap">
       <button
-        className="text-black cursor-pointer disabled:opacity-50 disabled:cursor-auto"
+        className="text-black cursor-pointer disabled:opacity-50 disabled:cursor-auto dark:text-white"
         onClick={() => table.setPageIndex(0)}
         disabled={!table.getCanPreviousPage()}
       >
         <ChevronsLeft size={20} />
       </button>
       <button
-        className="text-black cursor-pointer disabled:opacity-50 disabled:cursor-auto"
+        className="text-black cursor-pointer disabled:opacity-50 disabled:cursor-auto dark:text-white"
 
         onClick={() => table.previousPage()}
         disabled={!table.getCanPreviousPage()}
@@ -36,14 +36,14 @@ const PaginationControls = ({ table }) => {
       ))}
 
       <button
-        className="text-black cursor-pointer disabled:opacity-50 disabled:cursor-auto"
+        className="text-black cursor-pointer disabled:opacity-50 disabled:cursor-auto dark:text-white"
         onClick={() => table.nextPage()}
         disabled={!table.getCanNextPage()}
       >
         <ChevronRight size={20} />
       </button>
       <button
-        className="text-black cursor-pointer disabled:opacity-50 disabled:cursor-auto"
+        className="text-black cursor-pointer disabled:opacity-50 disabled:cursor-auto dark:text-white"
         onClick={() => table.setPageIndex(pageCount - 1)}
         disabled={!table.getCanNextPage()}
       >

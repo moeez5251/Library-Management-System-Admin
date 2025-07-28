@@ -150,17 +150,17 @@ const Edit = ({ params }) => {
           <BreadcrumbList>
             <BreadcrumbItem>
               <BreadcrumbLink asChild>
-                <Link className='text-base font-semibold text-black' href="/admin/managebooks" prefetch={true}>Manage Books</Link>
+                <Link className='text-base font-semibold text-black dark:text-white' href="/admin/managebooks" prefetch={true}>Manage Books</Link>
               </BreadcrumbLink>
             </BreadcrumbItem>
             <BreadcrumbSeparator />
             <BreadcrumbItem>
-              <BreadcrumbPage className="font-semibold text-[#113cb0] text-base">{inputs.Book_Title.length > 0 ? inputs.Book_Title : bookid}</BreadcrumbPage>
+              <BreadcrumbPage className="font-semibold text-[#113cb0] text-base dark:text-[#42669f]">{inputs.Book_Title.length > 0 ? inputs.Book_Title : bookid}</BreadcrumbPage>
             </BreadcrumbItem>
           </BreadcrumbList>
         </Breadcrumb>
       </div>
-      <div className='bg-white mx-0 sm:mx-4 my-3 py-3 px-8 pb-12 rounded-md flex flex-col gap-2'>
+      <div className='bg-white mx-0 sm:mx-4 my-3 py-3 px-8 pb-12 rounded-md flex flex-col gap-2 dark:bg-[#1b2536]'>
         <div className='flex items-center justify-between border-b-2 pb-1.5'>
           <h2 className='font-semibold '>Book information</h2>
           {
@@ -271,21 +271,21 @@ const Edit = ({ params }) => {
       {!edit &&
         <div className='w-full text-center my-4'>
 
-        <Link href={'/admin/managebooks'} prefetch={true} className='bg-gray-300 px-4 py-2  rounded-sm cursor-pointer '>Cancel</Link>
+        <Link href={'/admin/managebooks'} prefetch={true} className='bg-gray-300 px-4 py-2  rounded-sm cursor-pointer dark:bg-[#1b212e] '>Cancel</Link>
       </div>}
       {
         edit &&
         <div className='flex items-center justify-center gap-3'>
-          <button onClick={() => setedit(false)} className='bg-gray-300 px-4 py-2 rounded-sm cursor-pointer '>Cancel</button>
+          <button onClick={() => setedit(false)} className='bg-gray-300 dark:bg-[#1b212e] px-4 py-2 rounded-sm cursor-pointer '>Cancel</button>
           {
             book &&
-            <button onClick={addbook} disabled={disabledbtn} className='bg-[#6841c4] text-white px-4 py-2 rounded-sm cursor-pointer transition-transform scale-95 hover:scale-100 font-normal disabled:bg-gray-300 disabled:pointer-events-none disabled:cursor-auto'>Update Book</button>
+            <button onClick={addbook} disabled={disabledbtn} className='bg-[#6841c4] text-white px-4 py-2 rounded-sm cursor-pointer transition-transform scale-95 hover:scale-100 font-normal disabled:bg-gray-300 dark:disabled:bg-gray-600 disabled:pointer-events-none disabled:cursor-auto'>Update Book</button>
 
           }
 
           {
             !book &&
-            <button onClick={addbook} disabled={true} className='bg-[#6841c4] text-white px-4 py-2 rounded-sm cursor-pointer transition-transform scale-95 hover:scale-100 font-normal disabled:bg-gray-300 disabled:pointer-events-none disabled:cursor-auto'>Updating...</button>
+            <button onClick={addbook} disabled={true} className='bg-[#6841c4] text-white px-4 py-2 rounded-sm cursor-pointer transition-transform scale-95 hover:scale-100 font-normal disabled:bg-gray-300 disabled:pointer-events-none dark:disabled:bg-gray-600 disabled:cursor-auto'>Updating...</button>
 
           }
 

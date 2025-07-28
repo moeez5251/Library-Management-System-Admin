@@ -137,17 +137,17 @@ const AddUser = () => {
                     <BreadcrumbList>
                         <BreadcrumbItem>
                             <BreadcrumbLink asChild>
-                                <Link className='text-base font-semibold text-black' href="/admin/members" prefetch={true}>Manage Users</Link>
+                                <Link className='text-base font-semibold text-black dark:text-white' href="/admin/members" prefetch={true}>Manage Users</Link>
                             </BreadcrumbLink>
                         </BreadcrumbItem>
                         <BreadcrumbSeparator />
                         <BreadcrumbItem>
-                            <BreadcrumbPage className="font-semibold text-[#113cb0] text-base">Add User</BreadcrumbPage>
+                            <BreadcrumbPage className="font-semibold text-[#113cb0] text-base dark:text-[#486691]">Add User</BreadcrumbPage>
                         </BreadcrumbItem>
                     </BreadcrumbList>
                 </Breadcrumb>
             </div>
-            <div className='bg-white sm:mx-4 my-3 py-3 px-8 pb-12 rounded-md'>
+            <div className='bg-white sm:mx-4 my-3 py-3 px-8 pb-12 rounded-md  dark:bg-[#1b2536]'>
                 <h2 className='font-semibold border-b-2 pb-1'>User Information</h2>
                 <div>
                     <div className='flex flex-col gap-3 items-start'>
@@ -198,14 +198,14 @@ const AddUser = () => {
                                     </div>
                                     <div>
                                         <Select value={MemberShip} onValueChange={setMemberShip}>
-                                            <SelectTrigger className="w-[190px]">
-                                                <SelectValue placeholder="MemberShip" />
+                                            <SelectTrigger className="w-[190px] dark:bg-[#1b2536]">
+                                                <SelectValue className="dark:bg-[bg-[#1b2536]" placeholder="MemberShip" />
                                             </SelectTrigger>
-                                            <SelectContent>
-                                                <SelectItem value="English">English</SelectItem>
-                                                <SelectItem value="Urdu">Urdu</SelectItem>
-                                                <SelectItem value="French">French</SelectItem>
-                                                <SelectItem value="Hindi">Hindi</SelectItem>
+                                            <SelectContent className="dark:bg-[#1b2536]">
+                                                <SelectItem className="dark:bg-[#1b2536] dark:hover:bg-[#1b2550]" value="English">English</SelectItem>
+                                                <SelectItem className="dark:bg-[#1b2536] dark:hover:bg-[#1b2550]" value="Urdu">Urdu</SelectItem>
+                                                <SelectItem className="dark:bg-[#1b2536] dark:hover:bg-[#1b2550]" value="French">French</SelectItem>
+                                                <SelectItem className="dark:bg-[#1b2536] dark:hover:bg-[#1b2550]" value="Hindi">Hindi</SelectItem>
                                             </SelectContent>
                                         </Select>
                                     </div>
@@ -235,16 +235,16 @@ const AddUser = () => {
                 </div>
             </div>
             <div className='flex items-center justify-center gap-3'>
-                <Link href="/admin/members" prefetch={true} className='bg-gray-300 px-4 py-2 rounded-sm cursor-pointer'>Cancel</Link>
+                <Link href="/admin/members" prefetch={true} className='bg-gray-300 px-4 py-2 rounded-sm cursor-pointer dark:bg-[#162130]'>Cancel</Link>
                 {
                     user &&
-                    <button onClick={handlecreateuser} disabled={disabledbtn} className='bg-[#6841c4] text-white px-4 py-2 rounded-sm cursor-pointer transition-transform scale-95 hover:scale-100 font-normal disabled:bg-gray-300 disabled:pointer-events-none disabled:cursor-auto'>Create User</button>
+                    <button onClick={handlecreateuser} disabled={disabledbtn} className='bg-[#6841c4] text-white px-4 py-2 rounded-sm cursor-pointer transition-transform scale-95 hover:scale-100 font-normal disabled:bg-gray-300 disabled:pointer-events-none disabled:cursor-auto dark:disabled:bg-gray-700'>Create User</button>
 
                 }
 
                 {
                     !user &&
-                    <button disabled={true} className='bg-[#6841c4] text-white px-4 py-2 rounded-sm cursor-pointer transition-transform scale-95 hover:scale-100 font-normal disabled:bg-gray-300 disabled:pointer-events-none disabled:cursor-auto'>Creating...</button>
+                    <button disabled={true} className='bg-[#6841c4] text-white px-4 py-2 rounded-sm cursor-pointer transition-transform scale-95 hover:scale-100 font-normal disabled:bg-gray-300 disabled:pointer-events-none disabled:cursor-auto dark:disabled:bg-gray-700'>Creating...</button>
 
                 }
 

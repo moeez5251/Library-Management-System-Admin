@@ -124,7 +124,7 @@ const Sidebar = () => {
           document.querySelector(".sidebar").classList.remove("left-0")
         }
       }} className="flex items-center justify-end xl:hidden w-[90%] sm:w-[80%] cursor-pointer">
-        <X color="#6841c4" size={30} />
+        <X color="#6841c4 " className="dark:saturate-[3.5]" size={30} />
       </div>
       <Link href="/admin" prefetch={true} onClick={() => handleswitch("dashboard")} data-active={active.dashboard} className='flex items-center gap-2 mx-auto py-2.5  cursor-pointer px-4  w-[90%] sm:w-[80%] data-[active=true]:bg-[#6841c4] data-[active=true]:text-white data-[active=true]:rounded-lg transition-all'>
         <div>
@@ -133,7 +133,7 @@ const Sidebar = () => {
             width={24}
             height={24}
             fill="none"
-            className="injected-svg"
+            className="injected-svg dark:brightness-[2.5]"
             color="#526b7a"
             data-src="https://cdn.hugeicons.com/icons/resources-add-stroke-standard.svg"
           >
@@ -161,7 +161,7 @@ const Sidebar = () => {
             width={24}
             height={24}
             fill="none"
-            className="injected-svg"
+            className="injected-svg dark:brightness-[2.5]"
             color="#526b7a"
             data-src="https://cdn.hugeicons.com/icons/building-02-stroke-standard.svg"
           >
@@ -188,7 +188,7 @@ const Sidebar = () => {
             width={24}
             height={24}
             fill="none"
-            className="injected-svg"
+            className="injected-svg dark:brightness-[2.5]"
             color="#526b7a"
             data-src="https://cdn.hugeicons.com/icons/arrow-right-01-stroke-standard.svg"
           >
@@ -211,7 +211,7 @@ const Sidebar = () => {
             width={24}
             height={24}
             fill="none"
-            className="injected-svg"
+            className="injected-svg dark:brightness-[2.5]"
             color="#526b7a"
             data-src="https://cdn.hugeicons.com/icons/books-01-stroke-rounded.svg"
           >
@@ -241,7 +241,7 @@ const Sidebar = () => {
             width={24}
             height={24}
             fill="none"
-            className="injected-svg"
+            className="injected-svg dark:brightness-[2.5]"
             color="#526b7a"
             data-src="https://cdn.hugeicons.com/icons/book-02-stroke-sharp.svg"
           >
@@ -268,7 +268,7 @@ const Sidebar = () => {
             width={24}
             height={24}
             fill="none"
-            className="injected-svg"
+            className="injected-svg dark:brightness-[2.5]"
             color="#526b7a"
             data-src="https://cdn.hugeicons.com/icons/user-group-stroke-standard.svg"
           >
@@ -306,7 +306,7 @@ const Sidebar = () => {
             width={20}
             height={20}
             fill="none"
-            className="injected-svg"
+            className="injected-svg dark:brightness-[2.5]"
             color="#526b7a"
             data-src="https://cdn.hugeicons.com/icons/notification-03-stroke-standard.svg"
             viewBox="0 0 24 24"
@@ -332,7 +332,7 @@ const Sidebar = () => {
                 width={20}
                 height={20}
                 fill="none"
-                className="injected-svg"
+                className="injected-svg dark:brightness-[2.5]"
                 color="#526b7"
                 data-src="https://cdn.hugeicons.com/icons/account-setting-01-stroke-standard.svg?v=2.0"
                 viewBox="0 0 24 24"
@@ -363,7 +363,7 @@ const Sidebar = () => {
                   width={20}
                   height={20}
                   fill="none"
-                  className="injected-svg"
+                  className="injected-svg dark:brightness-[2.5]"
                   color="#526b7a"
                   data-src="https://cdn.hugeicons.com/icons/user-warning-01-stroke-standard.svg?v=2.0"
                   viewBox="0 0 24 24"
@@ -388,7 +388,7 @@ const Sidebar = () => {
                   width={20}
                   height={20}
                   fill="none"
-                  className="injected-svg"
+                  className="injected-svg dark:brightness-[2.5]"
                   color="red"
                   data-src="https://cdn.hugeicons.com/icons/logout-03-stroke-rounded.svg?v=2.0"
                   viewBox="0 0 24 24"

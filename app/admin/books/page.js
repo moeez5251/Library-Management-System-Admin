@@ -106,7 +106,7 @@ export default function Lenders() {
         const status = row.getValue('Name');
         const id = row.getValue('Borrower_ID');
 
-        return <div onClick={handleclick} data-bid={id} className='text-[#235fff] font-semibold hover:underline cursor-pointer'>{status}</div>
+        return <div onClick={handleclick} data-bid={id} className='text-[#235fff] font-semibold hover:underline cursor-pointer dark:text-[#4c669f]'>{status}</div>
       },
     }),
     columnHelper.accessor('BookTitle', {
@@ -244,7 +244,7 @@ export default function Lenders() {
 
       <h1 className='font-semibold text-xl sm:mx-3 my-3'>Manage Lenders</h1>
       <div className='flex justify-between items-center sm:mx-3 my-3 sm:mr-7'>
-        <div className="relative flex items-center w-[150px] sm:w-[200px] h-[40px] px-2 bg-white rounded-xl transition-all duration-200 focus-within:rounded focus-within:before:scale-x-100 before:content-[''] before:absolute before:bg-blue-600 before:transform before:scale-x-0 before:origin-center before:w-full before:h-[2px] before:left-0 before:bottom-0 before:rounded before:transition-transform before:duration-300">
+        <div className="relative flex items-center w-[150px] sm:w-[200px] h-[40px] px-2 bg-white rounded-xl transition-all duration-200 focus-within:rounded focus-within:before:scale-x-100 before:content-[''] before:absolute before:bg-blue-600 before:transform before:scale-x-0 before:origin-center before:w-full before:h-[2px] before:left-0 before:bottom-0 before:rounded before:transition-transform before:duration-300  dark:bg-[#2b3649]">
           <button type="button">
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -262,7 +262,7 @@ export default function Lenders() {
               />
             </svg>
           </button>
-          <input className="w-full h-full px-2 py-[0.7rem] font-normal bg-transparent text-sm border-none focus:outline-none" placeholder="Search a lender" value={input} onChange={(e) => { setinput(e.target.value); }} type="text" />
+          <input className="w-full h-full px-2 py-[0.7rem] font-normal bg-transparent text-sm border-none focus:outline-none placeholder:text-gray-700 dark:placeholder:text-gray-200 " placeholder="Search a lender" value={input} onChange={(e) => { setinput(e.target.value); }} type="text" />
           <button onClick={() => { setinput("") }} className={`cursor-pointer ${input.length === 0 ? "opacity-0" : "block"} transition-opacity`} >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -287,11 +287,11 @@ export default function Lenders() {
 
         </div>
       </div>
-      <div className='bg-white  transition-all py-2 sm:mx-3 rounded-lg shadow-md overflow-auto'>
+      <div className='bg-white  transition-all py-2 sm:mx-3 rounded-lg shadow-md overflow-auto dark:bg-[#1b2536]'>
         <DataTable data={data} columns={columns} externalFilter={input} pageSize={rowsPerPage} loading={loading} />
       </div>
       <div className='mt-3 mx-5 flex items-center justify-between gap-6  overflow-y-auto'>
-        <div className='text-black text-base font-semibold text-nowrap '>
+        <div className='text-black text-base font-semibold text-nowrap dark:text-white'>
           Total Users : {data.length}
         </div>
 
@@ -301,8 +301,8 @@ export default function Lenders() {
         <DialogContent className="w-full lg:w-1/2 rounded-3xl shadow-lg " >
           <DialogTitle></DialogTitle>
           <DialogDescription className="flex flex-col justify-center gap-3 my-1">
-            <span className=" bg-white rounded-lg  overflow-hidden text-left flex flex-col gap-4">
-              <span className="p-1 bg-white flex flex-col gap-4  ">
+            <span className=" bg-white rounded-lg  overflow-hidden text-left flex flex-col gap-4 dark:bg-transparent">
+              <span className="p-1 bg-white flex flex-col gap-4 dark:bg-transparent ">
                 <span className="flex justify-center items-center w-12 h-12 mx-auto bg-green-100 rounded-full">
                   <UserCog size={25} className="text-green-600 mx-auto" />
                 </span>

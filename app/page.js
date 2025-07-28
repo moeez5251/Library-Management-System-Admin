@@ -103,7 +103,9 @@ export default function Home() {
   }
   useEffect(() => {
     router.prefetch("/admin")
-
+    if (document.querySelector("html").classList.contains("dark")) {
+      document.querySelector("html").classList.remove("dark")
+    }
     return () => {
 
     }
@@ -112,7 +114,7 @@ export default function Home() {
   return (
     <>
       <Toaster />
-      <div className="flex h-screen bg-gray-100">
+      <div className="flex h-screen bg-gray-100 ">
         <div className="w-1/2 h-full  hidden lg:block ">
           <div className="w-full h-full">
             <img className="w-full h-full object-cover" src="/LMS.webp" alt="Library Image" />

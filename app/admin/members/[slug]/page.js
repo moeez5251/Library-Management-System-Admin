@@ -245,17 +245,17 @@ const DynamicPage = ({ params }) => {
           <BreadcrumbList>
             <BreadcrumbItem>
               <BreadcrumbLink asChild>
-                <Link className='text-base font-semibold text-black' href="/admin/members" prefetch={true}>Manage Users</Link>
+                <Link className='text-base font-semibold text-black dark:text-white' href="/admin/members" prefetch={true}>Manage Users</Link>
               </BreadcrumbLink>
             </BreadcrumbItem>
             <BreadcrumbSeparator />
             <BreadcrumbItem>
-              <BreadcrumbPage className="font-semibold text-[#113cb0] text-base">{inputs.User_Name.length > 0 ? inputs.User_Name : userid}</BreadcrumbPage>
+                <BreadcrumbPage className="font-semibold text-[#113cb0] text-base dark:text-[#486698]">{inputs.User_Name.length > 0 ? inputs.User_Name : userid}</BreadcrumbPage>
             </BreadcrumbItem>
           </BreadcrumbList>
         </Breadcrumb>
       </div>
-      <div className='bg-white sm:mx-4 my-3 py-3 px-8 pb-12 rounded-md'>
+      <div className='bg-white sm:mx-4 my-3 py-3 px-8 pb-12 rounded-md dark:bg-[#1b2536]'>
         <div className='flex items-center justify-between border-b-2 pb-1.5'>
           <h2 className='font-semibold '>User information</h2>
           {
@@ -296,13 +296,13 @@ const DynamicPage = ({ params }) => {
                 <div>
                   <Select disabled={!edit} value={MemberShip} onValueChange={setMemberShip}>
                     <SelectTrigger className="w-[190px]">
-                      <SelectValue placeholder="MemberShip" />
+                      <SelectValue className="dark:bg-[#1b2536]" placeholder="MemberShip" />
                     </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="English">English</SelectItem>
-                      <SelectItem value="Urdu">Urdu</SelectItem>
-                      <SelectItem value="French">French</SelectItem>
-                      <SelectItem value="Hindi">Hindi</SelectItem>
+                    <SelectContent className="dark:bg-[#1b2536]">
+                      <SelectItem className="dark:bg-[#1b2536] dark:hover:bg-[#1b2550]" value="English">English</SelectItem>
+                      <SelectItem className="dark:bg-[#1b2536] dark:hover:bg-[#1b2550]" value="Urdu">Urdu</SelectItem>
+                      <SelectItem className="dark:bg-[#1b2536] dark:hover:bg-[#1b2550]" value="French">French</SelectItem>
+                      <SelectItem className="dark:bg-[#1b2536] dark:hover:bg-[#1b2550]" value="Hindi">Hindi</SelectItem>
                     </SelectContent>
                   </Select>
                 </div>
@@ -359,16 +359,16 @@ const DynamicPage = ({ params }) => {
       {
         edit &&
         <div className='flex items-center justify-center gap-3'>
-          <button onClick={() => setedit(false)} className='bg-gray-300 px-4 py-2 rounded-sm cursor-pointer'>Cancel</button>
+          <button onClick={() => setedit(false)} className='bg-gray-300 px-4 py-2 rounded-sm cursor-pointer dark:bg-[#162130]'>Cancel</button>
           {
             user &&
-            <button onClick={handleupdateuser} disabled={disabledbtn} className='bg-[#6841c4] text-white px-4 py-2 rounded-sm cursor-pointer transition-transform scale-95 hover:scale-100 font-normal disabled:bg-gray-300 disabled:pointer-events-none disabled:cursor-auto'>Update</button>
+            <button onClick={handleupdateuser} disabled={disabledbtn} className='bg-[#6841c4] text-white px-4 py-2 rounded-sm cursor-pointer transition-transform scale-95 hover:scale-100 font-normal disabled:bg-gray-300 disabled:pointer-events-none disabled:cursor-auto dark:disabled:bg-gray-600'>Update</button>
 
           }
 
           {
             !user &&
-            <button disabled={true} className='bg-[#6841c4] text-white px-4 py-2 rounded-sm cursor-pointer transition-transform scale-95 hover:scale-100 font-normal disabled:bg-gray-300 disabled:pointer-events-none disabled:cursor-auto'>Updating...</button>
+            <button disabled={true} className='bg-[#6841c4] text-white px-4 py-2 rounded-sm cursor-pointer transition-transform scale-95 hover:scale-100 font-normal disabled:bg-gray-300 disabled:pointer-events-none disabled:cursor-auto dark:disabled:bg-gray-600'>Updating...</button>
 
           }
 

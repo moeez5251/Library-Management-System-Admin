@@ -110,7 +110,7 @@ export default function Members() {
         const status = row.getValue('User_Name');
         const id = row.getValue('User_id');
 
-        return <Link data-id={id} className='text-[#235fff] font-semibold hover:underline text-nowrap' href={`/admin/members/${id}`} prefetch={true}>{status}</Link>
+        return <Link data-id={id} className='text-[#235fff] font-semibold hover:underline text-nowrap dark:text-[#48669f]' href={`/admin/members/${id}`} prefetch={true}>{status}</Link>
       },
     }),
     columnHelper.accessor('Email', {
@@ -266,7 +266,7 @@ export default function Members() {
 
       <h1 className='font-semibold text-xl sm:mx-3 my-3'>Manage Users</h1>
       <div className='flex justify-between items-center sm:mx-3 my-3 sm:mr-7'>
-        <div className="relative flex items-center w-[150px] sm:w-[200px] h-[40px] px-2 bg-white rounded-xl transition-all duration-200 focus-within:rounded focus-within:before:scale-x-100 before:content-[''] before:absolute before:bg-blue-600 before:transform before:scale-x-0 before:origin-center before:w-full before:h-[2px] before:left-0 before:bottom-0 before:rounded before:transition-transform before:duration-300">
+        <div className="relative flex items-center w-[150px] sm:w-[200px] h-[40px] px-2 bg-white rounded-xl transition-all duration-200 focus-within:rounded focus-within:before:scale-x-100 before:content-[''] before:absolute before:bg-blue-600 before:transform before:scale-x-0 before:origin-center before:w-full before:h-[2px] before:left-0 before:bottom-0 before:rounded before:transition-transform before:duration-300 dark:bg-[#1b2536]">
           <button type="button">
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -284,7 +284,7 @@ export default function Members() {
               />
             </svg>
           </button>
-          <input className="w-full h-full px-2 py-[0.7rem] font-normal bg-transparent text-sm border-none focus:outline-none" placeholder="Search a user" value={input} onChange={(e) => { setinput(e.target.value); }} type="text" />
+          <input className="w-full h-full px-2 py-[0.7rem] font-normal bg-transparent text-sm border-none focus:outline-none placeholder:text-gray-600 dark:placeholder:text-gray-300" placeholder="Search a user" value={input} onChange={(e) => { setinput(e.target.value); }} type="text" />
           <button onClick={() => { setinput("") }} className={`cursor-pointer ${input.length === 0 ? "opacity-0" : "block"} transition-opacity`} >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -308,19 +308,19 @@ export default function Members() {
             Add Member</Link>
           <DropdownMenu>
             <DropdownMenuTrigger className="bg-[#6841c4] text-white font-semibold px-3 py-2 rounded-lg cursor-pointer flex items-center gap-1 hover:bg-[#7a4ed0] transition-colors duration-200 text-base"> <ChevronDown size={20} className='inline' /> Actions</DropdownMenuTrigger>
-            <DropdownMenuContent>
-              <DropdownMenuItem disabled={checked.isempty} onClick={() => setDeactivate(true)} className="flex items-center cursor-pointer"><UserPlus className='inline' />Deactivate Account</DropdownMenuItem>
-              <DropdownMenuItem onClick={() => setDelete(true)} disabled={checked.isempty} className="flex items-center"> <Trash2 className='inline' /> Delete Member</DropdownMenuItem>
+            <DropdownMenuContent  className="dark:bg-[#1b2536]">
+              <DropdownMenuItem disabled={checked.isempty} onClick={() => setDeactivate(true)} className="flex items-center cursor-pointer dark:hover:bg-[#1b2550]"><UserPlus className='inline' />Deactivate Account</DropdownMenuItem>
+              <DropdownMenuItem onClick={() => setDelete(true)} disabled={checked.isempty} className="flex items-center dark:hover:bg-[#1b2550]"> <Trash2 className='inline' /> Delete Member</DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
         </div>
       </div>
-      <div className='bg-white  transition-all py-2 mx-0 rounded-lg shadow-md w-full overflow-x-auto'>
+        <div className='bg-white  transition-all py-2 mx-0 rounded-lg shadow-md w-full overflow-x-auto dark:bg-[#1b2536]'>
         <Tabs defaultValue="All">
-          <TabsList className="mx-3 bg-white mt-2">
-            <TabsTrigger className="mx-2 px-3 py-4.5 bg-gray-100 data-[state=active]:bg-[#6841c4] data-[state=active]:text-white data-[state=active]:shadow-md cursor-pointer" value="All">All Users</TabsTrigger>
-            <TabsTrigger className="mx-2 px-3 py-4.5 bg-gray-100 data-[state=active]:bg-[#6841c4] data-[state=active]:text-white data-[state=active]:shadow-md cursor-pointer" value="Active">Active Users</TabsTrigger>
-            <TabsTrigger className="mx-2 px-3 py-4.5 bg-gray-100 data-[state=active]:bg-[#6841c4] data-[state=active]:text-white data-[state=active]:shadow-md cursor-pointer" value="Deactivated">Deactivated Users</TabsTrigger>
+          <TabsList className="mx-3 bg-white mt-2 dark:bg-[#1b2536]">
+            <TabsTrigger className="mx-2 px-3 py-4.5 bg-gray-100 dark:bg-gray-600 data-[state=active]:bg-[#6841c4] data-[state=active]:text-white data-[state=active]:shadow-md cursor-pointer" value="All">All Users</TabsTrigger>
+            <TabsTrigger className="mx-2 px-3 py-4.5 bg-gray-100 dark:bg-gray-600 data-[state=active]:bg-[#6841c4] data-[state=active]:text-white data-[state=active]:shadow-md cursor-pointer" value="Active">Active Users</TabsTrigger>
+            <TabsTrigger className="mx-2 px-3 py-4.5 bg-gray-100 dark:bg-gray-600 data-[state=active]:bg-[#6841c4] data-[state=active]:text-white data-[state=active]:shadow-md cursor-pointer" value="Deactivated">Deactivated Users</TabsTrigger>
           </TabsList>
           <TabsContent value="All">
 
@@ -337,7 +337,7 @@ export default function Members() {
         </Tabs>
       </div>
       <div className='mt-3 mx-5 flex items-center justify-between gap-6 overflow-x-auto'>
-        <div className='text-black text-base font-semibold text-nowrap '>
+        <div className='text-black text-base font-semibold text-nowrap dark:text-white'>
           Total Users : {data.length}
         </div>
 
@@ -348,8 +348,8 @@ export default function Members() {
         <DialogContent className="w-full lg:w-1/3 rounded-3xl shadow-lg " >
           <DialogTitle></DialogTitle>
           <DialogDescription className="flex flex-col items-center justify-center gap-2 my-4">
-            <span className=" bg-white rounded-lg  overflow-hidden text-left flex flex-col gap-4">
-              <span className="p-1 bg-white">
+            <span className=" bg-white rounded-lg  overflow-hidden text-left flex flex-col gap-4 dark:bg-[#1b2536]">
+              <span className="p-1 bg-white dark:bg-[#1b2536]">
                 <span className="flex justify-center items-center w-12 h-12 mx-auto bg-red-100 rounded-full">
                   <svg
                     aria-hidden="true"
@@ -367,8 +367,8 @@ export default function Members() {
                   </svg>
                 </span>
                 <span className="mt-3 text-center flex flex-col gap-4">
-                  <span className="text-gray-900 text-base font-semibold leading-6">Delete Members</span>
-                  <span className="my-2  text-gray-500 leading-5 flex flex-col text-base gap-1">
+                  <span className="text-gray-900 text-base font-semibold leading-6 dark:text-white">Delete Members</span>
+                  <span className="my-2  text-gray-500 leading-5 flex flex-col text-base gap-1 dark:text-gray-200">
                     Do you really want to delete selected accounts ?<span> This action cannot be undone</span>
                   </span>
                 </span>
@@ -394,7 +394,7 @@ export default function Members() {
                 <button
                   type="button"
                   onClick={() => setDelete(false)}
-                  className="w-full inline-flex justify-center  py-2 bg-white text-gray-700 text-base font-medium rounded-md shadow-sm border border-gray-300 cursor-pointer transition-all scale-95 hover:scale-100"
+                    className="w-full inline-flex justify-center  py-2 bg-white text-gray-700 text-base font-medium rounded-md shadow-sm border border-gray-300 cursor-pointer transition-all scale-95 hover:scale-100 dark:bg-[#16212f] dark:text-white dark:border-[#2b3649]"
                 >
                   Cancel
                 </button>
@@ -429,8 +429,8 @@ export default function Members() {
         <DialogContent className="w-full lg:w-1/3 rounded-3xl shadow-lg " >
           <DialogTitle></DialogTitle>
           <DialogDescription className="flex flex-col items-center justify-center gap-2 my-4">
-            <span className=" bg-white rounded-lg  overflow-hidden text-left flex flex-col gap-4">
-              <span className="p-1 bg-white">
+            <span className=" bg-white rounded-lg  overflow-hidden text-left flex flex-col gap-4 dark:bg-[#1b2536]">
+              <span className="p-1 bg-white dark:bg-[#1b2536]">
                 <span className="flex justify-center items-center w-12 h-12 mx-auto bg-red-100 rounded-full">
                   <svg
                     aria-hidden="true"
@@ -448,8 +448,8 @@ export default function Members() {
                   </svg>
                 </span>
                 <span className="mt-3 text-center flex flex-col gap-4">
-                  <span className="text-gray-900 text-base font-semibold leading-6">Deactivate Account</span>
-                  <span className="my-2  text-gray-500 leading-5 flex flex-col text-base gap-1">
+                  <span className="text-gray-900 text-base font-semibold leading-6 dark:text-white">Deactivate Account</span>
+                  <span className="my-2  text-gray-500 leading-5 flex flex-col text-base gap-1 dark:text-gray-300">
                     Do you really want to deactivate selected accounts ?<span> This action cannot be undone</span>
                   </span>
                 </span>
@@ -475,7 +475,7 @@ export default function Members() {
                 <button
                   type="button"
                   onClick={() => setDeactivate(false)}
-                  className="w-full inline-flex justify-center  py-2 bg-white text-gray-700 text-base font-medium rounded-md shadow-sm border border-gray-300 cursor-pointer transition-all scale-95 hover:scale-100"
+                  className="w-full inline-flex justify-center  py-2 bg-white text-gray-700 text-base font-medium rounded-md shadow-sm border border-gray-300 cursor-pointer transition-all scale-95 hover:scale-100 dark:bg-[#172030] dark:text-white dark:border-[#2b3649]"
                 >
                   Cancel
                 </button>

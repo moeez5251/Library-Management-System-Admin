@@ -46,7 +46,7 @@ const DataTable = ({ data, columns, externalFilter, pageSize: initialPageSize, l
         <div className="p-4 space-y-4">
             {/* Table */}
             <table className="w-full text-left">
-                <thead className="bg-[#f6f8fa]">
+                    <thead className="bg-[#f6f8fa] dark:bg-[#394455]">
                     {loading ? (
                         <tr>
                             {[...Array(columns.length)].map((_, idx) => (
@@ -104,7 +104,7 @@ const DataTable = ({ data, columns, externalFilter, pageSize: initialPageSize, l
                         ))
                     ) : (
                         table.getRowModel().rows.map((row) => (
-                            <tr key={row.id} className="hover:bg-gray-50 text-[16px] font-medium">
+                            <tr key={row.id} className="hover:bg-gray-50 text-[16px] font-medium dark:bg-[#1b2536]">
                                 {row.getVisibleCells().map((cell) => (
                                     <td key={cell.id} className="p-2 border-b">
                                         {flexRender(cell.column.columnDef.cell, cell.getContext())}

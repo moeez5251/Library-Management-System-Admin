@@ -22,7 +22,7 @@ const ComboBox = ({ options = ['5', '10', '15', '20', '25','30'], value, onChang
 
   return (
     <div className="flex items-center space-x-2">
-      <span className="text-xs sm:text-sm text-muted-foreground font-semibold text-nowrap">Rows per page:</span>
+      <span className="text-xs sm:text-sm text-muted-foreground font-semibold text-nowrap dark:text-white">Rows per page:</span>
 
       <Popover open={open} onOpenChange={setOpen}>
         <PopoverTrigger asChild>
@@ -39,7 +39,7 @@ const ComboBox = ({ options = ['5', '10', '15', '20', '25','30'], value, onChang
 
         <PopoverContent className="w-[100px] p-0">
           <Command>
-            <CommandGroup>
+            <CommandGroup className="dark:bg-[#1b2536]">
               {options.map((option) => (
                 <CommandItem
                   key={option}
@@ -48,6 +48,7 @@ const ComboBox = ({ options = ['5', '10', '15', '20', '25','30'], value, onChang
                     onChange(option);
                     setOpen(false);
                   }}
+                  className="dark:hover:bg-[#1b2550] dark:bg-[#1b2536]"
                 >
                   <Check
                     className={cn(

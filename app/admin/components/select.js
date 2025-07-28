@@ -50,6 +50,7 @@ const ComboBox = ({ options = [], value, onChange }) => {
                     onChange(option);
                     setOpen(false);
                   }}
+                  className="dark:bg-[#1b2536] dark:hover:bg-[#1b2550]"
                 >
                   <Check
                     className={cn(

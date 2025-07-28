@@ -51,10 +51,10 @@ const Language = ({
           side={isMobile ? "bottom" : "left"}
           align={isMobile ? "center" : "start"}
           className="w-2xs p-0">
-          <Command>
+          <Command className="dark:bg-[#1b2536]">
             <CommandInput placeholder="Search Language..." />
             <CommandEmpty>No Language found.</CommandEmpty>
-            <CommandGroup>
+            <CommandGroup className="dark:bg-[#1b2536]">
               {options.map((option) => (
                 <CommandItem
                   key={option}
@@ -63,6 +63,7 @@ const Language = ({
                     onChange(option);
                     setOpen(false);
                   }}
+                  className="dark:hover:bg-[#1b2550] dark:bg-[#1b2536]"
                 >
                   <Check
                     className={cn(

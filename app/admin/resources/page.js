@@ -67,8 +67,8 @@ const Resources = () => {
     <>
       <Toaster />
       <h1 className='font-semibold text-lg m-3'>Add Resource</h1>
-      <div className='bg-white px-4 rounded-lg shadow-md mx-3 pt-4 pb-8 '>
-        <div className='border-b-2 pb-2'>
+      <div className='bg-white px-4 rounded-lg shadow-md mx-3 pt-4 pb-8 dark:bg-[#1b2536] '>
+        <div className='border-b-2 pb-2 dark:border-[#252f40]'>
 
           <h2 className='font-semibold'>Library Details</h2>
         </div>

@@ -51,7 +51,7 @@ const chartConfig = {
 
 export function ChartTooltipIndicatorLine() {
   return (
-    <Card  data-swapy-item="a">
+    <Card className="dark:bg-[#1b2536]"  data-swapy-item="a">
       <CardHeader>
         <CardTitle>Number Of Visitors</CardTitle>
       </CardHeader>

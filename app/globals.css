@@ -2,6 +2,7 @@
 @import "tw-animate-css";
 @custom-variant dark (&:is(.dark *));
 @custom-variant pink (&:where(.pink, .pink *));
+
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
@@ -78,11 +79,11 @@
 }
 
 .dark {
-  --background: oklch(0.145 0 0);
+  --background: #1b2536;
   --foreground: oklch(0.985 0 0);
   --card: oklch(0.205 0 0);
   --card-foreground: oklch(0.985 0 0);
-  --popover: oklch(0.205 0 0);
+  --popover: #1b2536;
   --popover-foreground: oklch(0.985 0 0);
   --primary: oklch(0.922 0 0);
   --primary-foreground: oklch(0.205 0 0);
@@ -184,11 +185,13 @@
   background-position: 100% 0;
   animation: shimmer 1.5s infinite;
 }
+
 @keyframes shimmer {
   to {
     background-position: -100% 0;
   }
 }
+
 .switch {
   font-size: 14px;
   position: relative;
@@ -229,11 +232,17 @@
   transition: .5s;
 }
 
-input:checked + .slider {
+input:checked+.slider {
   background-color: #6841c4;
 }
 
-input:checked + .slider:before {
+input:checked+.slider:before {
   transform: translateX(100%);
   box-shadow: inset 15px -4px 0px 15px white;
+}
+
+.dark {
+  .card__skeleton {
+    background-image: linear-gradient(90deg, #746d6d 0px, rgb(64 62 62 / 90%) 40px, rgb(35, 45, 59) 80px);
+  }
 }

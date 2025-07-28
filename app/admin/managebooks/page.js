@@ -105,7 +105,7 @@ export default function Books() {
         const status = row.getValue('Book_Title');
         const id = row.getValue('Book_ID');
 
-        return <Link data-id={id} className='text-[#235fff] font-semibold hover:underline text-nowrap' href={`/admin/managebooks/${id}`} prefetch={true}>{status}</Link>
+        return <Link data-id={id} className='text-[#235fff] font-semibold hover:underline text-nowrap dark:text-[#4c669f]' href={`/admin/managebooks/${id}`} prefetch={true}>{status}</Link>
       },
     }),
     columnHelper.accessor('Author', {
@@ -220,7 +220,7 @@ export default function Books() {
         },
         credentials: "include",
         body: JSON.stringify({
-          Message: "Member was deleted",
+          Message: "Book was deleted",
           Userid: localStorage.getItem("userID")
         })
       })
@@ -238,7 +238,7 @@ export default function Books() {
 
       <h1 className='font-semibold text-xl mx-3 my-3'>Manage Books</h1>
       <div className='flex justify-between items-center mx-1 sm:mx-3 my-3 sm:mr-7'>
-        <div className="relative flex items-center w-[150px] sm:w-[200px] h-[40px] px-2 bg-white rounded-xl transition-all duration-200 focus-within:rounded focus-within:before:scale-x-100 before:content-[''] before:absolute before:bg-blue-600 before:transform before:scale-x-0 before:origin-center before:w-full before:h-[2px] before:left-0 before:bottom-0 before:rounded before:transition-transform before:duration-300">
+        <div className="relative flex items-center w-[150px] sm:w-[200px] h-[40px] px-2 bg-white rounded-xl transition-all duration-200 focus-within:rounded focus-within:before:scale-x-100 before:content-[''] before:absolute before:bg-blue-600 before:transform before:scale-x-0 before:origin-center before:w-full before:h-[2px] before:left-0 before:bottom-0 before:rounded before:transition-transform before:duration-300 dark:bg-[#252f40]">
           <button type="button">
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -256,7 +256,7 @@ export default function Books() {
               />
             </svg>
           </button>
-          <input className="w-full h-full px-2 py-[0.7rem] font-normal bg-transparent text-sm border-none focus:outline-none" placeholder="Search Books" value={input} onChange={(e) => { setinput(e.target.value); }} type="text" />
+          <input className="w-full h-full px-2 py-[0.7rem] font-normal bg-transparent text-sm border-none focus:outline-none placeholder:text-gray-700 dark:placeholder:text-gray-300" placeholder="Search Books" value={input} onChange={(e) => { setinput(e.target.value); }} type="text" />
           <button onClick={() => { setinput("") }} className={`cursor-pointer ${input.length === 0 ? "opacity-0" : "block"} transition-opacity`} >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -280,19 +280,19 @@ export default function Books() {
             Add Book</Link>
           <DropdownMenu>
             <DropdownMenuTrigger className="bg-[#6841c4] text-white font-semibold px-3 py-2 rounded-lg cursor-pointer flex items-center gap-1 hover:bg-[#7a4ed0] transition-colors duration-200 text-base"> <ChevronDown size={20} className='inline' /> Actions</DropdownMenuTrigger>
-            <DropdownMenuContent>
-              <DropdownMenuItem onClick={() => { router.push("/admin/managebooks/add") }} className="flex items-center cursor-pointer"><PlusIcon className='inline' /> Add Book</DropdownMenuItem>
-              <DropdownMenuItem onClick={() => setDelete(true)} disabled={checked.isempty} className="flex items-center"> <Trash2 className='inline' /> Delete Book</DropdownMenuItem>
+            <DropdownMenuContent className="dark:bg-[#1b2536] ">
+              <DropdownMenuItem onClick={() => { router.push("/admin/managebooks/add") }} className="flex items-center cursor-pointer dark:hover:bg-[#1b2550]"><PlusIcon className='inline' /> Add Book</DropdownMenuItem>
+              <DropdownMenuItem onClick={() => setDelete(true)} disabled={checked.isempty} className="flex items-center cursor-pointer dark:hover:bg-[#1b2550]"> <Trash2 className='inline' /> Delete Book</DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
         </div>
       </div>
-      <div className='bg-white w-full overflow-x-scroll transition-all py-2 mx-0  rounded-lg shadow-md'>
+      <div className='bg-white w-full overflow-x-auto transition-all py-2 mx-0  rounded-lg shadow-md dark:bg-[#252f40]'>
 
         <DataTable data={data} columns={columns} externalFilter={input} pageSize={rowsPerPage} loading={loading} />
       </div>
       <div className='mt-3 mx-1 sm:mx-5 flex items-center gap-6 sm:gap-0 justify-between overflow-x-auto'>
-        <div className='text-black text-base font-semibold text-nowrap'>
+        <div className='text-black text-base font-semibold text-nowrap dark:text-white'>
           Total Books: {data.length}
         </div>
 
@@ -303,9 +303,9 @@ export default function Books() {
         <DialogContent className="w-full lg:w-1/3 rounded-3xl shadow-lg " >
           <DialogTitle></DialogTitle>
           <DialogDescription className="flex flex-col items-center justify-center gap-2 my-4">
-            <span className=" bg-white rounded-lg  overflow-hidden text-left flex flex-col gap-4">
-              <span className="p-1 bg-white">
-                <span className="flex justify-center items-center w-12 h-12 mx-auto bg-red-100 rounded-full">
+            <span className=" bg-white rounded-lg  overflow-hidden text-left flex flex-col gap-4 dark:bg-[#1b2536]">
+              <span className="p-1 bg-white dark:bg-[#1b2536]">
+                <span className="flex justify-center items-center w-12 h-12 mx-auto bg-red-100 rounded-full ">
                   <svg
                     aria-hidden="true"
                     stroke="currentColor"
@@ -322,8 +322,8 @@ export default function Books() {
                   </svg>
                 </span>
                 <span className="mt-3 text-center flex flex-col gap-4">
-                  <span className="text-gray-900 text-base font-semibold leading-6">Delete Books</span>
-                  <span className="my-2  text-gray-500 leading-5 flex flex-col text-base gap-1">
+                  <span className="text-gray-900 text-base font-semibold leading-6 dark:text-white">Delete Books</span>
+                  <span className="my-2  text-gray-500 leading-5 flex flex-col text-base gap-1 dark:text-gray-200">
                     Do you really want to delete selected books ?<span> This action cannot be undone</span>
                   </span>
                 </span>
@@ -332,7 +332,7 @@ export default function Books() {
                   <button
                     type="button"
                     onClick={() => handledelete()}
-                    className="w-full inline-flex justify-center py-2 my-3 text-white bg-red-600 text-base font-medium rounded-md shadow-sm border border-transparent cursor-pointer transition-all scale-95 hover:scale-100"
+                    className="w-full inline-flex justify-center py-2 my-3 text-white bg-red-600 text-base font-medium rounded-md shadow-sm border border-transparent cursor-pointer transition-all scale-95 hover:scale-100 dark:bg-red-600"
                   >
                     Delete
                   </button>
@@ -349,7 +349,7 @@ export default function Books() {
                 <button
                   type="button"
                   onClick={() => setDelete(false)}
-                  className="w-full inline-flex justify-center  py-2 bg-white text-gray-700 text-base font-medium rounded-md shadow-sm border border-gray-300 cursor-pointer transition-all scale-95 hover:scale-100"
+                  className="w-full inline-flex justify-center  py-2 bg-white text-gray-700 text-base font-medium rounded-md shadow-sm border border-gray-300 cursor-pointer transition-all scale-95 hover:scale-100 dark:bg-[#1b2536] dark:text-white dark:border-[#2b3649]"
                 >
                   Cancel
                 </button>

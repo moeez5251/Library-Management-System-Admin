@@ -247,7 +247,7 @@ const Lend = () => {
         <>
             <Toaster />
             <h1 className='font-semibold text-xl mx-0 md:mx-4 my-3'>Lend a Book</h1>
-            <div className='bg-white mx-0 md:mx-4 my-3 py-5 px-3 md:px-8 pb-12 rounded-md '>
+            <div className='bg-white mx-0 md:mx-4 my-3 py-5 px-3 md:px-8 pb-12 rounded-md dark:bg-[#1b2536] '>
                 <div className='border-b-2 pb-1'>
                     <h2 className='font-semibold text-xl'>User Information</h2>
                 </div>
@@ -377,14 +377,14 @@ const Lend = () => {
                 </div>
             </div>
             <div className='w-full flex justify-center gap-3 my-4'>
-                <Link href="/admin/books" prefetch={true} className='bg-gray-300 px-4 py-2 font-[600] rounded-md  cursor-pointer scale-95 hover:scale-100 transition-transform'>Cancel</Link>
+                <Link href="/admin/books" prefetch={true} className='bg-gray-300 px-4 py-2 font-[600] rounded-md  cursor-pointer scale-95 hover:scale-100 transition-transform dark:bg-[#16222e]'>Cancel</Link>
                 {
                     !issubmitting &&
-                    <button onClick={handleSubmit} disabled={disabledbtn} className='bg-[#6841c4] text-white px-4 py-2  rounded-md  cursor-pointer scale-95 hover:scale-100 transition-transform disabled:bg-gray-300 disabled:cursor-auto disabled:pointer-events-none'>Lend a book</button>
+                    <button onClick={handleSubmit} disabled={disabledbtn} className='bg-[#6841c4] text-white px-4 py-2  rounded-md  cursor-pointer scale-95 hover:scale-100 transition-transform disabled:bg-gray-300 dark:disabled:bg-gray-600 disabled:cursor-auto disabled:pointer-events-none'>Lend a book</button>
                 }
                 {
                     issubmitting &&
-                    <button disabled className='bg-[#6841c4] text-white px-4 py-2  rounded-md  cursor-pointer scale-95 hover:scale-100 transition-transform disabled:bg-gray-300 disabled:cursor-auto disabled:pointer-events-none'>Lending...</button>
+                    <button disabled className='bg-[#6841c4] text-white px-4 py-2  rounded-md  cursor-pointer scale-95 hover:scale-100 transition-transform disabled:bg-gray-300 dark:disabled:bg-gray-600 disabled:cursor-auto disabled:pointer-events-none'>Lending...</button>
                 }
             </div>
         </>

@@ -117,7 +117,6 @@ const AddBook = () => {
 
         }
     }, [inputs])
-
     return (
         <>
             <Toaster />
@@ -127,17 +126,17 @@ const AddBook = () => {
                     <BreadcrumbList>
                         <BreadcrumbItem>
                             <BreadcrumbLink asChild>
-                                <Link className='text-base font-semibold text-black' href="/admin/managebooks" prefetch={true}>Manage Books</Link>
+                                <Link className='text-base font-semibold text-black dark:text-white' href="/admin/managebooks" prefetch={true}>Manage Books</Link>
                             </BreadcrumbLink>
                         </BreadcrumbItem>
                         <BreadcrumbSeparator />
                         <BreadcrumbItem>
-                            <BreadcrumbPage className="font-semibold text-[#113cb0] text-base">Add Book</BreadcrumbPage>
+                            <BreadcrumbPage className="font-semibold text-[#113cb0] text-base dark:text-[#42669f]">Add Book</BreadcrumbPage>
                         </BreadcrumbItem>
                     </BreadcrumbList>
                 </Breadcrumb>
             </div>
-            <div className='bg-white mx-0 md:mx-4 my-3 py-3 px-3 md:px-8 pb-12 rounded-md flex flex-col gap-2'>
+            <div className='bg-white mx-0 md:mx-4 my-3 py-3 px-3 md:px-8 pb-12 rounded-md flex flex-col gap-2 dark:bg-[#1f2a3d]'>
                 <h2 className='font-semibold border-b-2 pb-1.5'>Book information</h2>
                 <div className='sm:my-3 sm:flex sm:items-center sm:justify-between grid grid-cols-[repeat(auto-fit,_minmax(250px,_1fr))] gap-4'>
                     <div className='flex flex-col gap-3 items-start'>
@@ -231,16 +230,16 @@ const AddBook = () => {
 
             </div>
             <div className='flex items-center justify-center gap-3'>
-                <Link href="/admin/managebooks" prefetch={true} className='bg-gray-300 px-4 py-2 rounded-sm cursor-pointer'>Cancel</Link>
+                    <Link href="/admin/managebooks" prefetch={true} className='bg-gray-300 px-4 py-2 rounded-sm cursor-pointer dark:bg-[#182432]'>Cancel</Link>
                 {
                     book &&
-                    <button onClick={addbook} disabled={disabledbtn} className='bg-[#6841c4] text-white px-4 py-2 rounded-sm cursor-pointer transition-transform scale-95 hover:scale-100 font-normal disabled:bg-gray-300 disabled:pointer-events-none disabled:cursor-auto'>Add Book</button>
+                    <button onClick={addbook} disabled={disabledbtn} className='bg-[#6841c4] text-white px-4 py-2 rounded-sm cursor-pointer transition-transform scale-95 hover:scale-100 font-normal disabled:bg-gray-300 dark:disabled:bg-gray-600 disabled:pointer-events-none disabled:cursor-auto'>Add Book</button>
 
                 }
 
                 {
                     !book &&
-                    <button onClick={addbook} disabled={true} className='bg-[#6841c4] text-white px-4 py-2 rounded-sm cursor-pointer transition-transform scale-95 hover:scale-100 font-normal disabled:bg-gray-300 disabled:pointer-events-none disabled:cursor-auto'>Adding...</button>
+                    <button onClick={addbook} disabled={true} className='bg-[#6841c4] text-white px-4 py-2 rounded-sm cursor-pointer transition-transform scale-95 hover:scale-100 font-normal disabled:bg-gray-300 dark:disabled:bg-gray-600 disabled:pointer-events-none disabled:cursor-auto'>Adding...</button>
 
                 }
 

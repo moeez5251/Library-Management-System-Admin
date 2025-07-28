@@ -321,7 +321,7 @@ const Settings = () => {
   return (
     <>
       <Toaster />
-      <div className='bg-white mx-4 my-3 py-5 px-8 pb-12 rounded-md'>
+      <div className='bg-white mx-4 my-3 py-5 px-8 pb-12 rounded-md dark:bg-[#1b2536]'>
         <div className='font-semibold border-b-2 pb-1 text-lg'>
           Account Information
         </div>
@@ -418,8 +418,8 @@ const Settings = () => {
       </div>
       <div className='flex items-center justify-center gap-4 mt-4'>
 
-        <Link href={'/admin'} prefetch={true} className='bg-gray-300 px-4 py-2 rounded-sm cursor-pointer'>Cancel</Link>
-        <button onClick={handlechangepassword} disabled={!issubmitting} className='bg-[#6841c4] text-white px-4 py-2 rounded-sm cursor-pointer transition-transform scale-95 hover:scale-100 font-normal disabled:bg-gray-300 disabled:pointer-events-none disabled:cursor-auto'>Update</button>
+        <Link href={'/admin'} prefetch={true} className='bg-gray-300 px-4 py-2 rounded-sm cursor-pointer dark:bg-[#172030]'>Cancel</Link>
+        <button onClick={handlechangepassword} disabled={!issubmitting} className='bg-[#6841c4] text-white px-4 py-2 rounded-sm cursor-pointer transition-transform scale-95 hover:scale-100 font-normal disabled:bg-gray-300 disabled:pointer-events-none disabled:cursor-auto dark:disabled:bg-gray-700'>Update</button>
       </div>
       <Dialog open={opening} onopenchange={setopening}>
         <DialogContent >
@@ -465,15 +465,15 @@ const Settings = () => {
                         }
                       }}>
                         <InputOTPGroup>
-                          <InputOTPSlot autoFocus={true} className="text-xl text-[#6841c4]" index={0} />
-                          <InputOTPSlot className="text-xl text-[#6841c4]" index={1} />
-                          <InputOTPSlot className="text-xl text-[#6841c4]" index={2} />
+                          <InputOTPSlot autoFocus={true} className="text-xl text-[#6841c4] dark:text-white" index={0} />
+                          <InputOTPSlot className="text-xl text-[#6841c4] dark:text-white" index={1} />
+                          <InputOTPSlot className="text-xl text-[#6841c4] dark:text-white" index={2} />
                         </InputOTPGroup>
                         <InputOTPSeparator />
                         <InputOTPGroup>
-                          <InputOTPSlot className="text-xl text-[#6841c4]" index={3} />
-                          <InputOTPSlot className="text-xl text-[#6841c4]" index={4} />
-                          <InputOTPSlot className="text-xl text-[#6841c4]" index={5} />
+                          <InputOTPSlot className="text-xl text-[#6841c4] dark:text-white" index={3} />
+                          <InputOTPSlot className="text-xl text-[#6841c4] dark:text-white" index={4} />
+                          <InputOTPSlot className="text-xl text-[#6841c4] dark:text-white" index={5} />
                         </InputOTPGroup>
                       </InputOTP>
                       {
@@ -538,7 +538,7 @@ const Settings = () => {
                     {
                       !isverifying &&
                       <div className='mx-auto'>
-                        <Button onClick={handlereset} disabled={disabledchange} className=" btn-verify bg-[#6841c4] text-base h-10 mt-8 rounded-full cursor-pointer hover:bg-[#5917f3]">Change Password</Button>
+                        <Button onClick={handlereset} disabled={disabledchange} className=" btn-verify bg-[#6841c4] text-base h-10 mt-8 rounded-full cursor-pointer hover:bg-[#5917f3] dark:text-white">Change Password</Button>
 
                       </div>
                     }

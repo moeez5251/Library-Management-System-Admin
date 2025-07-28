@@ -44,7 +44,7 @@ const CategorySelect = ({
           role="combobox"
           aria-expanded={open}
           disabled={disabled}
-          className="w-[200px] justify-between text-gray-500"
+          className="w-[200px] justify-between text-gray-500 dark:text-white"
         >
           {value || 'Choose a category'}
           <ChevronsUpDown className="ml-2 h-4 w-4 opacity-50" />
@@ -56,10 +56,10 @@ const CategorySelect = ({
           side={isMobile ? "bottom" : "left"}
           align={isMobile ? "center" : "start"}
           className="w-2xs p-0">
-          <Command>
+          <Command className="dark:bg-[#1b2536]">
             <CommandInput placeholder="Search category..." />
             <CommandEmpty>No category found.</CommandEmpty>
-            <CommandGroup>
+              <CommandGroup className="dark:bg-[#1b2536]">
               {options.map((option) => (
                 <CommandItem
                   key={option}
@@ -68,6 +68,7 @@ const CategorySelect = ({
                     onChange(option);
                     setOpen(false);
                   }}
+                  className="dark:hover:bg-[#1b2550] dark:bg-[#1b2536]"
                 >
                   <Check
                     className={cn(
