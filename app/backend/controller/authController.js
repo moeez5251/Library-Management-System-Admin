@@ -4,7 +4,7 @@ const jwt = require('jsonwebtoken');
 const { v4: uuidv4 } = require('uuid');
 function generateToken(user) {
   return jwt.sign(
-    { id: user.User_id, email: user.Email },  // payload
+    { id: user.User_id, email: user.Email },
     process.env.JWT,
     { expiresIn: '1h' }
   );
@@ -13,7 +13,10 @@ function generateToken(user) {
 exports.login = async (req, res) => {
   const email = req.body.email?.trim().toLowerCase();
   const password = req.body.password?.trim();
-  console.log("Login attempt:", { email, password });
+  const API = req.body.API?.trim()
+  if (API !== process.env.XLMS_API || !API) {
+    return res.status(400).json({ message: 'Invalid API' });
+  }
 
   try {
     const pool = await poolPromise;
@@ -40,7 +43,7 @@ exports.login = async (req, res) => {
     }
     const token = generateToken(user);
     const createdAt = new Date();
-    const expiresAt = new Date(createdAt.getTime() + 60 * 60 * 1000);
+    const expiresAt = new Date(createdAt.getTime() + 3 * 60 * 60 * 1000);
 
     await pool.request()
       .input('session_id', uuidv4())
@@ -52,7 +55,7 @@ exports.login = async (req, res) => {
     INSERT INTO sessions (session_id, user_id, session_token, created_at, expires_at)
     VALUES (NEWID(), @user_id, @session_token, @created_at, @expires_at)
   `);
-    
+
 
     res.json({ message: 'Login successful', token, userid: user.User_id });
 
@@ -72,7 +75,7 @@ exports.logout = async (req, res) => {
         DELETE FROM sessions
         WHERE session_token = @token
       `);
-    
+
     res.json({ message: 'Logout successful' });
   } catch (error) {
     console.error('Logout error:', error.message, error.stack);

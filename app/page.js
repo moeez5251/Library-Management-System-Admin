@@ -83,7 +83,11 @@ export default function Home() {
           "Content-Type": "application/json"
         },
         credentials: "include",
-        body: JSON.stringify(inputs)
+        body: JSON.stringify({
+          email: inputs.email,
+          password: inputs.password,
+          API:process.env.NEXT_PUBLIC_XLMS_API
+        })
       })
       const data = await log.json();
       if (data.message.trim() === "Login successful") {
