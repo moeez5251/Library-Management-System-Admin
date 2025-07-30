@@ -12,10 +12,9 @@ export async function middleware(request) {
 
   try {
     const { payload } = await jwtVerify(token, SECRET)
-    console.log("✅ Verified:", payload);
     return NextResponse.next();
   } catch (e) {
-    console.error("❌ Invalid token:", e.message);
+    console.error("❌ Invalid token:");
     return NextResponse.redirect(new URL('/', request.url));
   }
 }

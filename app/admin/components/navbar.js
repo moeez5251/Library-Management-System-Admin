@@ -108,7 +108,6 @@ const AdminDashboard = () => {
 
             return;
         }
-        sessionStorage.removeItem("token");
         localStorage.removeItem("userID");
         router.push("/");
 
