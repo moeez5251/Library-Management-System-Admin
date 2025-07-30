@@ -56,6 +56,12 @@ exports.login = async (req, res) => {
     VALUES (NEWID(), @user_id, @session_token, @created_at, @expires_at)
   `);
 
+    res.cookie("token", token, {
+      httpOnly: true,
+      sameSite: "None",     // ✅ Required for cross-site cookies
+      secure: true          // ✅ Required for SameSite=None
+    });
+
 
     res.json({ message: 'Login successful', token, userid: user.User_id });
 
