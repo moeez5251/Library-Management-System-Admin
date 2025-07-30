@@ -2,8 +2,14 @@ import { NextResponse } from 'next/server'
 
 export function middleware(request) {
   const token = request.cookies.get('token')?.value;
-
-  console.log('🔍 Token:', token);
-
+  const res = NextResponse.next();
   
+  if (token) {
+      console.log(token);
+      res.headers.set("x-debug-token", token); // 🪵 log it in browser devtools
+  } else {
+    res.headers.set("x-debug-token", "undefined");
+  }
+
+  return res;
 }

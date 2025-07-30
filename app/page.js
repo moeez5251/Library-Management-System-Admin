@@ -77,16 +77,16 @@ export default function Home() {
       })
     }
     try {
-      const log = await fetch("https://library-management-system-1-os0y.onrender.com/api/auth/login", {
+      const log = await fetch("/api/auth/login", {
         method: "POST",
+        credentials: "include",
         headers: {
           "Content-Type": "application/json"
         },
-        credentials: "include",
         body: JSON.stringify({
           email: inputs.email,
           password: inputs.password,
-          API:process.env.NEXT_PUBLIC_XLMS_API
+          API: process.env.NEXT_PUBLIC_XLMS_API
         })
       })
       const data = await log.json();
