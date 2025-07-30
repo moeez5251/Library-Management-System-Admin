@@ -89,15 +89,15 @@ export default function Home() {
           API: process.env.NEXT_PUBLIC_XLMS_API
         })
       })
+      if (!log.ok) {
+        const error = await log.json();
+        toast.error(error.message)
+        setLogin(false)
+        return
+      }
       const data = await log.json();
-      if (data.message.trim() === "Login successful") {
-        localStorage.setItem("userID", data.userid)
-        sessionStorage.setItem("token", data.token)
-        router.push("/admin")
-      }
-      else {
-        toast.error(data.message)
-      }
+      localStorage.setItem("userID", data.userid)
+      router.push("/admin")
       setLogin(false)
     }
     catch (err) {

@@ -94,7 +94,6 @@ const Sidebar = () => {
       toast.error(errorData.error);
       return;
     }
-    sessionStorage.removeItem("token");
     localStorage.removeItem("userID");
     router.push("/");
 
@@ -106,16 +105,6 @@ const Sidebar = () => {
 
     }
   }, [])
-  // useEffect(() => {
-  //   const token = sessionStorage.getItem('token');
-  //   if (!token) {
-  //     router.push('/');
-  //   }
-
-  //   return () => {
-
-  //   }
-  // }, [])
 
   return (
     <>
