@@ -77,7 +77,7 @@ export default function Home() {
       })
     }
     try {
-      const log = await fetch("https://library-management-system-1-os0y.onrender.com/api/auth/login", {
+      const log = await fetch("/api/auth/login", {
         method: "POST",
         credentials: "include",
         headers: {
