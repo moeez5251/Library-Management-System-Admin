@@ -95,13 +95,13 @@ const Settings = () => {
       setissubmitting(true);
       return;
     }
-    const data = await fetch("https://library-management-system-hvhv.onrender.com/api/users/changepassword", {
+    const data = await fetch("/api/users/changepassword", {
       method: 'PUT',
       credentials: "include",
 
       headers: {
         'Content-Type': 'application/json',
-        "Authorization": `Bearer ${sessionStorage.getItem("token")}`
+         
       },
       body: JSON.stringify({
         ID: inputs.user_id,
@@ -129,11 +129,11 @@ const Settings = () => {
       ReNew: ''
     })
     setissubmitting(true);
-    await fetch("https://library-management-system-hvhv.onrender.com/api/notifications/add", {
+    await fetch("/api/notifications/add", {
       method: "POST",
       headers: {
         "Content-type": "application/json; charset=UTF-8",
-        "Authorization": `Bearer ${sessionStorage.getItem("token")}`
+         
       },
       credentials: "include",
       body: JSON.stringify({
@@ -144,13 +144,13 @@ const Settings = () => {
   }
   useEffect(() => {
     (async () => {
-      const data = await fetch("https://library-management-system-hvhv.onrender.com/api/users/getbyid", {
+      const data = await fetch("/api/users/getbyid", {
         method: 'POST',
         credentials: "include",
 
         headers: {
           'Content-Type': 'application/json',
-          "Authorization": `Bearer ${sessionStorage.getItem("token")}`
+           
         },
         body: JSON.stringify({
           ID: localStorage.getItem("userID")
@@ -178,13 +178,13 @@ const Settings = () => {
   const handledialog = async () => {
     setopening(true);
 
-    const data = await fetch("https://library-management-system-hvhv.onrender.com/api/mail/otp", {
+    const data = await fetch("/api/mail/otp", {
       method: 'POST',
       credentials: "include",
 
       headers: {
         'Content-Type': 'application/json',
-        "Authorization": `Bearer ${sessionStorage.getItem("token")}`
+         
       },
       body: JSON.stringify({
         Name: inputs.UserName,
@@ -199,13 +199,13 @@ const Settings = () => {
 
   }
   const handleResend = async () => {
-    const data = await fetch("https://library-management-system-hvhv.onrender.com/api/mail/resend", {
+    const data = await fetch("/api/mail/resend", {
       method: 'POST',
       credentials: "include",
 
       headers: {
         'Content-Type': 'application/json',
-        "Authorization": `Bearer ${sessionStorage.getItem("token")}`
+         
       },
       body: JSON.stringify({
         Name: inputs.UserName,
@@ -221,13 +221,13 @@ const Settings = () => {
   }
   const handleverify = async (e) => {
     setisverifying(true);
-    const data = await fetch("https://library-management-system-hvhv.onrender.com/api/mail/verify", {
+    const data = await fetch("/api/mail/verify", {
       method: 'POST',
       credentials: "include",
 
       headers: {
         'Content-Type': 'application/json',
-        "Authorization": `Bearer ${sessionStorage.getItem("token")}`
+         
       },
       body: JSON.stringify({
         Email: inputs.Email,
@@ -265,13 +265,13 @@ const Settings = () => {
       setisverifying(false);
       return;
     }
-    const data = await fetch("https://library-management-system-hvhv.onrender.com/api/mail/reset", {
+    const data = await fetch("/api/mail/reset", {
       method: 'POST',
       credentials: "include",
 
       headers: {
         'Content-Type': 'application/json',
-        "Authorization": `Bearer ${sessionStorage.getItem("token")}`
+         
       },
       body: JSON.stringify({
         ID: inputs.user_id,
@@ -292,11 +292,11 @@ const Settings = () => {
     setSelectedTab("otp");
     setopening(false);
     setisverifying(false);
-    await fetch("https://library-management-system-hvhv.onrender.com/api/notifications/add", {
+    await fetch("/api/notifications/add", {
       method: "POST",
       headers: {
         "Content-type": "application/json; charset=UTF-8",
-        "Authorization": `Bearer ${sessionStorage.getItem("token")}`
+         
       },
       credentials: "include",
       body: JSON.stringify({

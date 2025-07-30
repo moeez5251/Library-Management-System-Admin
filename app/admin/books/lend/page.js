@@ -39,13 +39,13 @@ const Lend = () => {
     const [issubmitting, setissubmitting] = useState(false)
     useEffect(() => {
         (async function fetchTitles() {
-            const data = await fetch("https://library-management-system-hvhv.onrender.com/api/books/col", {
+            const data = await fetch("/api/books/col", {
                 method: "POST",
                 credentials: "include",
 
                 headers: {
                     "Content-Type": "application/json",
-                    "Authorization": `Bearer ${sessionStorage.getItem("token")}`,
+                     
                 },
                 body: JSON.stringify({
                     column: ["Book_Title", "Category", "Author"]
@@ -128,13 +128,13 @@ const Lend = () => {
         setissubmitting(true)
         try {
             const Due = new Date(DueDate).toLocaleDateString("en-CA")
-            const data = await fetch("https://library-management-system-hvhv.onrender.com/api/lenders/insert", {
+            const data = await fetch("/api/lenders/insert", {
                 method: "POST",
                 credentials: "include",
 
                 headers: {
                     "Content-type": "application/json; charset=UTF-8",
-                    "Authorization": `Bearer ${sessionStorage.getItem("token")}`,
+                     
                 },
                 body: JSON.stringify({
                     Lendername: inputs.Lender_name,
@@ -163,11 +163,11 @@ const Lend = () => {
             const response = await data.json()
             toast(response.message)
             setissubmitting(false)
-            await fetch("https://library-management-system-hvhv.onrender.com/api/notifications/add", {
+            await fetch("/api/notifications/add", {
                 method: "POST",
                 headers: {
                     "Content-type": "application/json; charset=UTF-8",
-                    "Authorization": `Bearer ${sessionStorage.getItem("token")}`
+                     
                 },
                 credentials: "include",
                 body: JSON.stringify({

@@ -37,13 +37,13 @@ const ResetClient = () => {
 
     (async () => {
       try {
-        const res = await fetch("https://library-management-system-hvhv.onrender.com/api/token/verify", {
+        const res = await fetch("/api/token/verify", {
           method: "POST",
           credentials: "include",
 
           headers: {
             "Content-Type": "application/json",
-            "Authorization": `Bearer ${sessionStorage.getItem("token")}`
+             
           },
           body: JSON.stringify({ token: search }),
         });
@@ -108,13 +108,13 @@ const ResetClient = () => {
       });
       setissubmitting(false)
     }
-    const data = await fetch("https://library-management-system-hvhv.onrender.com/api/token/update", {
+    const data = await fetch("/api/token/update", {
       method: "PUT",
       credentials: "include",
 
       headers: {
         "Content-Type": "application/json",
-        "Authorization": `Bearer ${sessionStorage.getItem("token")}`
+         
       },
       body: JSON.stringify({ token: tokeninfo.token.token, password: passwords.password }),
     })

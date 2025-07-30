@@ -48,13 +48,13 @@ const Edit = ({ params }) => {
     setbook(false)
     try {
 
-      const data = await fetch("https://library-management-system-hvhv.onrender.com/api/books/update", {
+      const data = await fetch("/api/books/update", {
         method: "PUT",
         credentials: "include",
 
         headers: {
           "Content-type": "application/json; charset=UTF-8",
-          "Authorization": `Bearer ${sessionStorage.getItem("token")}`
+           
         },
         body: JSON.stringify({
           Book_ID: bookid,
@@ -107,11 +107,11 @@ const Edit = ({ params }) => {
     (async function fetchdata() {
       if (bookid) {
 
-        const data = await fetch("https://library-management-system-hvhv.onrender.com/api/books/getbyID", {
+        const data = await fetch("/api/books/getbyID", {
           method: "POST",
           headers: {
             "Content-type": "application/json; charset=UTF-8",
-          "Authorization": `Bearer ${sessionStorage.getItem("token")}`
+           
           },
         credentials: "include",
 

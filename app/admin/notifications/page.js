@@ -12,13 +12,13 @@ const Notifications = () => {
   const [Notifications, setNotifications] = useState([])
   useEffect(() => {
     (async () => {
-      const data = await fetch("https://library-management-system-hvhv.onrender.com/api/notifications/get", {
+      const data = await fetch("/api/notifications/get", {
         method: "POST",
         credentials: "include",
 
         headers: {
           "Content-type": "application/json; charset=UTF-8",
-          "Authorization": `Bearer ${sessionStorage.getItem("token")}`
+           
         },
         body: JSON.stringify({ Userid: localStorage.getItem("userID") })
       })
@@ -38,13 +38,13 @@ const Notifications = () => {
           formatted: parsed.isValid() ? parsed.format("DD/MM/YYYY, HH:mm:ss") : "Invalid date"
         };
       }));
-      const read = await fetch("https://library-management-system-hvhv.onrender.com/api/notifications/markasread", {
+      const read = await fetch("/api/notifications/markasread", {
         method: "POST",
         credentials: "include",
 
         headers: {
           "Content-type": "application/json; charset=UTF-8",
-          "Authorization": `Bearer ${sessionStorage.getItem("token")}`
+           
         },
         body: JSON.stringify({ Userid: localStorage.getItem("userID") })
       })

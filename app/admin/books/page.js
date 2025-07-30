@@ -165,11 +165,11 @@ export default function Lenders() {
   const handleclick = async (e) => {
     settrigger(true)
     try {
-      const data = await fetch("https://library-management-system-hvhv.onrender.com/api/lenders/getlenderbyid", {
+      const data = await fetch("/api/lenders/getlenderbyid", {
         method: "POST",
         headers: {
           "Content-type": "application/json; charset=UTF-8",
-          "Authorization": `Bearer ${sessionStorage.getItem("token")}`,
+           
 
         },
         credentials: "include",
@@ -198,11 +198,11 @@ export default function Lenders() {
     }
   }
   async function fetch_data() {
-    const data = await fetch("https://library-management-system-hvhv.onrender.com/api/lenders/all", {
+    const data = await fetch("/api/lenders/all", {
       method: "POST",
       headers: {
         "Content-type": "application/json; charset=UTF-8",
-        "Authorization": `Bearer ${sessionStorage.getItem("token")}`,
+         
       },
       credentials: "include",
       body: JSON.stringify({ API: process.env.NEXT_PUBLIC_XLMS_API })
@@ -260,7 +260,7 @@ export default function Lenders() {
                 strokeWidth={1.333}
                 d="M7.667 12.667A5.333 5.333 0 1 0 7.667 2a5.333 5.333 0 0 0 0 10.667zM14.334 14l-2.9-2.9"
               />
-            </svg>
+            </svg> 
           </button>
           <input className="w-full h-full px-2 py-[0.7rem] font-normal bg-transparent text-sm border-none focus:outline-none placeholder:text-gray-700 dark:placeholder:text-gray-200 " placeholder="Search a lender" value={input} onChange={(e) => { setinput(e.target.value); }} type="text" />
           <button onClick={() => { setinput("") }} className={`cursor-pointer ${input.length === 0 ? "opacity-0" : "block"} transition-opacity`} >

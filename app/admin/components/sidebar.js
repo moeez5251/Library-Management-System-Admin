@@ -80,13 +80,13 @@ const Sidebar = () => {
   }, [])
 
   const handlelogout = async () => {
-    const data = await fetch("https://library-management-system-hvhv.onrender.com/api/auth/logout",
+    const data = await fetch("/api/auth/logout",
       {
         method: "POST",
         credentials: "include",
         headers: {
           'Content-Type': 'application/json',
-          "Authorization": `Bearer ${sessionStorage.getItem("token")}`
+           
         },
       })
     if (!data.ok) {

@@ -16,13 +16,13 @@ const AdminDashboard = () => {
     const router = useRouter()
     useEffect(() => {
         (async () => {
-            const data = await fetch("https://library-management-system-hvhv.onrender.com/api/notifications/get", {
+            const data = await fetch("/api/notifications/get", {
                 method: "POST",
                 credentials: "include",
 
                 headers: {
                     "Content-type": "application/json; charset=UTF-8",
-                    "Authorization": `Bearer ${sessionStorage.getItem("token")}`
+                     
                 },
                 body: JSON.stringify({ Userid: localStorage.getItem("userID") })
             })
@@ -94,13 +94,13 @@ const AdminDashboard = () => {
         }
     }
     const handlelogout = async () => {
-        const data = await fetch("https://library-management-system-hvhv.onrender.com/api/auth/logout",
+        const data = await fetch("/api/auth/logout",
             {
                 method: "POST",
                 credentials: "include",
                 headers: {
                     'Content-Type': 'application/json',
-                    "Authorization": `Bearer ${sessionStorage.getItem("token")}`
+                     
                 },
 
             })

@@ -40,12 +40,10 @@ const AdminDashboard = () => {
     }, [])
     useEffect(() => {
         (async () => {
-            const data = await fetch("https://library-management-system-hvhv.onrender.com/api/other/getbookdata", {
+            const data = await fetch("/api/other/getbookdata", {
                 method: "GET",
                 headers: {
                     "Content-Type": "application/json",
-                    "Authorization": `Bearer ${sessionStorage.getItem("token")}`,
-
 
                 },
                 credentials: "include"
