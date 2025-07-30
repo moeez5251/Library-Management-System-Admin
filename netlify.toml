@@ -7,11 +7,11 @@
 
 [[redirects]]
   from = "/api/*"
-  to = "https://library-management-system-1-os0y.onrender.com/api/:splat"
+  to = "https://library-management-system-hvhv.onrender.com/api/:splat"
   status = 200
   force = true
 
   [redirects.headers]
-    Access-Control-Allow-Origin = "https://tempxlms.netlify.app"
+    Access-Control-Allow-Origin = "https://xlms-admin.netlify.app"
     Access-Control-Allow-Credentials = "true"
 

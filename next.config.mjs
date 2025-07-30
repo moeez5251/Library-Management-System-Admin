@@ -4,7 +4,7 @@ const nextConfig = {
     return [
       {
         source: '/api/:path*',
-        destination: 'https://library-management-system-1-os0y.onrender.com/api/:path*'
+        destination: 'https://library-management-system-hvhv.onrender.com/api/:path*'
       }
     ];
   }
