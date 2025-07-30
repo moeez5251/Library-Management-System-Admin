@@ -106,16 +106,16 @@ const Sidebar = () => {
 
     }
   }, [])
-  useEffect(() => {
-    const token = sessionStorage.getItem('token');
-    if (!token) {
-      router.push('/');
-    }
+  // useEffect(() => {
+  //   const token = sessionStorage.getItem('token');
+  //   if (!token) {
+  //     router.push('/');
+  //   }
 
-    return () => {
+  //   return () => {
 
-    }
-  }, [])
+  //   }
+  // }, [])
 
   return (
     <>
