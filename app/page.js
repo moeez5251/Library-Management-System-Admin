@@ -97,7 +97,8 @@ export default function Home() {
       }
       const data = await log.json();
       localStorage.setItem("userID", data.userid)
-      router.push("/admin")
+      window.location.href = "/admin";
+
       setLogin(false)
     }
     catch (err) {
