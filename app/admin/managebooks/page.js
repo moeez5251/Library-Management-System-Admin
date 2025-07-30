@@ -146,13 +146,13 @@ export default function Books() {
   const [Delete, setDelete] = useState(false)
   const [Disabledelete, setDisabledelete] = useState(false)
   async function fetch_data() {
-    const data = await fetch("https://library-management-system-hvhv.onrender.com/api/books/get", {
+    const data = await fetch("/api/books/get", {
       method: "POST",
       credentials: "include",
 
       headers: {
         "Content-type": "application/json; charset=UTF-8",
-        "Authorization": `Bearer ${sessionStorage.getItem("token")}`,
+         
 
       },
       credentials: "include",
@@ -193,11 +193,11 @@ export default function Books() {
     setDisabledelete(true)
     try {
 
-      const data = await fetch("https://library-management-system-hvhv.onrender.com/api/books/delete", {
+      const data = await fetch("/api/books/delete", {
         method: "DELETE",
         headers: {
           "Content-type": "application/json; charset=UTF-8",
-          "Authorization": `Bearer ${sessionStorage.getItem("token")}`,
+           
         },
         credentials: "include",
 
@@ -212,11 +212,11 @@ export default function Books() {
         selected: [],
         isempty: true
       })
-      await fetch("https://library-management-system-hvhv.onrender.com/api/notifications/add", {
+      await fetch("/api/notifications/add", {
         method: "POST",
         headers: {
           "Content-type": "application/json; charset=UTF-8",
-          "Authorization": `Bearer ${sessionStorage.getItem("token")}`
+           
         },
         credentials: "include",
         body: JSON.stringify({

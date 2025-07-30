@@ -36,13 +36,13 @@ const Resources = () => {
       setissubmitting(false)
       return
     }
-    const data=await fetch("https://library-management-system-hvhv.onrender.com/api/resource/add",{
+    const data=await fetch("/api/resource/add",{
       method:"POST",
         credentials: "include",
 
       headers:{
         "Content-Type":"application/json",
-          "Authorization": `Bearer ${sessionStorage.getItem("token")}`
+           
       },
       body:JSON.stringify({
         Name:inputs.Name,

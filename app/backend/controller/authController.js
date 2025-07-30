@@ -42,20 +42,11 @@ exports.login = async (req, res) => {
       return res.status(403).json({ message: 'Access denied: Admins only' });
     }
     const token = generateToken(user);
-    const createdAt = new Date();
-    const expiresAt = new Date(createdAt.getTime() + 3 * 60 * 60 * 1000);
-
-    await pool.request()
-      .input('session_id', uuidv4())
-      .input('user_id', user.User_id)
-      .input('session_token', token)
-      .input('created_at', createdAt)
-      .input('expires_at', expiresAt)
-      .query(`
-    INSERT INTO sessions (session_id, user_id, session_token, created_at, expires_at)
-    VALUES (NEWID(), @user_id, @session_token, @created_at, @expires_at)
-  `);
-
+    res.cookie("token", token, {
+      httpOnly: true,
+      sameSite: "None",
+      secure: true
+    });
 
     res.json({ message: 'Login successful', token, userid: user.User_id });
 
@@ -67,18 +58,17 @@ exports.login = async (req, res) => {
 
 exports.logout = async (req, res) => {
   try {
-    const token = req.headers.authorization.split(' ')[1];
-    const pool = await poolPromise;
-    const result = await pool.request()
-      .input('token', token)
-      .query(`
-        DELETE FROM sessions
-        WHERE session_token = @token
-      `);
+    res.clearCookie("token", {
+      httpOnly: true,
+      sameSite: "None",
+      secure: true,
+      path: "/",  // explicitly specify path if you used it during set
+    });
 
-    res.json({ message: 'Logout successful' });
+
+    res.status(200).json({ message: 'Logout successful' });
   } catch (error) {
     console.error('Logout error:', error.message, error.stack);
     res.status(500).json({ message: 'Server error', error: error.message });
   }
-}
+};

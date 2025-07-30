@@ -45,11 +45,11 @@ const AddBook = () => {
         setbook(false)
         try {
 
-            const data = await fetch("https://library-management-system-hvhv.onrender.com/api/books/insert", {
+            const data = await fetch("/api/books/insert", {
                 method: "POST",
                 headers: {
                     "Content-type": "application/json; charset=UTF-8",
-                    "Authorization": `Bearer ${sessionStorage.getItem("token")}`
+                     
                 },
                 credentials: "include",
 
@@ -88,11 +88,11 @@ const AddBook = () => {
                 Pages: ""
             })
             setbook(true)
-            await fetch("https://library-management-system-hvhv.onrender.com/api/notifications/add", {
+            await fetch("/api/notifications/add", {
                 method: "POST",
                 headers: {
                     "Content-type": "application/json; charset=UTF-8",
-                    "Authorization": `Bearer ${sessionStorage.getItem("token")}`
+                     
                 },
                 credentials: "include",
                 body: JSON.stringify({

@@ -5,3 +5,13 @@
 [[plugins]]
   package = "@netlify/plugin-nextjs"
 
+[[redirects]]
+  from = "/api/*"
+  to = "https://library-management-system-hvhv.onrender.com/api/:splat"
+  status = 200
+  force = true
+
+  [redirects.headers]
+    Access-Control-Allow-Origin = "https://xlms-admin.netlify.app"
+    Access-Control-Allow-Credentials = "true"
+

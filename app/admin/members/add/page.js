@@ -77,11 +77,11 @@ const AddUser = () => {
         }
         setuser(false)
         try {
-            const data = await fetch("https://library-management-system-hvhv.onrender.com/api/users/register", {
+            const data = await fetch("/api/users/register", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
-                    "Authorization": `Bearer ${sessionStorage.getItem("token")}`
+                     
                 },
                 credentials: "include",
                 body: JSON.stringify({
@@ -112,11 +112,11 @@ const AddUser = () => {
                 setMemberShip("");
                 setrole("Standard-User");
                 setuser(true);
-                await fetch("https://library-management-system-hvhv.onrender.com/api/notifications/add", {
+                await fetch("/api/notifications/add", {
                     method: "POST",
                     headers: {
                         "Content-type": "application/json; charset=UTF-8",
-                        "Authorization": `Bearer ${sessionStorage.getItem("token")}`
+                         
                     },
                     credentials: "include",
                     body: JSON.stringify({

@@ -42,12 +42,12 @@ const DynamicPage = ({ params }) => {
     (async function getuserid() {
       const { slug } = await params
       setuserid(slug)
-      const data = await fetch("https://library-management-system-hvhv.onrender.com/api/users/getbyid", {
+      const data = await fetch("/api/users/getbyid", {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
           'Accept': 'application/json',
-          "Authorization": `Bearer ${sessionStorage.getItem("token")}`
+           
         },
         credentials: "include",
 
@@ -118,12 +118,12 @@ const DynamicPage = ({ params }) => {
     setuser(false)
     try {
 
-      const data = await fetch("https://library-management-system-hvhv.onrender.com/api/users/update", {
+      const data = await fetch("/api/users/update", {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
           'Accept': 'application/json',
-          "Authorization": `Bearer ${sessionStorage.getItem("token")}`
+           
         },
         credentials: "include",
 
@@ -160,11 +160,11 @@ const DynamicPage = ({ params }) => {
     settoggleact(true)
     try {
 
-      const data = await fetch("https://library-management-system-hvhv.onrender.com/api/users/activate", {
+      const data = await fetch("/api/users/activate", {
         method: "POST",
         headers: {
           "Content-type": "application/json; charset=UTF-8",
-          "Authorization": `Bearer ${sessionStorage.getItem("token")}`
+           
         },
         credentials: "include",
 
@@ -202,13 +202,13 @@ const DynamicPage = ({ params }) => {
   const handledeactivate = async () => {
     settoggleact(true)
     try {
-      const data = await fetch("https://library-management-system-hvhv.onrender.com/api/users/deactivate", {
+      const data = await fetch("/api/users/deactivate", {
       method: "POST",
         credentials: "include",
 
       headers: {
         "Content-type": "application/json; charset=UTF-8",
-          "Authorization": `Bearer ${sessionStorage.getItem("token")}`
+           
       },
       body: JSON.stringify(Array.from([userid]))
     })
