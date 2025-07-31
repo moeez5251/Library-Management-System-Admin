@@ -15,10 +15,11 @@ The Library Management System is a comprehensive solution for libraries, offerin
 * 📊  **Admin Dashboard** : Visualize library stats with charts and data tables.
 * 📱  **Responsive Design** : Optimized for both desktop and mobile devices.
 
+---
+
 ## 🛠️ Tech Stack
 
-* **Frontend** :
-* ![Next.js](https://img.shields.io/badge/Next.js-000000?logo=next.js&logoColor=white)  **Next.js** : React-based framework for dynamic UI.
+* **Frontend** :![Next.js](https://img.shields.io/badge/Next.js-000000?logo=next.js&logoColor=white)  **Next.js** : React-based framework for dynamic UI.
 * ![React](https://img.shields.io/badge/react-%2320232a.svg?style=flat&logo=react&logoColor=%2361DAFB)  **React** : Component-based UI library.
 * ![Tailwind CSS](https://img.shields.io/badge/tailwindcss-%2338B2AC.svg?style=flat&logo=tailwind-css&logoColor=white)  **Tailwind CSS** : Utility-first CSS framework.
 * ![Lucide Icons](https://img.shields.io/badge/Lucide_Icons-000000?logo=iconify&logoColor=white)  **Lucide Icons** : Beautiful icon library.
@@ -29,12 +30,14 @@ The Library Management System is a comprehensive solution for libraries, offerin
 * **Database** : MS SQL 🗄️
 * ![Microsoft SQL Server](https://img.shields.io/badge/MSSQL-CC2927?logo=microsoft-sql-server&logoColor=white)**Microsoft SQL Server** : Relational database for data management. 🗄️
 * **Utilities** :
-* ![Utilities](https://img.shields.io/badge/Utilities-Utilities-blue?logo=gear&logoColor=white)  **Utilities** : Pag ination controls, email services, and more. ⚙️
+* ![Utilities](https://img.shields.io/badge/Utilities-Utilities-blue?logo=gear&logoColor=white)  **Utilities** : Pagination controls, email services, and more. ⚙️
 * **Deployment & Build** :
 * ![Netlify](https://img.shields.io/badge/netlify-%23000000.svg?style=flat&logo=netlify&logoColor=white)  **Netlify** : Hosting and deployment for the frontend.
 * ![Nixpacks](https://img.shields.io/badge/Nixpacks-2088ff?style=flat)  **Nixpacks** : Automated build and deployment tool. ☁️
 
-## 🚀 Getting Started
+---
+
+## 🚀Getting Started
 
 ### Prerequisites
 
@@ -107,6 +110,8 @@ The Library Management System is a comprehensive solution for libraries, offerin
 
   APIs will be available at [http://localhost:5000/api](http://localhost:5000/api). 🔗
 
+---
+
 ## 🗂️ Project Structure
 
 ### Frontend
@@ -140,6 +145,8 @@ The Library Management System is a comprehensive solution for libraries, offerin
   * **Emails** : OTP and account notifications (`mails.js`, `/api/mail`) 📧
   * **Resources** : Manage external resources (`resourcecontroller.js`, `/api/resource`) 🌐
 
+---
+
 ## 🎨 Features & Highlights
 
 * **Interactive UI** : Data tables with pagination, modals, and charts for a seamless experience. 📈
@@ -147,11 +154,15 @@ The Library Management System is a comprehensive solution for libraries, offerin
 * **Real-Time Notifications** : Powered by Socket.IO for timely alerts. 🔔
 * **Scalable Design** : Modular frontend and backend for easy maintenance and extension. 🛠️
 
+---
+
 ## ☁️ Deployment & Build
 
 * Deploy the frontend using ![Netlify](https://img.shields.io/badge/netlify-%23000000.svg?style=flat&logo=netlify&logoColor=white) for seamless hosting.
 * Use ![Nixpacks](https://img.shields.io/badge/Nixpacks-2088ff?style=flat) for automated builds and deployments.
 * For manual deployment, follow the [Next.js deployment guide](https://nextjs.org/docs/deployment) or configure your backend server with a platform like Render or Heroku.
+
+---
 
 ## 📖 Learn More
 
@@ -161,6 +172,8 @@ The Library Management System is a comprehensive solution for libraries, offerin
 * [Socket.IO Documentation](https://socket.io/docs/v4/) 🔔
 * [Netlify Documentation](https://docs.netlify.com/) ☁️
 * [Nixpacks Documentation](https://nixpacks.com/docs/) 🛠️
+
+---
 
 ## 🤝 Contributing
 
@@ -172,9 +185,13 @@ We welcome contributions! To get started:
 4. Push to the branch (`git push origin feature/your-feature`). 🚀
 5. Open a pull request. 📬
 
+---
+
 ## 📜 License
 
-This project is licensed under the MIT License. See the [LICENSE](https://grok.com/chat/LICENSE) file for details. 📄
+This project is licensed under the MIT License📜.
+
+---
 
 ## 📬 Contact
 
