@@ -1,202 +1,212 @@
 # 📚 Library Management System
 
-Welcome to the  **Library Management System** , a full-stack web application designed to streamline library operations with a modern, user-friendly interface. Built with **Next.js** for the frontend and **Node.js/Express** for the backend, this project integrates seamlessly with a **Microsoft SQL Server** database to manage books, users, lending processes, and notifications. 🚀
+A full-stack web application designed to modernize and simplify library operations with an intuitive interface and real-time functionality. Built with **Next.js** (frontend) and **Node.js/Express** (backend), and powered by **Microsoft SQL Server** for reliable data management. 🚀
 
-## ✨ Overview
+---
 
-The Library Management System is a comprehensive solution for libraries, offering a robust set of features to simplify book and user management, lending operations, and notifications. Key features include:
+## ✨ Features
 
-* 🔒  **User Authentication & Authorization** : Secure login with JWT-based authentication.
-* 📖  **Book Management** : Add, update, delete, and search books in the catalog.
-* 👥  **User Management** : Register users and track their borrowing history.
-* 📚  **Lending System** : Manage book lending and returns with due date tracking.
-* 🔔  **Notifications** : Real-time notifications for users and admins.
-* 📧  **Email & OTP Verification** : Secure account recovery with OTP-based emails.
-* 📊  **Admin Dashboard** : Visualize library stats with charts and data tables.
-* 📱  **Responsive Design** : Optimized for both desktop and mobile devices.
+* 🔒 **User Authentication & Authorization** – Secure login using JWT tokens.
+* 📖 **Book Management** – Add, update, delete, and search for books.
+* 👥 **User Management** – Register and manage members with borrowing history.
+* 📚 **Lending System** – Issue/return books with due date tracking.
+* 🔔 **Real-Time Notifications** – Alerts for due books, returns, and messages.
+* 📧 **Email & OTP Verification** – Secure account recovery.
+* 📊 **Admin Dashboard** – Interactive charts and stats for quick insights.
+* 📱 **Responsive Design** – Fully optimized for both desktop and mobile devices.
 
 ---
 
 ## 🛠️ Tech Stack
 
-* **Frontend** :![Next.js](https://img.shields.io/badge/Next.js-000000?logo=next.js&logoColor=white)  **Next.js** : React-based framework for dynamic UI.
-* ![React](https://img.shields.io/badge/react-%2320232a.svg?style=flat&logo=react&logoColor=%2361DAFB)  **React** : Component-based UI library.
-* ![Tailwind CSS](https://img.shields.io/badge/tailwindcss-%2338B2AC.svg?style=flat&logo=tailwind-css&logoColor=white)  **Tailwind CSS** : Utility-first CSS framework.
-* ![Lucide Icons](https://img.shields.io/badge/Lucide_Icons-000000?logo=iconify&logoColor=white)  **Lucide Icons** : Beautiful icon library.
-* **Backend** :
-* ![Node.js](https://img.shields.io/badge/node.js-6DA55F?style=flat&logo=node.js&logoColor=white)  **Node.js** : JavaScript runtime for server-side logic.
-* ![Express.js](https://img.shields.io/badge/express.js-%23404d59.svg?style=flat&logo=express&logoColor=%2361DAFB)  **Express.js** : Web framework for API development.
-* ![JWT](https://img.shields.io/badge/JWT-000000?logo=json-web-tokens&logoColor=white)  **JWT** : Secure authentication for APIs. 🔐
-* **Database** : MS SQL 🗄️
-* ![Microsoft SQL Server](https://img.shields.io/badge/MSSQL-CC2927?logo=microsoft-sql-server&logoColor=white)**Microsoft SQL Server** : Relational database for data management. 🗄️
-* **Utilities** :
-* ![Utilities](https://img.shields.io/badge/Utilities-Utilities-blue?logo=gear&logoColor=white)  **Utilities** : Pagination controls, email services, and more. ⚙️
-* **Deployment & Build** :
-* ![Netlify](https://img.shields.io/badge/netlify-%23000000.svg?style=flat&logo=netlify&logoColor=white)  **Netlify** : Hosting and deployment for the frontend.
-* ![Nixpacks](https://img.shields.io/badge/Nixpacks-2088ff?style=flat)  **Nixpacks** : Automated build and deployment tool. ☁️
+### 🔹 Frontend
+
+| Tool                                                                                                | Description                               |
+| --------------------------------------------------------------------------------------------------- | ----------------------------------------- |
+| ![Next.js](https://img.shields.io/badge/Next.js-000000?logo=next.js\&logoColor=white)               | React framework for server-side rendering |
+| ![React](https://img.shields.io/badge/React-20232a?logo=react\&logoColor=61DAFB)                    | Component-based UI library                |
+| ![Tailwind CSS](https://img.shields.io/badge/TailwindCSS-38B2AC?logo=tailwind-css\&logoColor=white) | Utility-first CSS framework               |
+| ![Lucide Icons](https://img.shields.io/badge/Lucide_Icons-000000?logo=iconify\&logoColor=white)     | Icon pack for clean visual elements       |
+
+### 🔸 Backend
+
+| Tool                                                                                           | Description                 |
+| ---------------------------------------------------------------------------------------------- | --------------------------- |
+| ![Node.js](https://img.shields.io/badge/Node.js-339933?logo=node.js\&logoColor=white)          | JavaScript runtime          |
+| ![Express](https://img.shields.io/badge/Express.js-404d59?logo=express\&logoColor=white)       | Web framework for REST APIs |
+| ![JWT](https://img.shields.io/badge/JWT-000000?logo=json-web-tokens\&logoColor=white)          | Token-based authentication  |
+| ![MSSQL](https://img.shields.io/badge/MSSQL-CC2927?logo=microsoft-sql-server\&logoColor=white) | Relational database         |
+
+### ⚙️ Utilities
+
+* Pagination Controls
+* Email & OTP Services
+* Real-time Notifications (via Socket.IO)
+
+### ☁️ Deployment
+
+| Platform                                                                              | Purpose            |
+| ------------------------------------------------------------------------------------- | ------------------ |
+| ![Netlify](https://img.shields.io/badge/Netlify-00C7B7?logo=netlify\&logoColor=white) | Frontend Hosting   |
+| ![Nixpacks](https://img.shields.io/badge/Nixpacks-2088ff?logo=nixos\&logoColor=white) | Backend Build Tool |
 
 ---
 
-## 🚀Getting Started
+## 🚀 Getting Started
 
-### Prerequisites
+### 📦 Prerequisites
 
-* ![Node.js](https://img.shields.io/badge/node.js-6DA55F?style=flat&logo=node.js&logoColor=white) Node.js (v18 or higher) 🟢
-* npm, yarn, pnpm, or bun 📦
-* ![Microsoft SQL Server](https://img.shields.io/badge/MSSQL-CC2927?logo=microsoft-sql-server&logoColor=white) Microsoft SQL Server instance 🗄️
-* Environment variables for database, JWT, and email services 🔧
+* Node.js v18+ and npm/yarn/pnpm/bun
+* Microsoft SQL Server
+* Environment variables configured
 
-### Installation
+### 🧩 Installation
 
-1. **Clone the Repository** :
+1. **Clone the repository:**
 
-```bash
+   ```bash
    git clone https://github.com/moeez5251/Library-Management-System.git
    cd Library-Management-System
-```
+   ```
 
-1. **Install Dependencies** :
+2. **Install dependencies:**
 
-* For the frontend (from project root):
-  ```bash
-  npm install
-  # or
-  yarn install
-  # or
-  pnpm install
-  # or
-  bun install
-  ```
-* For the backend (if separate, from `/app/backend`):
-  ```bash
-  npm install
-  ```
+   * Frontend:
 
-1. **Configure Environment Variables** :
+     ```bash
+     npm install  # or yarn/pnpm/bun install
+     ```
 
-* Create `.env.local` (for Next.js) in the project root and `.env` (for backend) in `/app/backend`.
-* Add required variables (e.g., database credentials, JWT secret, email service keys):
-  ```env
-  Email=your_email
-  Password=your_email_app_password
-  user=your_db_user
-  DB_PASS=your_db_pass
-  server=your_db_server
-  database=your_db_name
-  URL=http://localhost:3000
-  JWT=secret_token
-  ```
+   * Backend (if separate):
 
-1. **Run the Application** :
+     ```bash
+     cd app/backend
+     npm install
+     ```
 
-* **Frontend** (from project root):
+3. **Configure Environment Variables:**
 
-  ```bash
-  npm run dev
-  # or
-  yarn dev
-  # or
-  pnpm dev
-  # or
-  bun dev
-  ```
+   Create `.env.local` for Next.js and `.env` in `/app/backend`.
 
-  Open [http://localhost:3000](http://localhost:3000/) to view the app. 🌐
-* **Backend** (from `/app/backend`):
+   ```env
+   Email=your_email
+   Password=your_email_app_password
+   user=your_db_user
+   DB_PASS=your_db_password
+   server=your_db_server
+   database=your_database_name
+   URL=http://localhost:3000
+   JWT=your_jwt_secret
+   ```
 
-  ```bash
-  node server.js
-  ```
+4. **Run the Application:**
 
-  APIs will be available at [http://localhost:5000/api](http://localhost:5000/api). 🔗
+   * Frontend (root):
+
+     ```bash
+     npm run dev
+     ```
+
+     App runs at: [http://localhost:3000](http://localhost:3000)
+
+   * Backend (`/app/backend`):
+
+     ```bash
+     node server.js
+     ```
+
+     API available at: [http://localhost:5000/api](http://localhost:5000/api)
 
 ---
 
 ## 🗂️ Project Structure
 
-### Frontend
+### 📁 Frontend
 
-* **Pages & Layouts** (`/app`):
-  * Main entry: `app/page.js` 📄
-  * Layouts: `app/layout.js` 🖼️
-  * Sub-folders: `app/admin`, `app/members`, `app/login`, `app/reset-password` 🗂️
-* **Components** (`/components`):
-  * Reusable UI elements like cards, modals, navigation bars, and pagination controls (`table/pagination.jsx`) 🧩
-  * Global styles in `app/globals.css` 🎨
-* **Admin Dashboard** :
-* Displays library stats (books, users, lending, overdue) with charts and tables 📊
-* Fetches data from `/api/other/getbookdata` 📈
+* `app/` – Pages and layout (e.g., `page.js`, `layout.js`)
 
-### Backend
+  * `admin/` – Admin dashboard and stats
+  * `members/`, `login/`, `reset-password/` – User interactions
+* `components/` – Reusable UI (pagination, modals, navbars)
+* `app/globals.css` – Global styling
 
-* **Server** (`/app/backend/server.js`):
+### 📁 Backend
 
-  * Initializes Express with CORS, JSON parsing, and JWT middleware 🔧
-* **Database** (`/app/backend/models/db.js`):
+* `server.js` – Express server setup
+* `models/db.js` – SQL Server DB connection using `mssql`
+* `controller/` & `routes/`:
 
-  * MSSQL connection pool using the `mssql` package 🗄️
-* **Controllers & Routes** (`/app/backend/controller`, `/app/backend/routes`):
-
-  * **Auth** : Login/logout (`auth.js`) 🔐
-  * **Users** : Registration, profile updates (`user.js`) 👤
-  * **Books** : CRUD operations (`bookscontroller.js`, `book.js`) 📚
-  * **Lending** : Issue/return books (`lendersControllers.js`, `lenders.js`) 📖
-  * **Notifications** : Real-time alerts (`notificationscontroller.js`) 🔔
-  * **Emails** : OTP and account notifications (`mails.js`, `/api/mail`) 📧
-  * **Resources** : Manage external resources (`resourcecontroller.js`, `/api/resource`) 🌐
+  * `auth.js` – Auth logic (JWT)
+  * `user.js`, `bookscontroller.js` – User/book logic
+  * `lendersControllers.js` – Lending logic
+  * `notificationscontroller.js`, `mails.js` – Notifications & OTP
 
 ---
 
-## 🎨 Features & Highlights
+## 📊 Admin Dashboard
 
-* **Interactive UI** : Data tables with pagination, modals, and charts for a seamless experience. 📈
-* **Secure APIs** : JWT-based authentication ensures protected endpoints. 🔐
-* **Real-Time Notifications** : Powered by Socket.IO for timely alerts. 🔔
-* **Scalable Design** : Modular frontend and backend for easy maintenance and extension. 🛠️
+* View live stats: total books, users, issued books, overdue returns
+* Charts powered by API: `/api/other/getbookdata`
 
 ---
 
-## ☁️ Deployment & Build
+## ☁️ Deployment Guide
 
-* Deploy the frontend using ![Netlify](https://img.shields.io/badge/netlify-%23000000.svg?style=flat&logo=netlify&logoColor=white) for seamless hosting.
-* Use ![Nixpacks](https://img.shields.io/badge/Nixpacks-2088ff?style=flat) for automated builds and deployments.
-* For manual deployment, follow the [Next.js deployment guide](https://nextjs.org/docs/deployment) or configure your backend server with a platform like Render or Heroku.
+* **Frontend**: Deploy with [Netlify](https://www.netlify.com/)
+* **Backend**: Use [Nixpacks](https://nixpacks.com/docs) or platforms like Render, Railway, or Heroku
+* Follow [Next.js Deployment Docs](https://nextjs.org/docs/deployment) for custom setups
 
 ---
 
-## 📖 Learn More
+## 📖 Resources
 
-* [Next.js Documentation](https://nextjs.org/docs) 📚
-* [Express.js Documentation](https://expressjs.com/) ⚙️
-* [MSSQL Node.js Package](https://www.npmjs.com/package/mssql) 🗄️
-* [Socket.IO Documentation](https://socket.io/docs/v4/) 🔔
-* [Netlify Documentation](https://docs.netlify.com/) ☁️
-* [Nixpacks Documentation](https://nixpacks.com/docs/) 🛠️
+* [Next.js Docs](https://nextjs.org/docs)
+* [Express.js Docs](https://expressjs.com/)
+* [MSSQL for Node.js](https://www.npmjs.com/package/mssql)
+* [Socket.IO Docs](https://socket.io/docs/v4/)
+* [Netlify Docs](https://docs.netlify.com/)
+* [Nixpacks Docs](https://nixpacks.com/docs/)
 
 ---
 
 ## 🤝 Contributing
 
-We welcome contributions! To get started:
+We welcome all contributions! 🛠️
 
-1. Fork the repository. 🍴
-2. Create a feature branch (`git checkout -b feature/your-feature`). 🌟
-3. Commit your changes (`git commit -m 'Add your feature'`). ✅
-4. Push to the branch (`git push origin feature/your-feature`). 🚀
-5. Open a pull request. 📬
+1. Fork the repo 🍴
+2. Create a new branch
+
+   ```bash
+   git checkout -b feature/your-feature
+   ```
+3. Commit your changes
+
+   ```bash
+   git commit -m "Add your feature"
+   ```
+4. Push to GitHub
+
+   ```bash
+   git push origin feature/your-feature
+   ```
+5. Submit a Pull Request 📬
 
 ---
 
 ## 📜 License
 
-This project is licensed under the MIT License📜.
+This project is licensed under the **MIT License**.
 
 ---
 
 ## 📬 Contact
 
-Have questions or feedback? Open an issue on [GitHub](https://github.com/moeez5251/Library-Management-System/issues) or reach out to the project maintainers. 📧
+For questions or support, [open an issue](https://github.com/moeez5251/Library-Management-System/issues) or reach out to the maintainers.
 
 ---
 
-Happy managing your library! 📚✨
+**Happy Managing Your Library!** 📚✨
+
+---
+
+
