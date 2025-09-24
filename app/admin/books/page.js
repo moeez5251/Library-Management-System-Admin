@@ -360,11 +360,12 @@ export default function Lenders() {
                     <span className={`text-teal-600 dark:text-teal-300 font-medium ${dialogdata.Price ? "" : "animate-pulse"}`}>Price:</span>
                     <span className={`text-gray-900 dark:text-white font-semibold ${dialogdata.Price ? "" : "animate-pulse"}`}>{dialogdata.Price ? `Rs. ${dialogdata.Price}` : "Loading"}</span>
                   </span>
-
-                  <span className="flex flex-col bg-indigo-50 dark:bg-indigo-900/30 p-3 rounded-md shadow-sm">
-                    <span className={`text-indigo-600 dark:text-indigo-300 font-medium ${dialogdata.PhoneNumber ? "" : "animate-pulse"}`}>Phone Number:</span>
-                    <span className={`text-gray-900 dark:text-white font-semibold ${dialogdata.PhoneNumber ? "" : "animate-pulse"}`}>{dialogdata.PhoneNumber ? dialogdata.PhoneNumber : "Loading"}</span>
+                  <span className="flex flex-col bg-teal-50 dark:bg-teal-900/30 p-3 rounded-md shadow-sm">
+                    <span className={`text-teal-600 dark:text-teal-300 font-medium ${dialogdata.FinePerDay ? "" : "animate-pulse"}`}>Fine Per Day:</span>
+                    <span className={`text-gray-900 dark:text-white font-semibold ${dialogdata.FinePerDay ? "" : "animate-pulse"}`}>{dialogdata.FinePerDay ? `Rs. ${dialogdata.FinePerDay}` : "Loading"}</span>
                   </span>
+
+                 
                   <span className="flex flex-col bg-purple-50 dark:bg-purple-900/30 p-3 rounded-md shadow-sm">
                     <span className={`text-purple-600 dark:text-purple-300 font-medium ${dialogdata.BookTitle ? "" : "animate-pulse"}}`}>Email:</span>
                     <span className={`text-gray-900 dark:text-white font-semibold break-words whitespace-normal w-full ${dialogdata.Email ? "" : "animate-pulse"}`}>{dialogdata.Email ? dialogdata.Email : "Loading"}</span>
