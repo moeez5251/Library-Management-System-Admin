@@ -49,7 +49,14 @@ const AdminDashboard = () => {
                 credentials: "include"
             })
             const res = await data.json()
-            setInputs(res)
+            setInputs({
+                Totalbooks: res.Totalbooks == 0 ? "0" : res.Totalbooks,
+                Totalusers: res.Totalusers == 0 ? "0" : res.Totalusers,
+                Totalborrowers: res.Totalborrowers == 0 ? "0" : res.Totalborrowers,
+                lendedbooks: res.lendedbooks == 0 ? "0" : res.lendedbooks,
+                availablebooks: res.availablebooks == 0 ? "0" : res.availablebooks,
+                overduebooks: res.overduebooks == 0 ? "0" : res.overduebooks
+            })
         })()
 
         return () => {
