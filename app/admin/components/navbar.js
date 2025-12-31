@@ -16,16 +16,7 @@ const AdminDashboard = () => {
     const router = useRouter()
     useEffect(() => {
         (async () => {
-            const data = await fetch("/api/notifications/get", {
-                method: "POST",
-                credentials: "include",
-
-                headers: {
-                    "Content-type": "application/json; charset=UTF-8",
-                     
-                },
-                body: JSON.stringify({ Userid: localStorage.getItem("userID") })
-            })
+            const data = await fetch("/api/notifications/get")
             if (!data.ok) {
 
                 return;
@@ -108,7 +99,6 @@ const AdminDashboard = () => {
 
             return;
         }
-        localStorage.removeItem("userID");
         router.push("/");
 
     }

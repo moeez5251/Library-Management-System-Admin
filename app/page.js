@@ -96,7 +96,6 @@ export default function Home() {
         return
       }
       const data = await log.json();
-      localStorage.setItem("userID", data.userid)
       window.location.href = "/admin";
 
       setLogin(false)

@@ -104,7 +104,6 @@ const Settings = () => {
          
       },
       body: JSON.stringify({
-        ID: inputs.user_id,
         OldPassword: inputs.OldPassword,
         NewPassword: inputs.NewPassword
       })
@@ -137,25 +136,13 @@ const Settings = () => {
       },
       credentials: "include",
       body: JSON.stringify({
-        Message: "Your Password was Changed",
-        Userid: localStorage.getItem("userID")
+        Message: "Your Password was Changed"
       })
     })
   }
   useEffect(() => {
     (async () => {
-      const data = await fetch("/api/users/getbyid", {
-        method: 'POST',
-        credentials: "include",
-
-        headers: {
-          'Content-Type': 'application/json',
-           
-        },
-        body: JSON.stringify({
-          ID: localStorage.getItem("userID")
-        })
-      })
+      const data = await fetch("/api/users/getbyid")
       if (!data.ok) {
 
         toast.error("Failed to fetch user data");
@@ -163,7 +150,7 @@ const Settings = () => {
       }
       const userData = await data.json();
       setInputs({
-        user_id: localStorage.getItem("userID"),
+        user_id: userData.User_id,
         UserName: userData.User_Name,
         Email: userData.Email,
         OldPassword: '',
@@ -300,8 +287,7 @@ const Settings = () => {
       },
       credentials: "include",
       body: JSON.stringify({
-        Message: "Your password just reset",
-        Userid: localStorage.getItem("userID")
+        Message: "Your password just reset"
       })
     })
   }

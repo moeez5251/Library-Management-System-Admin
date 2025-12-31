@@ -26,7 +26,6 @@ const Lend = () => {
     const [inputs, setInputs] = useState({
         Lender_name: "",
         Email: "",
-        Phone: "",
         Book_Title: "",
         Catogery: "",
         Author: "",
@@ -139,7 +138,6 @@ const Lend = () => {
                 body: JSON.stringify({
                     Lendername: inputs.Lender_name,
                     Email: inputs.Email,
-                    PhoneNumber: inputs.Phone,
                     BookTitle: inputs.Book_Title,
                     Category: inputs.Catogery,
                     Author: inputs.Author,
@@ -171,14 +169,12 @@ const Lend = () => {
                 },
                 credentials: "include",
                 body: JSON.stringify({
-                    Message: ` New Book wsas Lended to ${inputs.Lender_name} `,
-                    Userid: localStorage.getItem("userID")
+                    Message: ` New Book wsas Lended to ${inputs.Lender_name} `
                 })
             })
             setInputs({
                 Lender_name: "",
                 Email: "",
-                Phone: "",
                 Copies: "",
                 Fine: "",
                 Role: "Standard-User"
@@ -270,15 +266,7 @@ const Lend = () => {
                             <input onChange={handleinput} value={inputs.Email} className='border px-2 py-1 rounded-sm placeholder:text-sm text-base w-full ' type="text" name="Email" id="Email" />
                         </div>
                     </div>
-                    <div className='flex flex-col gap-2 items-start'>
-
-                        <div className='font-semibold  flex items-center gap-1 text-sm'>
-                            Phone Number <Asterisk size={13} color='red' />
-                        </div>
-                        <div className='w-full '>
-                            <input onChange={handleinput} value={inputs.Phone} className='border px-2 py-1 rounded-sm placeholder:text-sm text-base w-full ' type="text" name="Phone" id="Phone" />
-                        </div>
-                    </div>
+                   
                 </div>
                 <div className='border-b-2 pb-1 mt-8'>
                     <h2 className='font-semibold text-xl'>Book Information</h2>

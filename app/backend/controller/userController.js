@@ -62,16 +62,16 @@ exports.getAllUsers = async (req, res) => {
 };
 exports.getuserbyid = async (req, res) => {
   try {
-    const { ID } = req.body;
-    if (!ID) {
-      return res.status(400).json({ error: 'All fields are required' });
-    }
+   
     const pool = await poolPromise;
     const result = await pool
       .request()
-      .input('ID', ID)
+      .input('ID', req.user.id)
       .query('SELECT  User_Name, Email, Role, Membership_Type,Status FROM users WHERE User_id = @ID');
-    res.json(result.recordset[0]);
+    res.json({
+      ...result.recordset[0],
+      User_id: req.user.id
+    });
   } catch (err) {
     console.error('Error fetching user by ID:', err);
     res.status(500).json({ error: 'Internal Server Error' });
@@ -171,14 +171,14 @@ exports.deleteaccount = async (req, res) => {
   }
 }
 exports.changepassword = async (req, res) => {
-  const { ID, OldPassword, NewPassword } = req.body;
-  if (!ID || !OldPassword || !NewPassword) {
+  const { OldPassword, NewPassword } = req.body;
+  if (!OldPassword || !NewPassword) {
     return res.status(400).json({ error: 'All fields are required' });
   }
   try {
     const pool = await poolPromise;
     const userResult = await pool.request()
-      .input('ID', ID)
+      .input('ID', req.user.id)
       .query('SELECT Password FROM users WHERE User_id = @ID');
 
     if (userResult.recordset.length === 0) {
@@ -193,7 +193,7 @@ exports.changepassword = async (req, res) => {
 
     const hashedNewPassword = await bcrypt.hash(NewPassword, 10);
     await pool.request()
-      .input('ID', ID)
+      .input('ID', req.user.id)
       .input('NewPassword', hashedNewPassword)
       .query('UPDATE users SET Password = @NewPassword WHERE User_id = @ID');
 

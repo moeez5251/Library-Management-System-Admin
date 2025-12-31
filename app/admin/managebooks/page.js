@@ -220,8 +220,7 @@ export default function Books() {
         },
         credentials: "include",
         body: JSON.stringify({
-          Message: "Book was deleted",
-          Userid: localStorage.getItem("userID")
+          Message: "Book was deleted"
         })
       })
     }

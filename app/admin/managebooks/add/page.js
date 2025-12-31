@@ -96,8 +96,8 @@ const AddBook = () => {
                 },
                 credentials: "include",
                 body: JSON.stringify({
-                    Message: "New Book Added",
-                    Userid: localStorage.getItem("userID")
+                    Message: "New Book Added"
+                  
                 })
             })
         }
