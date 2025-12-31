@@ -120,8 +120,7 @@ const AddUser = () => {
                     },
                     credentials: "include",
                     body: JSON.stringify({
-                        Message: "New User Registered",
-                        Userid: localStorage.getItem("userID")
+                        Message: "New User Registered"
                     })
                 })
             }

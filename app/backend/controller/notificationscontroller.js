@@ -1,7 +1,7 @@
 const { poolPromise } = require('../models/db');
 
 exports.addnotifications = async (req, res) => {
-    const { Userid, Message } = req.body;
+    const {  Message } = req.body;
     const promise = await poolPromise;
     const CreatedAt = new Date(Date.now() + 60 * 1000);
     const created = CreatedAt.toLocaleString("en-PK", {
@@ -18,7 +18,7 @@ exports.addnotifications = async (req, res) => {
 
         const result = await promise
             .request()
-            .input('Userid', Userid)
+            .input('Userid', req.user.id)
             .input('Message', Message)
             .input('CreatedAt', created)
             .input('IsRead', false)
@@ -38,12 +38,11 @@ exports.addnotifications = async (req, res) => {
 }
 
 exports.getnotifications = async (req, res) => {
-    const { Userid } = req.body;
     const promise = await poolPromise;
     try {
         const result = await promise
             .request()
-            .input('Userid', Userid)
+            .input('Userid', req.user.id)
             .input('IsRead', false)
             .query('SELECT * FROM Notifications WHERE UserId = @Userid AND IsRead = @IsRead ORDER BY CreatedAt DESC');
         res.json(result.recordset);
@@ -53,15 +52,14 @@ exports.getnotifications = async (req, res) => {
     }
 }
 exports.markasread = async (req, res) => {
-    const { Userid
-        , NotificationId
+    const { NotificationId
     } = req.body;
     const promise = await poolPromise;
     try {
         if (NotificationId) {
             const result = await promise
                 .request()
-                .input('Userid', Userid)
+                .input('Userid', req.user.id)
                 .input('NotificationId', NotificationId)
                 .input('IsRead', true)
                 .query('UPDATE Notifications SET IsRead = @IsRead WHERE UserId = @Userid AND Id = @NotificationId');
@@ -70,7 +68,7 @@ exports.markasread = async (req, res) => {
         else {
             const result = await promise
                 .request()
-                .input('Userid', Userid)
+                .input('Userid', req.user.id)
                 .input('IsRead', true)
                 .query('UPDATE Notifications SET IsRead = @IsRead WHERE UserId = @Userid');
             res.json({ message: 'All notifications marked as read successfully' });

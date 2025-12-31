@@ -94,7 +94,6 @@ const Sidebar = () => {
       toast.error(errorData.error);
       return;
     }
-    localStorage.removeItem("userID");
     router.push("/");
 
   }

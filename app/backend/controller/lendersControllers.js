@@ -145,7 +145,7 @@ exports.addbook = async (req, res) => {
             .input('FinePerDay', data.Fine)
             .input('Price', Price)
             .input('BookID', BookID)
-            .query(`INSERT INTO borrower (user_id, Name, PhoneNumber, BookTitle, Author, Category, IssuedDate, DueDate, CopiesLent, FinePerDay, Price, Book_ID) VALUES (@user_id, @Name, @PhoneNumber, @BookTitle, @Author, @Category, @IssuedDate, @DueDate, @CopiesLent, @FinePerDay, @Price, @BookID)`);
+            .query(`INSERT INTO borrower (user_id, Name, BookTitle, Author, Category, IssuedDate, DueDate, CopiesLent, FinePerDay, Price, Book_ID,Status) VALUES (@user_id, @Name, @BookTitle, @Author, @Category, @IssuedDate, @DueDate, @CopiesLent, @FinePerDay, @Price, @BookID,'Not Returned')`);
         let link = ""
         if (!existinguser) {
             link = await generatetoken(userId)

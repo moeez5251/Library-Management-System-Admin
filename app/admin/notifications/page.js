@@ -12,16 +12,7 @@ const Notifications = () => {
   const [Notifications, setNotifications] = useState([])
   useEffect(() => {
     (async () => {
-      const data = await fetch("/api/notifications/get", {
-        method: "POST",
-        credentials: "include",
-
-        headers: {
-          "Content-type": "application/json; charset=UTF-8",
-           
-        },
-        body: JSON.stringify({ Userid: localStorage.getItem("userID") })
-      })
+      const data = await fetch("/api/notifications/get")
       if (!data.ok) {
         toast.error("Failed to fetch notifications");
         return;
@@ -46,7 +37,7 @@ const Notifications = () => {
           "Content-type": "application/json; charset=UTF-8",
            
         },
-        body: JSON.stringify({ Userid: localStorage.getItem("userID") })
+        body: JSON.stringify( {})
       })
     
     })()
