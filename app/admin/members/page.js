@@ -110,7 +110,7 @@ export default function Members() {
         const status = row.getValue('User_Name');
         const id = row.getValue('User_id');
 
-        return <Link data-id={id} className='text-[#235fff] font-semibold hover:underline text-nowrap dark:text-[#48669f]' href={`/admin/members/${id}`} prefetch={true}>{status}</Link>
+        return <Link data-id={id} className='text-[#235fff] font-semibold hover:underline text-nowrap dark:text-[#82a3eb]' href={`/admin/members/${id}`} prefetch={true}>{status}</Link>
       },
     }),
     columnHelper.accessor('Email', {

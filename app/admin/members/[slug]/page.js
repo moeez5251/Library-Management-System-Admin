@@ -42,7 +42,18 @@ const DynamicPage = ({ params }) => {
     (async function getuserid() {
       const { slug } = await params
       setuserid(slug)
-      const data = await fetch("/api/users/getbyid")
+      const data = await fetch("/api/users/getmemberbyid",{
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+        },
+        credentials: "include",
+
+        body: JSON.stringify({
+          ID: slug
+        })
+      })
       if (!data.ok) {
         toast.error("Something went wrong")
         return

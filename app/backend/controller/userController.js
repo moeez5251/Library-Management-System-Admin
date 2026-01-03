@@ -77,6 +77,23 @@ exports.getuserbyid = async (req, res) => {
     res.status(500).json({ error: 'Internal Server Error' });
   }
 }
+exports.getmemberbyid = async (req, res) => {
+  try {
+    const { ID } = req.body;
+    const pool = await poolPromise;
+    const result = await pool
+      .request()
+      .input('ID', ID)
+      .query('SELECT  User_Name, Email, Role, Membership_Type,Status FROM users WHERE User_id = @ID');
+    res.json({
+      ...result.recordset[0],
+      User_id: ID
+    });
+  } catch (err) {
+    console.error('Error fetching user by ID:', err);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+}
 exports.updateuser = async (req, res) => {
   const { ID, User_Name, Email, Role, Membership_Type } = req.body;
   try {

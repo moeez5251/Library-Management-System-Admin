@@ -105,7 +105,7 @@ export default function Books() {
         const status = row.getValue('Book_Title');
         const id = row.getValue('Book_ID');
 
-        return <Link data-id={id} className='text-[#235fff] font-semibold hover:underline text-nowrap dark:text-[#4c669f]' href={`/admin/managebooks/${id}`} prefetch={true}>{status}</Link>
+        return <Link data-id={id} className='text-[#235fff] font-semibold hover:underline text-nowrap dark:text-[#82a3eb]' href={`/admin/managebooks/${id}`} prefetch={true}>{status}</Link>
       },
     }),
     columnHelper.accessor('Author', {

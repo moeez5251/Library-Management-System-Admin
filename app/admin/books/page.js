@@ -5,6 +5,7 @@ import { createColumnHelper } from '@tanstack/react-table';
 import { Checkbox } from '@/components/ui/checkbox';
 import DataTable from '@/table/mytable';
 import { useState, useEffect, useMemo } from 'react';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 
 import { PlusIcon, UserCog } from 'lucide-react';
 import ComboBox from '../components/combobox';
@@ -106,7 +107,7 @@ export default function Lenders() {
         const status = row.getValue('Name');
         const id = row.getValue('Borrower_ID');
 
-        return <div onClick={handleclick} data-bid={id} className='text-[#235fff] font-semibold hover:underline cursor-pointer dark:text-[#4c669f]'>{status}</div>
+        return <div onClick={handleclick} data-bid={id} className='text-[#235fff] font-semibold hover:underline cursor-pointer dark:text-[#82a3eb]'>{status}</div>
       },
     }),
     columnHelper.accessor('BookTitle', {
@@ -159,7 +160,17 @@ export default function Lenders() {
         );
       },
     }),
-
+    columnHelper.accessor('Status', {
+      header: 'Status',
+      cell: ({ row }) => {
+        const status = row.getValue('Status');
+        return <span className='text-sm'>
+          {
+            status === "Returned" ? <span className='text-green-600 font-semibold'>{status}</span> : <span className='text-red-600 font-semibold'>{status}</span>
+          }
+        </span>;
+      },
+    }),
   ];
 
   const handleclick = async (e) => {
@@ -169,7 +180,7 @@ export default function Lenders() {
         method: "POST",
         headers: {
           "Content-type": "application/json; charset=UTF-8",
-           
+
 
         },
         credentials: "include",
@@ -202,7 +213,7 @@ export default function Lenders() {
       method: "POST",
       headers: {
         "Content-type": "application/json; charset=UTF-8",
-         
+
       },
       credentials: "include",
       body: JSON.stringify({ API: process.env.NEXT_PUBLIC_XLMS_API })
@@ -260,7 +271,7 @@ export default function Lenders() {
                 strokeWidth={1.333}
                 d="M7.667 12.667A5.333 5.333 0 1 0 7.667 2a5.333 5.333 0 0 0 0 10.667zM14.334 14l-2.9-2.9"
               />
-            </svg> 
+            </svg>
           </button>
           <input className="w-full h-full px-2 py-[0.7rem] font-normal bg-transparent text-sm border-none focus:outline-none placeholder:text-gray-700 dark:placeholder:text-gray-200 " placeholder="Search a lender" value={input} onChange={(e) => { setinput(e.target.value); }} type="text" />
           <button onClick={() => { setinput("") }} className={`cursor-pointer ${input.length === 0 ? "opacity-0" : "block"} transition-opacity`} >
@@ -288,8 +299,27 @@ export default function Lenders() {
         </div>
       </div>
       <div className='bg-white  transition-all py-2 sm:mx-3 rounded-lg shadow-md overflow-auto dark:bg-[#1b2536]'>
-        <DataTable data={data} columns={columns} externalFilter={input} pageSize={rowsPerPage} loading={loading} />
-      </div>
+        <Tabs defaultValue="All">
+          <TabsList className="mx-3 bg-white mt-2 dark:bg-[#1b2536]">
+
+            <TabsTrigger className="mx-2 px-3 py-4.5 bg-gray-100 dark:bg-gray-600 data-[state=active]:bg-[#6841c4] data-[state=active]:text-white data-[state=active]:shadow-md cursor-pointer" value="All">All</TabsTrigger>
+            <TabsTrigger className="mx-2 px-3 py-4.5 bg-gray-100 dark:bg-gray-600 data-[state=active]:bg-green-600 data-[state=active]:text-white data-[state=active]:shadow-md cursor-pointer" value="Returned">Returned</TabsTrigger>
+            <TabsTrigger className="mx-2 px-3 py-4.5 bg-gray-100 dark:bg-gray-600 data-[state=active]:bg-red-600 data-[state=active]:text-white data-[state=active]:shadow-md cursor-pointer" value="Not Returned">Not Returned</TabsTrigger>
+          </TabsList>
+          <TabsContent value="All">
+
+            <DataTable data={data} columns={columns} externalFilter={input} pageSize={rowsPerPage} loading={loading} />
+          </TabsContent>
+          <TabsContent value="Returned">
+
+            <DataTable data={data.filter((item) => item.Status === "Returned")} columns={columns} externalFilter={input} pageSize={rowsPerPage} loading={loading} />
+          </TabsContent>
+          <TabsContent value="Not Returned">
+
+            <DataTable data={data.filter((item) => item.Status !== "Returned")} columns={columns} externalFilter={input} pageSize={rowsPerPage} loading={loading} />
+          </TabsContent>
+        </Tabs>
+      </div >
       <div className='mt-3 mx-5 flex items-center justify-between gap-6  overflow-y-auto'>
         <div className='text-black text-base font-semibold text-nowrap dark:text-white'>
           Total Users : {data.length}
@@ -365,7 +395,7 @@ export default function Lenders() {
                     <span className={`text-gray-900 dark:text-white font-semibold ${dialogdata.FinePerDay ? "" : "animate-pulse"}`}>{dialogdata.FinePerDay ? `Rs. ${dialogdata.FinePerDay}` : "Loading"}</span>
                   </span>
 
-                 
+
                   <span className="flex flex-col bg-purple-50 dark:bg-purple-900/30 p-3 rounded-md shadow-sm">
                     <span className={`text-purple-600 dark:text-purple-300 font-medium ${dialogdata.BookTitle ? "" : "animate-pulse"}}`}>Email:</span>
                     <span className={`text-gray-900 dark:text-white font-semibold break-words whitespace-normal w-full ${dialogdata.Email ? "" : "animate-pulse"}`}>{dialogdata.Email ? dialogdata.Email : "Loading"}</span>
