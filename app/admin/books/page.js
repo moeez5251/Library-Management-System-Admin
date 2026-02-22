@@ -234,13 +234,6 @@ export default function Lenders() {
     }
   }, [])
   useEffect(() => {
-    router.prefetch("/admin/books/add");
-
-    return () => {
-
-    }
-  }, [router])
-  useEffect(() => {
     checked.selected.length === 0 ? setchecked({ ...checked, isempty: true }) : setchecked({ ...checked, isempty: false })
     return () => {
 
