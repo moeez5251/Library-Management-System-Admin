@@ -105,6 +105,7 @@ export default function Home() {
       setLogin(false)
     }
   }
+
   useEffect(() => {
     router.prefetch("/admin")
     if (document.querySelector("html").classList.contains("dark")) {
@@ -114,6 +115,23 @@ export default function Home() {
 
     }
   }, [])
+  useEffect(() => {
+    const handleenter = (e) => {
+      if (
+        e.key === "Enter" &&
+        inputs.email.trim() !== "" &&
+        inputs.password.trim() !== ""
+      ) {
+        handleclick();
+      }
+    };
+
+    document.addEventListener("keydown", handleenter);
+
+    return () => {
+      document.removeEventListener("keydown", handleenter);
+    };
+  }, [inputs]);
 
   return (
     <>
@@ -199,6 +217,7 @@ export default function Home() {
                   placeholder="Email"
                   value={inputs.email}
                   onChange={handleinputchange}
+                  autoFocus
                 />
               </div>
               {
