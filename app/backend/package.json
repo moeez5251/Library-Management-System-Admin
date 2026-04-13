@@ -15,7 +15,6 @@
         "jsonwebtoken": "^9.0.2",
         "mssql": "^11.0.1",
         "mysql2": "^3.14.0",
-        "nodemailer": "^7.0.5",
         "uuid": "^11.1.0"
     },
     "overrides": {
